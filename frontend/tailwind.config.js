@@ -9,7 +9,13 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-  		colors: {}
+  		colors: {
+  			brand: {
+  				orange: '#fc7c34',
+  				navy: '#243444',
+  				dark: '#000000',
+  			}
+  		}
   	}
   },
   plugins: [import("tailwindcss-animate")],

@@ -5,6 +5,7 @@ import DashboardPage from "@/pages/DashboardPage";
 import UploadPage from "@/pages/UploadPage";
 import SessionsPage from "@/pages/SessionsPage";
 import SessionDetailPage from "@/pages/SessionDetailPage";
+import TradeDetailPage from "@/pages/TradeDetailPage";
 import AnalyticsPage from "@/pages/AnalyticsPage";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/upload" element={<UploadPage />} />
             <Route path="/sessions" element={<SessionsPage />} />
             <Route path="/sessions/:id" element={<SessionDetailPage />} />
+            <Route path="/sessions/:id/trades/:tradeId" element={<TradeDetailPage />} />
             <Route path="/analytics" element={<AnalyticsPage />} />
           </Routes>
         </main>

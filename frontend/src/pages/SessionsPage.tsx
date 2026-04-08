@@ -20,7 +20,7 @@ export default function SessionsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-zinc-500">Loading sessions...</p>
+        <p className="text-zinc-500">Cargando sesiones...</p>
       </div>
     );
   }
@@ -28,60 +28,68 @@ export default function SessionsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900">Comparison Sessions</h1>
-        <p className="text-sm text-zinc-500 mt-1">History of all SFTR report comparisons</p>
+        <h1 className="text-2xl font-semibold text-zinc-900">Sesiones de conciliación</h1>
+        <p className="text-sm text-zinc-500 mt-1">Historial de todas las comparaciones de informes SFTR</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">{sessions.length} Sessions</CardTitle>
+          <CardTitle className="text-base">{sessions.length} sesiones</CardTitle>
         </CardHeader>
         <CardContent>
           {sessions.length === 0 ? (
             <div className="text-center py-12 text-zinc-500">
               <FileText className="h-12 w-12 mx-auto text-zinc-300 mb-3" />
-              <p>No comparison sessions yet.</p>
-              <Link to="/upload" className="text-blue-600 hover:underline text-sm">Upload reports to get started</Link>
+              <p>Aún no hay sesiones de conciliación.</p>
+              <Link to="/upload" className="text-[#fc7c34] hover:underline text-sm">Carga un fichero para empezar</Link>
             </div>
           ) : (
             <div className="rounded-lg border overflow-hidden">
               <Table>
                 <TableHeader>
                   <TableRow className="bg-zinc-50">
-                    <TableHead>Date</TableHead>
-                    <TableHead>Emisor</TableHead>
-                    <TableHead>Receptor</TableHead>
-                    <TableHead>UTI</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead className="text-right">Fields</TableHead>
-                    <TableHead className="text-right">Unmatches</TableHead>
-                    <TableHead className="text-right">Critical</TableHead>
+                    <TableHead className="w-12">#</TableHead>
+                    <TableHead>Fichero</TableHead>
+                    <TableHead>Contrapartes</TableHead>
+                    <TableHead>Tipo</TableHead>
+                    <TableHead className="text-right">Operaciones</TableHead>
+                    <TableHead className="text-right">Con discrepancias</TableHead>
+                    <TableHead className="text-right">Total discrepancias</TableHead>
+                    <TableHead className="text-right">Críticas</TableHead>
+                    <TableHead className="text-right">Fecha</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {sessions.map((s) => (
                     <TableRow key={s.id} className="cursor-pointer hover:bg-zinc-50">
+                      <TableCell className="text-xs text-zinc-500">{s.id}</TableCell>
                       <TableCell>
-                        <Link to={`/sessions/${s.id}`} className="text-blue-600 hover:underline text-sm">
-                          {new Date(s.created_at).toLocaleDateString()}
+                        <Link to={`/sessions/${s.id}`} className="text-[#fc7c34] hover:underline text-xs font-mono">
+                          {s.filename || `Sesión #${s.id}`}
                         </Link>
                       </TableCell>
-                      <TableCell className="text-sm font-mono max-w-32 truncate">{s.emisor_name}</TableCell>
-                      <TableCell className="text-sm font-mono max-w-32 truncate">{s.receptor_name}</TableCell>
-                      <TableCell className="text-xs font-mono max-w-40 truncate">{s.uti}</TableCell>
+                      <TableCell className="text-xs text-zinc-600">{s.emisor_name} / {s.receptor_name}</TableCell>
                       <TableCell>
                         <Badge variant="outline" className="text-xs">{s.sft_type}/{s.action_type}</Badge>
                       </TableCell>
-                      <TableCell className="text-right text-sm">{s.total_fields}</TableCell>
+                      <TableCell className="text-right text-sm">{s.total_trades}</TableCell>
                       <TableCell className="text-right">
-                        <span className={s.total_unmatches > 0 ? "text-red-700 font-semibold" : "text-green-700"}>
+                        <span className={s.trades_with_unmatches > 0 ? "text-red-700 font-semibold text-sm" : "text-green-700 text-sm"}>
+                          {s.trades_with_unmatches}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <span className={s.total_unmatches > 0 ? "text-red-700 font-semibold text-sm" : "text-green-700 text-sm"}>
                           {s.total_unmatches}
                         </span>
                       </TableCell>
                       <TableCell className="text-right">
-                        <span className={s.critical_count > 0 ? "text-red-700 font-semibold" : "text-zinc-400"}>
-                          {s.critical_count}
+                        <span className={s.critical_count > 0 ? "text-red-700 font-semibold text-sm" : "text-zinc-400 text-sm"}>
+                          {s.critical_count || "—"}
                         </span>
+                      </TableCell>
+                      <TableCell className="text-right text-xs text-zinc-500">
+                        {new Date(s.created_at).toLocaleDateString("es-ES")}
                       </TableCell>
                     </TableRow>
                   ))}

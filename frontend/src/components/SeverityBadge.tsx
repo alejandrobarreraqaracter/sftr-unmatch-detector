@@ -21,10 +21,31 @@ const statusStyles: Record<string, string> = {
   EXCLUDED: "bg-zinc-100 text-zinc-500 border-zinc-200",
 };
 
+const severityLabels: Record<string, string> = {
+  CRITICAL: "Crítico",
+  WARNING: "Advertencia",
+  INFO: "Informativo",
+  NONE: "Correcto",
+};
+
+const resultLabels: Record<string, string> = {
+  MATCH: "Coincide",
+  UNMATCH: "Discrepancia",
+  MIRROR: "Espejo",
+  NA: "N/A",
+};
+
+const statusLabels: Record<string, string> = {
+  PENDING: "Pendiente",
+  IN_NEGOTIATION: "En negociación",
+  RESOLVED: "Resuelto",
+  EXCLUDED: "Excluido",
+};
+
 export function SeverityBadge({ severity }: { severity: string }) {
   return (
     <Badge variant="outline" className={`text-xs font-medium ${severityStyles[severity] || ""}`}>
-      {severity}
+      {severityLabels[severity] || severity}
     </Badge>
   );
 }
@@ -32,16 +53,15 @@ export function SeverityBadge({ severity }: { severity: string }) {
 export function ResultBadge({ result }: { result: string }) {
   return (
     <Badge variant="outline" className={`text-xs font-medium ${resultStyles[result] || ""}`}>
-      {result}
+      {resultLabels[result] || result}
     </Badge>
   );
 }
 
 export function StatusBadge({ status }: { status: string }) {
-  const label = status === "IN_NEGOTIATION" ? "In Negotiation" : status.charAt(0) + status.slice(1).toLowerCase();
   return (
     <Badge variant="outline" className={`text-xs font-medium ${statusStyles[status] || ""}`}>
-      {label}
+      {statusLabels[status] || status}
     </Badge>
   );
 }

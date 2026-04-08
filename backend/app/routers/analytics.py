@@ -4,7 +4,7 @@ from sqlalchemy import func
 from typing import Optional
 
 from app.database import get_db
-from app.models import Session as SessionModel, FieldResult
+from app.models import Session as SessionModel, FieldComparison
 from app.schemas import TopFieldItem, TrendItem
 
 router = APIRouter(prefix="/api/analytics", tags=["analytics"])
@@ -18,19 +18,19 @@ def top_unmatch_fields(
 ):
     query = (
         db.query(
-            FieldResult.field_name,
-            FieldResult.table_number,
-            func.count(FieldResult.id).label("count"),
+            FieldComparison.field_name,
+            FieldComparison.table_number,
+            func.count(FieldComparison.id).label("count"),
         )
-        .filter(FieldResult.result == "UNMATCH")
+        .filter(FieldComparison.result == "UNMATCH")
     )
 
     if sft_type:
-        query = query.join(SessionModel).filter(SessionModel.sft_type == sft_type)
+        query = query.join(SessionModel, FieldComparison.session_id == SessionModel.id).filter(SessionModel.sft_type == sft_type)
 
     results = (
-        query.group_by(FieldResult.field_name, FieldResult.table_number)
-        .order_by(func.count(FieldResult.id).desc())
+        query.group_by(FieldComparison.field_name, FieldComparison.table_number)
+        .order_by(func.count(FieldComparison.id).desc())
         .limit(limit)
         .all()
     )

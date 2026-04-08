@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-oklch(0.21 0.006 285.885) text-oklch(0.985 0 0) shadow hover:bg-oklch(0.21 0.006 285.885)/90 dark:bg-oklch(0.92 0.004 286.32) dark:text-oklch(0.21 0.006 285.885) dark:hover:bg-oklch(0.92 0.004 286.32)/90",
+          "bg-[#fc7c34] text-white shadow hover:bg-[#e56b25]",
         destructive:
           "bg-oklch(0.577 0.245 27.325) text-destructive-foreground shadow-sm hover:bg-oklch(0.577 0.245 27.325)/90 dark:bg-oklch(0.704 0.191 22.216) dark:hover:bg-oklch(0.704 0.191 22.216)/90",
         outline:

@@ -1,8 +1,19 @@
 node_modules/
 dist/
 .env
+.env.*
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+backend/.env
+frontend/.env
 *.db
 __pycache__/
 *.pyc
 .vite/
 .venv/
+.codex
+.claude/
+3. Reporting regulatorio 2.pdf
+3. Reporting regulatorio 2.pdf:Zone.Identifier
+Captura de pantalla 2026-04-08 161150.png
