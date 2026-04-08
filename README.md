@@ -112,6 +112,9 @@ backend/
     services/
       file_parser.py
       comparison.py
+      column_mapping.py    # Alias resolution y normalización de columnas
+      tolerances.py        # Tolerancias numéricas configurables por campo
+      validators.py        # Validación proactiva de campos (LEI, ISIN, fechas, etc.)
       export.py
       regulatory_reporting.py
       report_cache.py
@@ -125,6 +128,13 @@ backend/
     models.py
     schemas.py
   report_cache/
+  tests/
+    conftest.py
+    test_file_parser.py
+    test_comparison.py
+    test_tolerances.py
+    test_validators.py
+    test_upload_endpoint.py
   sample_data/
 frontend/
   src/
@@ -207,6 +217,22 @@ Ejemplo:
 "Reporting timestamp" -> "reporting_timestamp"
 ```
 
+### Aliases de columnas
+
+El sistema soporta aliases deterministas para columnas de entrada, definidos en `column_mapping.py`. Esto permite cargar CSVs con convenciones de nombres diferentes sin configuración adicional.
+
+Ejemplos de aliases soportados:
+
+| Alias | Nombre canónico |
+| --- | --- |
+| `rep_timestamp` | `reporting_timestamp` |
+| `isin` | `security_identifier` |
+| `principal_amount` | `principal_amount_on_value_date` |
+| `im_posted` | `value_of_initial_margin_posted` |
+| `action` | `action_type` |
+
+Para añadir aliases nuevos, editar el diccionario `COLUMN_ALIASES` en `backend/app/services/column_mapping.py`.
+
 ### Ejemplo mínimo
 
 ```csv
@@ -280,15 +306,40 @@ El motor principal está en [comparison.py](/home/alejandrobarrera/sftr-unmatch-
 - `VALUE_MISMATCH`
 - `NOT_APPLICABLE`
 
-### Tolerancias numéricas actuales
+### Tolerancias numéricas
 
-Las tolerancias están implementadas de forma simple por obligación:
+Las tolerancias numéricas se resuelven con un lookup de 3 niveles definido en `tolerances.py`:
 
-- `M` -> `0.0001`
-- `C` -> `0.01`
-- `O` -> `0.01`
+1. **Por campo**: si el campo tiene una tolerancia específica configurada, se usa esa.
+2. **Por obligación**: si no hay tolerancia por campo, se usa el default de la obligación (`M`=0.0001, `C`=0.01, `O`=0.01).
+3. **Default global**: si no hay ninguno de los anteriores, se usa 0.01.
 
-Esto sirve como primera versión, pero no sustituye una parametrización por campo.
+Campos con tolerancia específica configurada (ejemplos):
+
+| Campo | Tolerancia |
+| --- | --- |
+| Principal amount on value date | 0.01 |
+| Fixed rate | 0.0001 |
+| Haircut or margin | 0.0001 |
+| Cash reinvestment rate | 0.0001 |
+| Value of initial margin posted | 0.01 |
+
+Para configurar tolerancias adicionales, editar `FIELD_TOLERANCES` en `backend/app/services/tolerances.py`.
+
+### Validación proactiva de campos
+
+El motor de comparación valida proactivamente los valores de campos clave durante la comparación. Los validadores están en `validators.py` y cubren:
+
+| Tipo | Campos cubiertos | Validación |
+| --- | --- | --- |
+| `lei` | Report submitting entity, Reporting counterparty, Other counterparty, etc. | 20 caracteres alfanuméricos |
+| `isin` | Security identifier, Classification of a security | 12 chars (2 letras + 9 alfanum + check) |
+| `datetime` | Reporting timestamp, Execution timestamp, etc. | ISO 8601 |
+| `currency` | Principal amount currency, y otros campos *currency* | ISO 4217 |
+| `boolean` | Availability for collateral reuse, etc. | true/false/yes/no/y/n/1/0 |
+| `numeric` | Principal amount, rates, margins, etc. | Decimal válido |
+
+Los errores de validación enriquecen el `root_cause` cuando hay un UNMATCH (e.g., `EMISOR_INVALID_LEI_FORMAT`).
 
 ## Capa de IA opcional
 
@@ -388,7 +439,7 @@ La IA es una capa adicional de interpretación. La lógica determinista de conci
 | --- | --- | --- |
 | `POST` | `/api/sessions/upload` | Carga un CSV y crea la sesión |
 | `GET` | `/api/sessions` | Lista sesiones |
-| `GET` | `/api/sessions/{id}` | Devuelve sesión y operaciones |
+| `GET` | `/api/sessions/{id}` | Devuelve sesión y operaciones (soporta filtros: `has_unmatches`, `search`, `min_severity`) |
 | `GET` | `/api/sessions/{id}/summary` | Resumen agregado |
 | `GET` | `/api/sessions/{id}/activity` | Trazabilidad |
 | `POST` | `/api/sessions/{id}/bulk-update` | Acción masiva |
@@ -689,15 +740,10 @@ Ficheros relevantes:
 
 ## Estado de desarrollo y limitaciones conocidas
 
-El proyecto está funcional, pero no cerrado. Puntos importantes:
+El proyecto está funcional y preparado para demo. Puntos pendientes:
 
-- el parser depende de una convención de columnas concreta
-- todavía no existe un motor formal de mapping configurable de columnas
-- las tolerancias numéricas son globales por obligación, no específicas por campo
-- las reglas `validation_rule` del catálogo aún no se aplican como validación proactiva estricta
-- no hay suite de tests automatizados
 - no hay migraciones versionadas, se sigue usando `Base.metadata.create_all()`
-- la vista de sesión todavía no implementa paginación frontend real para cargas muy grandes
+- la paginación frontend real para cargas muy grandes puede mejorarse
 - SQLite sigue siendo suficiente para el MVP avanzado, pero no es la base adecuada para volúmenes tipo Santander a escala real
 - la dockerización actual está pensada para desarrollo/demo; no sustituye una arquitectura de despliegue productiva
 - la generación de snapshots y exports ya evita recalcular informes completos, pero aún no hay jobs asíncronos con cola ni materializaciones persistidas por día
@@ -706,6 +752,7 @@ El proyecto está funcional, pero no cerrado. Puntos importantes:
 
 ## Qué se ha hecho en esta iteración
 
+### Iteración 1 (reestructuración)
 - reestructuración completa del modelo de datos del caso "una operación" al caso "miles de operaciones por fichero"
 - parser CSV tabular con columnas por contraparte
 - nuevo motor de comparación por fila
@@ -725,16 +772,36 @@ El proyecto está funcional, pero no cerrado. Puntos importantes:
 - caché local de artefactos `XLSX/PDF/Word`
 - dockerización simple para backend y frontend
 
+### Iteración 2 (estabilización y mejoras)
+- **128 tests automatizados** cubriendo parser CSV, comparación, tolerancias, validadores y endpoints
+- **tolerancias numéricas configurables por campo** con lookup de 3 niveles (campo → obligación → default)
+- **validación proactiva** de LEI, ISIN, fechas ISO, divisas ISO 4217, booleanos y numéricos
+- **mapping de columnas con aliases** para soportar CSVs con convenciones de nombres diferentes
+- **filtrado server-side** de operaciones por UTI, severidad y presencia de unmatches
+- **export corregido**: endpoint cambiado de POST a GET (REST correcto)
+- **audit trail mejorado**: logging de exports además de creación de sesiones y actualizaciones
+- **root causes enriquecidos** con información de validación (e.g., `EMISOR_INVALID_LEI_FORMAT`)
+- documentación del comportamiento esperado del sample CSV en los tests
+
+### Resultados esperados del sample CSV
+
+El fichero `sftr_reconciliation_sample.csv` contiene 5 operaciones con 4 discrepancias esperadas:
+
+| Trade | Campo | Severidad | Root Cause | Valores |
+| --- | --- | --- | --- | --- |
+| 2 | Fixed rate | WARNING | NUMERIC_DELTA | 0.0125 vs 0.0150 |
+| 3 | Principal amount on value date | CRITICAL | NUMERIC_DELTA | 5000000.00 vs 4950000.00 |
+| 4 | Sector of the reporting counterparty | CRITICAL | VALUE_MISMATCH | CDTI vs INVF |
+| 5 | Availability for collateral reuse | WARNING | VALUE_MISMATCH | true vs false |
+
 ## Siguientes mejoras naturales
 
-- mapping configurable de columnas de entrada
-- validación proactiva de LEI, ISIN, fechas y divisas
-- tolerancias por campo
-- tests de parser, comparación y API
-- migraciones versionadas
+- migraciones versionadas con Alembic
 - PostgreSQL y estrategia de índices/particionado
 - materializaciones o snapshots agregados diarios para reporting masivo
 - jobs asíncronos reales para generación pesada
+- cobertura de tests adicional para endpoints de IA
+- código splitting del bundle frontend
 
 ## Referencias de implementación
 
