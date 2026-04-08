@@ -1,0 +1,98 @@
+field_name;value
+Reporting timestamp;2024-03-15T09:35:00Z
+Report submitting entity;5493001KJTIIGC8Y1R12
+Reporting counterparty;5493001KJTIIGC8Y1R12
+Nature of the reporting counterparty;F
+Sector of the reporting counterparty;INVF
+Additional sector classification;
+Branch of the reporting counterparty;DE
+Side of the counterparty;TAKE
+Other counterparty;R0MUWSFPU8MPRO8K5P83
+Country of the other counterparty;ES
+Beneficiary;
+Tri-party agent;
+Broker;
+Clearing member;
+CSD participant or indirect participant;
+Agent lender;
+UTI;TBMUWSFPU8MPRO8K5P832024031500001
+Report tracking number;RPT20240315002
+Event date;2024-03-15
+Type of SFT;REPO
+Cleared;false
+Clearing timestamp;
+CCP;
+Trading venue;XXXX
+Master agreement type;GMRA
+Other master agreement type;
+Master agreement version;2011
+Execution timestamp;2024-03-15T08:45:00Z
+Value date (Start date);2024-03-15
+Maturity date (End date);2024-03-29
+Termination date;
+Minimum notice period;
+Earliest call-back date;
+General collateral indicator;SPEC
+DBV indicator;false
+Method used to provide collateral;TTCA
+Open term;false
+Termination optionality;
+Fixed rate;0.0150
+Day count convention;A006
+Floating rate;
+Floating rate reference period - time period;
+Floating rate reference period - multiplier;
+Floating rate payment frequency - time period;
+Floating rate payment frequency - multiplier;
+Floating rate reset frequency - time period;
+Floating rate reset frequency - multiplier;
+Spread;
+Lending fee / Margin lending rate;
+Exclusive arrangements;
+Outstanding margin loan;
+Base currency of outstanding margin loan;
+Short market value;
+Principal amount on value date;10000000.00
+Principal amount on maturity date;10005250.00
+Principal amount currency;EUR
+Type of asset;SECU
+Security identifier;ES0000012A62
+Classification of a security;DBFTFR
+Base product;
+Sub product;
+Further sub product;
+Quantity or nominal amount;10000000
+Unit of measure;
+Currency of nominal amount;EUR
+Security or commodity price;100.50
+Price currency;EUR
+Security quality;INVG
+Maturity of the security;2034-07-30
+Issuer jurisdiction;ES
+LEI of the issuer;9598007A56S18711AH60
+Collateral type;SPEC
+Availability for collateral reuse;false
+Collateral basket identifier;
+Portfolio code;
+Action type;NEWT
+Level;TCTN
+Collateral market value;10050000.00
+Currency of collateral market value;EUR
+Haircut or margin;2.00
+Collateral quantity or nominal amount;10000000
+Currency of collateral nominal amount;EUR
+Price per unit;100.50
+Currency of price per unit;EUR
+Maturity date of the security (collateral);2034-07-30
+Jurisdiction of the issuer (collateral);ES
+LEI of the issuer (collateral);9598007A56S18711AH60
+Collateral component type;SECU
+Cash collateral amount;
+Cash collateral currency;
+Identification of the security (collateral);ES0000012A62
+Classification of the security (collateral);DBFTFR
+Base product (collateral);
+Sub product (collateral);
+Further sub product (collateral);
+Collateral quality;INVG
+Settlement venue;IBRC
