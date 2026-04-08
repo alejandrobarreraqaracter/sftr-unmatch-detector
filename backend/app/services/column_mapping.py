@@ -170,11 +170,5 @@ def build_column_index(columns: list[str]) -> tuple[
             base = norm[:-4]
             canonical = resolve_alias(base)
             cp2_cols[canonical] = col
-        else:
-            # For non-CP columns (metadata), also register canonical name
-            # so that get_meta("sft_type") works when the CSV column is "type_sft"
-            canonical = resolve_alias(norm)
-            if canonical != norm:
-                norm_to_original[canonical] = col
 
     return cp1_cols, cp2_cols, norm_to_original
