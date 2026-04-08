@@ -1,0 +1,6667 @@
+[
+  {
+    "table": 1,
+    "number": 1,
+    "name": "Reporting timestamp",
+    "description": "Date and time of submission of the report to the TR",
+    "format": "ISO 8601 date-time",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid UTC timestamp in ISO 8601 format"
+  },
+  {
+    "table": 1,
+    "number": 2,
+    "name": "Report submitting entity",
+    "description": "LEI of the entity submitting the report",
+    "format": "ISO 17442 LEI (20 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid LEI format"
+  },
+  {
+    "table": 1,
+    "number": 3,
+    "name": "Reporting counterparty",
+    "description": "LEI of the reporting counterparty",
+    "format": "ISO 17442 LEI (20 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid LEI"
+  },
+  {
+    "table": 1,
+    "number": 4,
+    "name": "Nature of the reporting counterparty",
+    "description": "Financial (F) or non-financial (N) counterparty",
+    "format": "F or N",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be F or N"
+  },
+  {
+    "table": 1,
+    "number": 5,
+    "name": "Sector of the reporting counterparty",
+    "description": "Nature of the reporting counterparty business activities",
+    "format": "Taxonomy codes (CDTI, INVF, ASSU)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "If field 4 is F, at least one value from FC taxonomy required"
+  },
+  {
+    "table": 1,
+    "number": 6,
+    "name": "Additional sector classification",
+    "description": "Additional NACE classification for NFC",
+    "format": "NACE Rev.2 code",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 4 is N"
+  },
+  {
+    "table": 1,
+    "number": 7,
+    "name": "Branch of the reporting counterparty",
+    "description": "Country of the branch through which the SFT is executed",
+    "format": "ISO 3166-1 alpha-2",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid ISO country code"
+  },
+  {
+    "table": 1,
+    "number": 8,
+    "name": "Side of the counterparty",
+    "description": "Collateral provider or taker",
+    "format": "GIVE or TAKE",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "M",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": true,
+    "validation_rule": "Must be GIVE or TAKE. Mirror field: counterparties report opposite values"
+  },
+  {
+    "table": 1,
+    "number": 9,
+    "name": "Other counterparty",
+    "description": "LEI or client code of the other counterparty",
+    "format": "ISO 17442 LEI or client code",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid LEI or client code"
+  },
+  {
+    "table": 1,
+    "number": 10,
+    "name": "Country of the other counterparty",
+    "description": "Country code of the other counterparty",
+    "format": "ISO 3166-1 alpha-2",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid ISO country code"
+  },
+  {
+    "table": 1,
+    "number": 11,
+    "name": "Beneficiary",
+    "description": "LEI or client code of the beneficiary if different",
+    "format": "ISO 17442 LEI or client code",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if beneficiary differs from reporting counterparty"
+  },
+  {
+    "table": 1,
+    "number": 12,
+    "name": "Tri-party agent",
+    "description": "LEI of the tri-party agent",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid LEI if populated"
+  },
+  {
+    "table": 1,
+    "number": 13,
+    "name": "Broker",
+    "description": "LEI of the broker that intermediated the SFT",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid LEI if populated"
+  },
+  {
+    "table": 1,
+    "number": 14,
+    "name": "Clearing member",
+    "description": "LEI of the clearing member",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if SFT was cleared"
+  },
+  {
+    "table": 1,
+    "number": 15,
+    "name": "CSD participant or indirect participant",
+    "description": "LEI or BIC of the CSD participant",
+    "format": "ISO 17442 LEI or BIC",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid LEI or BIC if populated"
+  },
+  {
+    "table": 1,
+    "number": 16,
+    "name": "Agent lender",
+    "description": "LEI of the agent lender",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required for securities lending where an agent acts on behalf"
+  },
+  {
+    "table": 1,
+    "number": 17,
+    "name": "UTI",
+    "description": "Unique Transaction Identifier",
+    "format": "UTI (max 52 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be unique, max 52 alphanumeric characters"
+  },
+  {
+    "table": 1,
+    "number": 18,
+    "name": "Report tracking number",
+    "description": "Unique number for internal tracking",
+    "format": "Max 52 chars",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be unique per report"
+  },
+  {
+    "table": 2,
+    "number": 1,
+    "name": "Event date",
+    "description": "Date on which the reportable event took place",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid date"
+  },
+  {
+    "table": 2,
+    "number": 2,
+    "name": "Type of SFT",
+    "description": "Type of securities financing transaction",
+    "format": "REPO, BSB, SL, ML",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be one of REPO, BSB, SL, ML"
+  },
+  {
+    "table": 2,
+    "number": 3,
+    "name": "Cleared",
+    "description": "Whether the SFT was centrally cleared",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 2,
+    "number": 4,
+    "name": "Clearing timestamp",
+    "description": "Time and date when clearing took place",
+    "format": "ISO 8601 date-time",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 3 is true"
+  },
+  {
+    "table": 2,
+    "number": 5,
+    "name": "CCP",
+    "description": "LEI of the CCP that cleared the SFT",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 3 is true"
+  },
+  {
+    "table": 2,
+    "number": 6,
+    "name": "Trading venue",
+    "description": "MIC of the trading venue",
+    "format": "ISO 10383 MIC (4 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid MIC code or XXXX for OTC"
+  },
+  {
+    "table": 2,
+    "number": 7,
+    "name": "Master agreement type",
+    "description": "Reference to the master agreement",
+    "format": "Enumerated (GMRA, GMSLA, MSLA)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be from allowed list"
+  },
+  {
+    "table": 2,
+    "number": 8,
+    "name": "Other master agreement type",
+    "description": "Name if Other is selected",
+    "format": "Free text (max 50 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 7 is Other"
+  },
+  {
+    "table": 2,
+    "number": 9,
+    "name": "Master agreement version",
+    "description": "Year of the master agreement version",
+    "format": "YYYY",
+    "obligation": {
+      "Repo": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid 4-digit year"
+  },
+  {
+    "table": 2,
+    "number": 10,
+    "name": "Execution timestamp",
+    "description": "Date and time of execution of the SFT",
+    "format": "ISO 8601 date-time",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 8601 datetime"
+  },
+  {
+    "table": 2,
+    "number": 11,
+    "name": "Value date (Start date)",
+    "description": "Settlement date of the opening leg",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid date"
+  },
+  {
+    "table": 2,
+    "number": 12,
+    "name": "Maturity date (End date)",
+    "description": "Settlement date of the closing leg",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid date or open for open-ended SFTs"
+  },
+  {
+    "table": 2,
+    "number": 13,
+    "name": "Termination date",
+    "description": "Actual termination date if different from maturity",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "M",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "M",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "M",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "M",
+        "CORR": "C",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid date"
+  },
+  {
+    "table": 2,
+    "number": 14,
+    "name": "Minimum notice period",
+    "description": "Min business days for notice before termination",
+    "format": "Integer",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive integer if populated"
+  },
+  {
+    "table": 2,
+    "number": 15,
+    "name": "Earliest call-back date",
+    "description": "Earliest date lender can call back securities",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid date"
+  },
+  {
+    "table": 2,
+    "number": 16,
+    "name": "General collateral indicator",
+    "description": "General or specific collateral",
+    "format": "GENE or SPEC",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be GENE or SPEC"
+  },
+  {
+    "table": 2,
+    "number": 17,
+    "name": "DBV indicator",
+    "description": "Delivery-by-value transaction",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 2,
+    "number": 18,
+    "name": "Method used to provide collateral",
+    "description": "Title transfer or security interest",
+    "format": "TTCA or SICA or OTH",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be TTCA, SICA, or OTH"
+  },
+  {
+    "table": 2,
+    "number": 19,
+    "name": "Open term",
+    "description": "Whether SFT is open term (no fixed maturity)",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 2,
+    "number": 20,
+    "name": "Termination optionality",
+    "description": "Termination optionality features",
+    "format": "EGRN, ETSB, NOAP",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be EGRN, ETSB, or NOAP"
+  },
+  {
+    "table": 2,
+    "number": 21,
+    "name": "Fixed rate",
+    "description": "Fixed rate of the repo or lending fee",
+    "format": "Decimal",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be numeric decimal"
+  },
+  {
+    "table": 2,
+    "number": 22,
+    "name": "Day count convention",
+    "description": "Day count convention for fixed rate",
+    "format": "Enumerated: A001-A020",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid day count convention code"
+  },
+  {
+    "table": 2,
+    "number": 23,
+    "name": "Floating rate",
+    "description": "Reference rate for floating rate",
+    "format": "Enumerated (EONA, SOFR, ESTR)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid benchmark rate identifier"
+  },
+  {
+    "table": 2,
+    "number": 24,
+    "name": "Floating rate reference period - time period",
+    "description": "Time period for floating rate reference",
+    "format": "YEAR, MNTH, WEEK, DAYS",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid time period code"
+  },
+  {
+    "table": 2,
+    "number": 25,
+    "name": "Floating rate reference period - multiplier",
+    "description": "Multiplier for the time period",
+    "format": "Integer",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive integer"
+  },
+  {
+    "table": 2,
+    "number": 26,
+    "name": "Floating rate payment frequency - time period",
+    "description": "Payment frequency time period",
+    "format": "YEAR, MNTH, WEEK, DAYS",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid time period code"
+  },
+  {
+    "table": 2,
+    "number": 27,
+    "name": "Floating rate payment frequency - multiplier",
+    "description": "Multiplier for payment frequency",
+    "format": "Integer",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive integer"
+  },
+  {
+    "table": 2,
+    "number": 28,
+    "name": "Floating rate reset frequency - time period",
+    "description": "Reset frequency time period",
+    "format": "YEAR, MNTH, WEEK, DAYS",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid time period code"
+  },
+  {
+    "table": 2,
+    "number": 29,
+    "name": "Floating rate reset frequency - multiplier",
+    "description": "Multiplier for reset frequency",
+    "format": "Integer",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive integer"
+  },
+  {
+    "table": 2,
+    "number": 30,
+    "name": "Spread",
+    "description": "Spread over/under floating rate in basis points",
+    "format": "Decimal (basis points)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a numeric decimal"
+  },
+  {
+    "table": 2,
+    "number": 31,
+    "name": "Lending fee / Margin lending rate",
+    "description": "Fee or rate for securities/margin lending",
+    "format": "Decimal (percentage)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "C",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be numeric decimal"
+  },
+  {
+    "table": 2,
+    "number": 32,
+    "name": "Exclusive arrangements",
+    "description": "Whether lending is on exclusive terms",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false if populated"
+  },
+  {
+    "table": 2,
+    "number": 33,
+    "name": "Outstanding margin loan",
+    "description": "Total value of the outstanding margin loan",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive numeric amount"
+  },
+  {
+    "table": 2,
+    "number": 34,
+    "name": "Base currency of outstanding margin loan",
+    "description": "Currency of the outstanding margin loan",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid ISO 4217 currency code"
+  },
+  {
+    "table": 2,
+    "number": 35,
+    "name": "Short market value",
+    "description": "Market value of the short position",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "C",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be numeric if populated"
+  },
+  {
+    "table": 2,
+    "number": 36,
+    "name": "Principal amount on value date",
+    "description": "Cash value to be settled on value date",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive numeric amount"
+  },
+  {
+    "table": 2,
+    "number": 37,
+    "name": "Principal amount on maturity date",
+    "description": "Cash value to be settled on maturity date",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive numeric amount"
+  },
+  {
+    "table": 2,
+    "number": 38,
+    "name": "Principal amount currency",
+    "description": "Currency of the principal amount",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 currency code"
+  },
+  {
+    "table": 2,
+    "number": 39,
+    "name": "Type of asset",
+    "description": "Type of security or commodity as collateral",
+    "format": "SECU, COMM, CASH",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be SECU, COMM, or CASH"
+  },
+  {
+    "table": 2,
+    "number": 40,
+    "name": "Security identifier",
+    "description": "ISIN of the security",
+    "format": "ISO 6166 ISIN (12 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid ISIN if field 39 is SECU"
+  },
+  {
+    "table": 2,
+    "number": 41,
+    "name": "Classification of a security",
+    "description": "CFI code for the security",
+    "format": "ISO 10962 CFI (6 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid 6-character CFI code"
+  },
+  {
+    "table": 2,
+    "number": 42,
+    "name": "Base product",
+    "description": "Base product for commodities",
+    "format": "Enumerated commodity codes",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 39 is COMM"
+  },
+  {
+    "table": 2,
+    "number": 43,
+    "name": "Sub product",
+    "description": "Sub product for commodities",
+    "format": "Enumerated commodity codes",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 42 is populated"
+  },
+  {
+    "table": 2,
+    "number": 44,
+    "name": "Further sub product",
+    "description": "Further sub product for commodities",
+    "format": "Enumerated commodity codes",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 43 is populated"
+  },
+  {
+    "table": 2,
+    "number": 45,
+    "name": "Quantity or nominal amount",
+    "description": "Quantity or nominal of security/commodity",
+    "format": "Decimal",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive number"
+  },
+  {
+    "table": 2,
+    "number": 46,
+    "name": "Unit of measure",
+    "description": "Unit of measure for commodities",
+    "format": "Enumerated units",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 39 is COMM"
+  },
+  {
+    "table": 2,
+    "number": 47,
+    "name": "Currency of nominal amount",
+    "description": "Currency of the nominal amount",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 48,
+    "name": "Security or commodity price",
+    "description": "Price per unit of security/commodity",
+    "format": "Decimal",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive number"
+  },
+  {
+    "table": 2,
+    "number": 49,
+    "name": "Price currency",
+    "description": "Currency of the price",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 50,
+    "name": "Security quality",
+    "description": "Credit quality classification",
+    "format": "INVG, NIVG, NOTR, NOAP",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be INVG, NIVG, NOTR or NOAP"
+  },
+  {
+    "table": 2,
+    "number": 51,
+    "name": "Maturity of the security",
+    "description": "Maturity date of the security",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid date"
+  },
+  {
+    "table": 2,
+    "number": 52,
+    "name": "Issuer jurisdiction",
+    "description": "Jurisdiction of the issuer",
+    "format": "ISO 3166-1 alpha-2",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid country code"
+  },
+  {
+    "table": 2,
+    "number": 53,
+    "name": "LEI of the issuer",
+    "description": "LEI of the issuer of the security",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid LEI"
+  },
+  {
+    "table": 2,
+    "number": 54,
+    "name": "Collateral type",
+    "description": "Specific or general collateral",
+    "format": "SPEC or GENE",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be SPEC or GENE"
+  },
+  {
+    "table": 2,
+    "number": 55,
+    "name": "Availability for collateral reuse",
+    "description": "Whether collateral can be reused",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 2,
+    "number": 56,
+    "name": "Collateral basket identifier",
+    "description": "ISIN of the collateral basket",
+    "format": "ISO 6166 ISIN",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid ISIN if populated"
+  },
+  {
+    "table": 2,
+    "number": 57,
+    "name": "Portfolio code",
+    "description": "Unique code for portfolio-level reporting",
+    "format": "Max 52 chars",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be unique portfolio identifier"
+  },
+  {
+    "table": 2,
+    "number": 58,
+    "name": "Action type",
+    "description": "Type of action being reported",
+    "format": "NEWT, MODI, VALU, COLU, EROR, CORR, ETRM, POSC",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "M",
+        "EROR": "M",
+        "ETRM": "M",
+        "CORR": "M",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid action type"
+  },
+  {
+    "table": 2,
+    "number": 59,
+    "name": "Level",
+    "description": "Trade or position level",
+    "format": "TCTN or PSTN",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be TCTN or PSTN"
+  },
+  {
+    "table": 2,
+    "number": 60,
+    "name": "Collateral market value",
+    "description": "Market value of the collateral",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive numeric amount"
+  },
+  {
+    "table": 2,
+    "number": 61,
+    "name": "Currency of collateral market value",
+    "description": "Currency of collateral market value",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 62,
+    "name": "Haircut or margin",
+    "description": "Collateral haircut or margin percentage",
+    "format": "Decimal (percentage)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a valid percentage"
+  },
+  {
+    "table": 2,
+    "number": 63,
+    "name": "Collateral quantity or nominal amount",
+    "description": "Quantity or nominal of collateral",
+    "format": "Decimal",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive number"
+  },
+  {
+    "table": 2,
+    "number": 64,
+    "name": "Currency of collateral nominal amount",
+    "description": "Currency of collateral nominal",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 65,
+    "name": "Price per unit",
+    "description": "Price per unit of collateral",
+    "format": "Decimal",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be a positive number"
+  },
+  {
+    "table": 2,
+    "number": 66,
+    "name": "Currency of price per unit",
+    "description": "Currency of collateral price",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 67,
+    "name": "Maturity date of the security (collateral)",
+    "description": "Maturity date of collateral security",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid date"
+  },
+  {
+    "table": 2,
+    "number": 68,
+    "name": "Jurisdiction of the issuer (collateral)",
+    "description": "Jurisdiction of collateral issuer",
+    "format": "ISO 3166-1 alpha-2",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid country code"
+  },
+  {
+    "table": 2,
+    "number": 69,
+    "name": "LEI of the issuer (collateral)",
+    "description": "LEI of the collateral issuer",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid LEI"
+  },
+  {
+    "table": 2,
+    "number": 70,
+    "name": "Collateral component type",
+    "description": "Type of collateral: security, cash, commodity",
+    "format": "SECU, CASH, COMM",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be SECU, CASH, or COMM"
+  },
+  {
+    "table": 2,
+    "number": 71,
+    "name": "Cash collateral amount",
+    "description": "Amount of cash as collateral",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive if populated"
+  },
+  {
+    "table": 2,
+    "number": 72,
+    "name": "Cash collateral currency",
+    "description": "Currency of cash collateral",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 73,
+    "name": "Identification of the security (collateral)",
+    "description": "ISIN of collateral security",
+    "format": "ISO 6166 ISIN",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISIN"
+  },
+  {
+    "table": 2,
+    "number": 74,
+    "name": "Classification of the security (collateral)",
+    "description": "CFI code of collateral security",
+    "format": "ISO 10962 CFI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid 6-char CFI code"
+  },
+  {
+    "table": 2,
+    "number": 75,
+    "name": "Base product (collateral)",
+    "description": "Base product for commodity collateral",
+    "format": "Enumerated commodity codes",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if collateral is commodity"
+  },
+  {
+    "table": 2,
+    "number": 76,
+    "name": "Sub product (collateral)",
+    "description": "Sub product for commodity collateral",
+    "format": "Enumerated commodity codes",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 75 populated"
+  },
+  {
+    "table": 2,
+    "number": 77,
+    "name": "Further sub product (collateral)",
+    "description": "Further sub product for commodity collateral",
+    "format": "Enumerated commodity codes",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Required if field 76 populated"
+  },
+  {
+    "table": 2,
+    "number": 78,
+    "name": "Collateral quality",
+    "description": "Credit quality of collateral",
+    "format": "INVG, NIVG, NOTR, NOAP",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be INVG, NIVG, NOTR or NOAP"
+  },
+  {
+    "table": 2,
+    "number": 79,
+    "name": "Settlement venue",
+    "description": "MIC of settlement venue for collateral",
+    "format": "ISO 10383 MIC",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid MIC code"
+  },
+  {
+    "table": 2,
+    "number": 80,
+    "name": "Rate variance",
+    "description": "Variance from benchmark rate",
+    "format": "Decimal (basis points)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be numeric decimal"
+  },
+  {
+    "table": 2,
+    "number": 81,
+    "name": "Rate type",
+    "description": "Fixed or floating rate",
+    "format": "FIXD or FLOT",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be FIXD or FLOT"
+  },
+  {
+    "table": 2,
+    "number": 82,
+    "name": "Adjusted rate",
+    "description": "Adjusted lending or repo rate",
+    "format": "Decimal (percentage)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be numeric"
+  },
+  {
+    "table": 2,
+    "number": 83,
+    "name": "Rate date",
+    "description": "Date of the rate",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid date"
+  },
+  {
+    "table": 2,
+    "number": 84,
+    "name": "Principal amount on value date (Leg 2)",
+    "description": "Principal for second leg of BSB",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive for BSB"
+  },
+  {
+    "table": 2,
+    "number": 85,
+    "name": "Principal amount currency (Leg 2)",
+    "description": "Currency of second leg for BSB",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 for BSB"
+  },
+  {
+    "table": 2,
+    "number": 86,
+    "name": "Security identifier (Leg 2)",
+    "description": "ISIN for second leg of BSB",
+    "format": "ISO 6166 ISIN",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISIN for BSB leg 2"
+  },
+  {
+    "table": 2,
+    "number": 87,
+    "name": "Type of collateral component (Leg 2)",
+    "description": "Collateral type for second leg of BSB",
+    "format": "SECU, CASH, COMM",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be SECU, CASH, or COMM"
+  },
+  {
+    "table": 2,
+    "number": 88,
+    "name": "Uncollateralised SL flag",
+    "description": "Whether SL is uncollateralised",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 2,
+    "number": 89,
+    "name": "Termination optionality (SL)",
+    "description": "Termination optionality for SL",
+    "format": "EGRN, ETSB, NOAP",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be EGRN, ETSB, or NOAP"
+  },
+  {
+    "table": 2,
+    "number": 90,
+    "name": "Net exposure collateralisation",
+    "description": "Whether net exposure collateralisation applies",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 2,
+    "number": 91,
+    "name": "Margin currency",
+    "description": "Currency of the initial margin",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 92,
+    "name": "Initial margin type",
+    "description": "Distinct or bundled margin",
+    "format": "Enumerated",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid margin type"
+  },
+  {
+    "table": 2,
+    "number": 93,
+    "name": "Other type of collateral",
+    "description": "Free text for other collateral types",
+    "format": "Free text (max 35 chars)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Max 35 characters"
+  },
+  {
+    "table": 2,
+    "number": 94,
+    "name": "Concentration limit",
+    "description": "Whether a concentration limit applies",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 2,
+    "number": 95,
+    "name": "Funding sources",
+    "description": "Whether securities obtained through SFT for on-lending",
+    "format": "Enumerated",
+    "obligation": {
+      "Repo": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be from allowed list"
+  },
+  {
+    "table": 2,
+    "number": 96,
+    "name": "Trading venue of the security",
+    "description": "MIC of venue where security is traded",
+    "format": "ISO 10383 MIC",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid MIC code"
+  },
+  {
+    "table": 2,
+    "number": 97,
+    "name": "Mark to market valuation",
+    "description": "Mark-to-market value of outstanding SFT",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be numeric"
+  },
+  {
+    "table": 2,
+    "number": 98,
+    "name": "Mark to market currency",
+    "description": "Currency of mark-to-market value",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217 code"
+  },
+  {
+    "table": 2,
+    "number": 99,
+    "name": "CFI code of the security",
+    "description": "CFI code of the underlying security",
+    "format": "ISO 10962 CFI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid 6-char CFI code"
+  },
+  {
+    "table": 3,
+    "number": 1,
+    "name": "Type of margin transaction",
+    "description": "Whether margin is posted or received",
+    "format": "MRGG or MRGE",
+    "obligation": {
+      "Repo": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "BSB": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "SL": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      },
+      "ML": {
+        "NEWT": "M",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "M"
+      }
+    },
+    "is_mirror": true,
+    "validation_rule": "Must be MRGG or MRGE. Mirror field."
+  },
+  {
+    "table": 3,
+    "number": 2,
+    "name": "Excess collateral posted",
+    "description": "Value of collateral posted in excess",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 3,
+    "name": "Currency of excess collateral posted",
+    "description": "Currency of excess collateral posted",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 4,
+    "name": "Excess collateral received",
+    "description": "Value of collateral received in excess",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 5,
+    "name": "Currency of excess collateral received",
+    "description": "Currency of excess collateral received",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 6,
+    "name": "Initial margin posted",
+    "description": "Value of initial margin posted",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 7,
+    "name": "Currency of initial margin posted",
+    "description": "Currency of initial margin posted",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 8,
+    "name": "Initial margin received",
+    "description": "Value of initial margin received",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 9,
+    "name": "Currency of initial margin received",
+    "description": "Currency of initial margin received",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 10,
+    "name": "Variation margin posted",
+    "description": "Value of variation margin posted",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 11,
+    "name": "Currency of variation margin posted",
+    "description": "Currency of variation margin posted",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 12,
+    "name": "Variation margin received",
+    "description": "Value of variation margin received",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 13,
+    "name": "Currency of variation margin received",
+    "description": "Currency of variation margin received",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 14,
+    "name": "Short sell indicator",
+    "description": "Whether lent security used for short selling",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false, SL only"
+  },
+  {
+    "table": 3,
+    "number": 15,
+    "name": "Total value of margin posted",
+    "description": "Total value of all margin posted",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 16,
+    "name": "Currency of total margin posted",
+    "description": "Currency of total margin posted",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 17,
+    "name": "Total value of margin received",
+    "description": "Total value of all margin received",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 3,
+    "number": 18,
+    "name": "Currency of total margin received",
+    "description": "Currency of total margin received",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 3,
+    "number": 19,
+    "name": "Margin lending provided to counterparty",
+    "description": "Margin lending amount provided",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric, ML only"
+  },
+  {
+    "table": 3,
+    "number": 20,
+    "name": "Currency of margin lending",
+    "description": "Currency of margin lending",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "-",
+        "MODI": "-",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "-",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "C"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217, ML only"
+  },
+  {
+    "table": 4,
+    "number": 1,
+    "name": "Collateral re-use",
+    "description": "Whether collateral has been reused",
+    "format": "Boolean",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be true or false"
+  },
+  {
+    "table": 4,
+    "number": 2,
+    "name": "Estimated reuse of collateral",
+    "description": "Estimated value of collateral reused",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 4,
+    "number": 3,
+    "name": "Currency of estimated reuse",
+    "description": "Currency of the estimated reuse",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 4,
+    "number": 4,
+    "name": "Reinvested cash amount",
+    "description": "Amount of cash collateral reinvested",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 4,
+    "number": 5,
+    "name": "Currency of reinvested cash",
+    "description": "Currency of reinvested cash",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 4,
+    "number": 6,
+    "name": "Reinvested cash rate of return",
+    "description": "Rate of return on reinvested cash",
+    "format": "Decimal (percentage)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be numeric decimal"
+  },
+  {
+    "table": 4,
+    "number": 7,
+    "name": "Reinvestment type",
+    "description": "Type of reinvestment of cash collateral",
+    "format": "MMFT, OTHR, REPO, SDPU, SSEC",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be MMFT, OTHR, REPO, SDPU, or SSEC"
+  },
+  {
+    "table": 4,
+    "number": 8,
+    "name": "Reinvestment maturity date",
+    "description": "Maturity date of the reinvestment",
+    "format": "ISO 8601 date",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid date"
+  },
+  {
+    "table": 4,
+    "number": 9,
+    "name": "Reinvestment ISIN",
+    "description": "ISIN of the reinvestment security",
+    "format": "ISO 6166 ISIN",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISIN"
+  },
+  {
+    "table": 4,
+    "number": 10,
+    "name": "Reinvestment cash amount (component)",
+    "description": "Amount reinvested in each component",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 4,
+    "number": 11,
+    "name": "Currency of reinvestment (component)",
+    "description": "Currency of each reinvestment component",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 4,
+    "number": 12,
+    "name": "Funding source type",
+    "description": "Type of funding used to finance SFT",
+    "format": "Enumerated",
+    "obligation": {
+      "Repo": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be from allowed list"
+  },
+  {
+    "table": 4,
+    "number": 13,
+    "name": "Funding source market value",
+    "description": "Market value of the funding source",
+    "format": "Decimal amount",
+    "obligation": {
+      "Repo": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be positive numeric"
+  },
+  {
+    "table": 4,
+    "number": 14,
+    "name": "Currency of funding source",
+    "description": "Currency of the funding source",
+    "format": "ISO 4217",
+    "obligation": {
+      "Repo": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "O",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid ISO 4217"
+  },
+  {
+    "table": 4,
+    "number": 15,
+    "name": "Counterparty for reuse",
+    "description": "LEI of counterparty for collateral reuse",
+    "format": "ISO 17442 LEI",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid LEI"
+  },
+  {
+    "table": 4,
+    "number": 16,
+    "name": "Type of collateral reuse",
+    "description": "How collateral was reused",
+    "format": "Enumerated",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be from allowed list"
+  },
+  {
+    "table": 4,
+    "number": 17,
+    "name": "Reinvestment risk profile",
+    "description": "Risk profile of the reinvestment",
+    "format": "Enumerated",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be from allowed list"
+  },
+  {
+    "table": 4,
+    "number": 18,
+    "name": "Haircut or margin on reinvestment",
+    "description": "Haircut or margin on reinvestment",
+    "format": "Decimal (percentage)",
+    "obligation": {
+      "Repo": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "BSB": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "SL": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      },
+      "ML": {
+        "NEWT": "C",
+        "MODI": "O",
+        "EROR": "-",
+        "ETRM": "-",
+        "CORR": "O",
+        "VALU": "-"
+      }
+    },
+    "is_mirror": false,
+    "validation_rule": "Must be valid percentage"
+  }
+]
