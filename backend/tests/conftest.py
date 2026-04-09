@@ -3,12 +3,14 @@ Test configuration and fixtures for SFTR Unmatch Detector.
 """
 
 import os
+import tempfile
 import pytest
+import pytest_asyncio
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from fastapi.testclient import TestClient
+from httpx import AsyncClient, ASGITransport
 
-# Use in-memory SQLite for tests
+# Use a per-test temporary SQLite file to keep tests isolated and stable with TestClient.
 os.environ["DATABASE_URL"] = "sqlite:///./test_sftr.db"
 
 from app.main import app
@@ -16,26 +18,42 @@ from app.database import Base, get_db
 
 
 @pytest.fixture(scope="function")
-def db_session():
-    """Create a fresh database for each test."""
-    engine = create_engine("sqlite:///./test_sftr.db", connect_args={"check_same_thread": False})
-    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+def test_engine():
+    """Create a fresh temporary SQLite database engine for each test."""
+    db_file = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
+    db_file.close()
+    database_url = f"sqlite:///{db_file.name}"
+    engine = create_engine(
+        database_url,
+        connect_args={"check_same_thread": False},
+    )
     Base.metadata.create_all(bind=engine)
-
-    session = TestingSessionLocal()
     try:
-        yield session
+        yield engine
     finally:
-        session.close()
         Base.metadata.drop_all(bind=engine)
         engine.dispose()
+        try:
+            os.unlink(db_file.name)
+        except FileNotFoundError:
+            pass
 
 
 @pytest.fixture(scope="function")
-def client(db_session):
-    """Create a test client with a fresh database."""
-    engine = db_session.get_bind()
-    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+def db_session(test_engine):
+    """Yield a database session bound to the temporary test engine."""
+    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
+    db = TestingSessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+
+@pytest_asyncio.fixture(scope="function")
+async def async_client(test_engine):
+    """Create an async ASGI client with a fresh database."""
+    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
 
     def override_get_db():
         db = TestingSessionLocal()
@@ -45,7 +63,7 @@ def client(db_session):
             db.close()
 
     app.dependency_overrides[get_db] = override_get_db
-    with TestClient(app) as c:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://test") as c:
         yield c
     app.dependency_overrides.clear()
 

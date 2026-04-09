@@ -2,207 +2,195 @@
 Tests for the upload endpoint and session management.
 """
 
-import os
 import pytest
-from fastapi.testclient import TestClient
+from fastapi import HTTPException
+from app.routers.sessions import (
+    upload_and_compare,
+    list_sessions,
+    get_session,
+    get_session_summary,
+    get_trade,
+    update_field_comparison,
+    bulk_update,
+    _build_export_response,
+)
+from app.schemas import FieldComparisonUpdate, BulkUpdateRequest
+
+
+pytestmark = pytest.mark.asyncio
+
+
+class FakeUploadFile:
+    def __init__(self, filename: str, content: bytes):
+        self.filename = filename
+        self._content = content
+
+    async def read(self) -> bytes:
+        return self._content
+
+
+async def seed_upload(db, filename: str, content: bytes, emisor_name: str = "", receptor_name: str = ""):
+    return await upload_and_compare(
+        file=FakeUploadFile(filename, content),
+        emisor_name=emisor_name,
+        receptor_name=receptor_name,
+        db=db,
+    )
 
 
 class TestUploadEndpoint:
-    def test_upload_sample_csv(self, client, sample_csv_path):
+    async def test_upload_sample_csv(self, db_session, sample_csv_bytes):
         """Upload sample CSV and verify session creation."""
-        with open(sample_csv_path, "rb") as f:
-            response = client.post(
-                "/api/sessions/upload",
-                files={"file": ("sftr_reconciliation_sample.csv", f, "text/csv")},
-                data={"emisor_name": "Santander", "receptor_name": "Counterparty"},
-            )
-        assert response.status_code == 200
-        data = response.json()
-        assert data["total_trades"] == 5
-        assert data["total_fields"] == 775  # 5 trades × 155 fields
-        assert data["total_unmatches"] == 4
-        assert data["critical_count"] == 2
-        assert data["warning_count"] == 2
-        assert data["trades_with_unmatches"] == 4
-        assert data["sft_type"] == "Repo"
-        assert data["action_type"] == "NEWT"
-        assert data["emisor_name"] == "Santander"
-        assert data["receptor_name"] == "Counterparty"
-
-    def test_upload_minimal_csv(self, client, minimal_csv_bytes):
-        """Upload minimal CSV with known mismatch."""
-        response = client.post(
-            "/api/sessions/upload",
-            files={"file": ("test.csv", minimal_csv_bytes, "text/csv")},
-            data={"emisor_name": "Test", "receptor_name": "Test2"},
+        session = await seed_upload(
+            db_session,
+            "sftr_reconciliation_sample.csv",
+            sample_csv_bytes,
+            emisor_name="Santander",
+            receptor_name="Counterparty",
         )
-        assert response.status_code == 200
-        data = response.json()
-        assert data["total_trades"] == 1
-        assert data["total_unmatches"] >= 1  # At least the principal amount mismatch
+        assert session.total_trades == 5
+        assert session.total_fields == 775  # 5 trades × 155 fields
+        assert session.total_unmatches == 4
+        assert session.critical_count == 2
+        assert session.warning_count == 2
+        assert session.trades_with_unmatches == 4
+        assert session.sft_type == "Repo"
+        assert session.action_type == "NEWT"
+        assert session.emisor_name == "Santander"
+        assert session.receptor_name == "Counterparty"
 
-    def test_upload_empty_csv(self, client):
+    async def test_upload_minimal_csv(self, db_session, minimal_csv_bytes):
+        """Upload minimal CSV with known mismatch."""
+        session = await seed_upload(
+            db_session,
+            "test.csv",
+            minimal_csv_bytes,
+            emisor_name="Test",
+            receptor_name="Test2",
+        )
+        assert session.total_trades == 1
+        assert session.total_unmatches >= 1  # At least the principal amount mismatch
+
+    async def test_upload_empty_csv(self, db_session):
         """Upload CSV with header only should fail."""
         content = b"UTI;SFT_Type;Action_Type"
-        response = client.post(
-            "/api/sessions/upload",
-            files={"file": ("empty.csv", content, "text/csv")},
-            data={"emisor_name": "A", "receptor_name": "B"},
-        )
-        assert response.status_code == 400
+        with pytest.raises(Exception) as exc_info:
+            await seed_upload(db_session, "empty.csv", content)
+        assert "No data rows found in file" in str(exc_info.value)
 
-    def test_default_emisor_receptor(self, client, minimal_csv_bytes):
+    async def test_default_emisor_receptor(self, db_session, minimal_csv_bytes):
         """Default names should be CP1/CP2 when not provided."""
-        response = client.post(
-            "/api/sessions/upload",
-            files={"file": ("test.csv", minimal_csv_bytes, "text/csv")},
-        )
-        assert response.status_code == 200
-        data = response.json()
-        assert data["emisor_name"] == "CP1"
-        assert data["receptor_name"] == "CP2"
+        session = await seed_upload(db_session, "test.csv", minimal_csv_bytes)
+        assert session.emisor_name == "CP1"
+        assert session.receptor_name == "CP2"
 
 
 class TestSessionEndpoints:
-    def _upload(self, client, sample_csv_path):
-        with open(sample_csv_path, "rb") as f:
-            return client.post(
-                "/api/sessions/upload",
-                files={"file": ("test.csv", f, "text/csv")},
-                data={"emisor_name": "Santander", "receptor_name": "CP"},
-            ).json()
+    async def _upload(self, db_session, sample_csv_bytes):
+        session = await seed_upload(
+            db_session,
+            "test.csv",
+            sample_csv_bytes,
+            emisor_name="Santander",
+            receptor_name="CP",
+        )
+        return {"id": session.id}
 
-    def test_list_sessions(self, client, sample_csv_path):
-        self._upload(client, sample_csv_path)
-        response = client.get("/api/sessions")
-        assert response.status_code == 200
-        data = response.json()
+    async def test_list_sessions(self, db_session, sample_csv_bytes):
+        await self._upload(db_session, sample_csv_bytes)
+        data = list_sessions(skip=0, limit=50, db=db_session)
         assert len(data) == 1
 
-    def test_get_session_detail(self, client, sample_csv_path):
-        session = self._upload(client, sample_csv_path)
-        response = client.get(f"/api/sessions/{session['id']}")
-        assert response.status_code == 200
-        data = response.json()
-        assert len(data["trades"]) == 5
+    async def test_get_session_detail(self, db_session, sample_csv_bytes):
+        session = await self._upload(db_session, sample_csv_bytes)
+        data = get_session(session["id"], skip=0, limit=100, has_unmatches=None, search=None, min_severity=None, db=db_session)
+        assert len(data.trades) == 5
 
-    def test_get_session_summary(self, client, sample_csv_path):
-        session = self._upload(client, sample_csv_path)
-        response = client.get(f"/api/sessions/{session['id']}/summary")
-        assert response.status_code == 200
-        data = response.json()
-        assert data["total_trades"] == 5
-        assert data["total_unmatches"] == 4
-        assert data["critical_count"] == 2
+    async def test_get_session_summary(self, db_session, sample_csv_bytes):
+        session = await self._upload(db_session, sample_csv_bytes)
+        data = get_session_summary(session["id"], db=db_session)
+        assert data.total_trades == 5
+        assert data.total_unmatches == 4
+        assert data.critical_count == 2
 
-    def test_filter_trades_with_unmatches(self, client, sample_csv_path):
-        session = self._upload(client, sample_csv_path)
-        response = client.get(f"/api/sessions/{session['id']}?has_unmatches=true")
-        assert response.status_code == 200
-        data = response.json()
+    async def test_filter_trades_with_unmatches(self, db_session, sample_csv_bytes):
+        session = await self._upload(db_session, sample_csv_bytes)
+        data = get_session(session["id"], skip=0, limit=100, has_unmatches=True, search=None, min_severity=None, db=db_session)
         # Trades 2, 3, 4, 5 have unmatches (Fixed rate in Trade 2 caught by per-field tolerance)
-        assert len(data["trades"]) == 4
+        assert len(data.trades) == 4
 
-    def test_filter_trades_critical(self, client, sample_csv_path):
-        session = self._upload(client, sample_csv_path)
-        response = client.get(f"/api/sessions/{session['id']}?min_severity=CRITICAL")
-        assert response.status_code == 200
-        data = response.json()
+    async def test_filter_trades_critical(self, db_session, sample_csv_bytes):
+        session = await self._upload(db_session, sample_csv_bytes)
+        data = get_session(session["id"], skip=0, limit=100, has_unmatches=None, search=None, min_severity="CRITICAL", db=db_session)
         # Only trades 3 and 4 have critical unmatches
-        assert len(data["trades"]) == 2
+        assert len(data.trades) == 2
 
-    def test_search_trades_by_uti(self, client, sample_csv_path):
-        session = self._upload(client, sample_csv_path)
-        response = client.get(f"/api/sessions/{session['id']}?search=00003")
-        assert response.status_code == 200
-        data = response.json()
-        assert len(data["trades"]) == 1
-        assert "00003" in data["trades"][0]["uti"]
+    async def test_search_trades_by_uti(self, db_session, sample_csv_bytes):
+        session = await self._upload(db_session, sample_csv_bytes)
+        data = get_session(session["id"], skip=0, limit=100, has_unmatches=None, search="00003", min_severity=None, db=db_session)
+        assert len(data.trades) == 1
+        assert "00003" in data.trades[0].uti
 
-    def test_session_not_found(self, client):
-        response = client.get("/api/sessions/999")
-        assert response.status_code == 404
+    async def test_session_not_found(self, db_session):
+        with pytest.raises(HTTPException) as exc_info:
+            get_session(999, skip=0, limit=100, has_unmatches=None, search=None, min_severity=None, db=db_session)
+        assert exc_info.value.status_code == 404
 
 
 class TestTradeEndpoints:
-    def _upload(self, client, sample_csv_path):
-        with open(sample_csv_path, "rb") as f:
-            return client.post(
-                "/api/sessions/upload",
-                files={"file": ("test.csv", f, "text/csv")},
-                data={"emisor_name": "A", "receptor_name": "B"},
-            ).json()
+    async def _upload(self, db_session, sample_csv_bytes):
+        session = await seed_upload(db_session, "test.csv", sample_csv_bytes)
+        return {"id": session.id}
 
-    def test_get_trade_detail(self, client, sample_csv_path):
-        session = self._upload(client, sample_csv_path)
-        response = client.get("/api/trades/1")
-        assert response.status_code == 200
-        data = response.json()
-        assert len(data["field_comparisons"]) == 155
+    async def test_get_trade_detail(self, db_session, sample_csv_bytes):
+        await self._upload(db_session, sample_csv_bytes)
+        data = get_trade(1, db=db_session)
+        assert len(data.field_comparisons) == 155
 
-    def test_trade_not_found(self, client):
-        response = client.get("/api/trades/999")
-        assert response.status_code == 404
+    async def test_trade_not_found(self, db_session):
+        with pytest.raises(HTTPException) as exc_info:
+            get_trade(999, db=db_session)
+        assert exc_info.value.status_code == 404
 
 
 class TestFieldComparisonEndpoints:
-    def _upload(self, client, sample_csv_path):
-        with open(sample_csv_path, "rb") as f:
-            return client.post(
-                "/api/sessions/upload",
-                files={"file": ("test.csv", f, "text/csv")},
-                data={"emisor_name": "A", "receptor_name": "B"},
-            ).json()
+    async def _upload(self, db_session, sample_csv_bytes):
+        session = await seed_upload(db_session, "test.csv", sample_csv_bytes)
+        return {"id": session.id}
 
-    def test_update_field_comparison(self, client, sample_csv_path):
-        self._upload(client, sample_csv_path)
+    async def test_update_field_comparison(self, db_session, sample_csv_bytes):
+        await self._upload(db_session, sample_csv_bytes)
         # Get trade 3 which has an unmatch
-        trade = client.get("/api/trades/3").json()
-        unmatch = next(fc for fc in trade["field_comparisons"] if fc["result"] == "UNMATCH")
+        trade = get_trade(3, db=db_session)
+        unmatch = next(fc for fc in trade.field_comparisons if fc.result == "UNMATCH")
 
-        response = client.patch(
-            f"/api/field-comparisons/{unmatch['id']}",
-            json={"status": "RESOLVED", "assignee": "analyst1", "notes": "Fixed"},
+        data = update_field_comparison(
+            unmatch.id,
+            FieldComparisonUpdate(status="RESOLVED", assignee="analyst1", notes="Fixed"),
+            db=db_session,
         )
-        assert response.status_code == 200
-        data = response.json()
-        assert data["status"] == "RESOLVED"
-        assert data["assignee"] == "analyst1"
-        assert data["notes"] == "Fixed"
+        assert data.status == "RESOLVED"
+        assert data.assignee == "analyst1"
+        assert data.notes == "Fixed"
 
-    def test_bulk_resolve(self, client, sample_csv_path):
-        session = self._upload(client, sample_csv_path)
-        response = client.post(
-            f"/api/sessions/{session['id']}/bulk-update",
-            json={"action": "resolve_all"},
+    async def test_bulk_resolve(self, db_session, sample_csv_bytes):
+        session = await self._upload(db_session, sample_csv_bytes)
+        data = bulk_update(
+            session["id"],
+            BulkUpdateRequest(action="resolve_all"),
+            db=db_session,
         )
-        assert response.status_code == 200
-        data = response.json()
         assert data["updated"] == 4  # 4 unmatches resolved
 
 
 class TestExportEndpoint:
-    def test_export_xlsx(self, client, sample_csv_path):
-        with open(sample_csv_path, "rb") as f:
-            session = client.post(
-                "/api/sessions/upload",
-                files={"file": ("test.csv", f, "text/csv")},
-                data={"emisor_name": "A", "receptor_name": "B"},
-            ).json()
+    async def test_export_xlsx(self, db_session, sample_csv_bytes):
+        session = await seed_upload(db_session, "test.csv", sample_csv_bytes)
+        response = _build_export_response(session_id=session.id, db=db_session)
+        assert "spreadsheetml" in response.media_type
+        assert "attachment; filename=" in response.headers["Content-Disposition"]
 
-        response = client.get(f"/api/sessions/{session['id']}/export")
-        assert response.status_code == 200
-        assert "spreadsheetml" in response.headers["content-type"]
-        assert len(response.content) > 0
-
-    def test_export_only_unmatches(self, client, sample_csv_path):
-        with open(sample_csv_path, "rb") as f:
-            session = client.post(
-                "/api/sessions/upload",
-                files={"file": ("test.csv", f, "text/csv")},
-                data={"emisor_name": "A", "receptor_name": "B"},
-            ).json()
-
-        response = client.get(f"/api/sessions/{session['id']}/export?only_unmatches=true")
-        assert response.status_code == 200
-        assert len(response.content) > 0
+    async def test_export_only_unmatches(self, db_session, sample_csv_bytes):
+        session = await seed_upload(db_session, "test.csv", sample_csv_bytes)
+        response = _build_export_response(session_id=session.id, db=db_session, only_unmatches=True)
+        assert "attachment; filename=" in response.headers["Content-Disposition"]

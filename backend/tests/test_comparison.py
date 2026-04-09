@@ -12,6 +12,7 @@ from app.services.comparison import (
     detect_root_cause,
     numeric_match,
     compare_trade,
+    compare_field,
     _get_field_value,
 )
 
@@ -236,8 +237,10 @@ class TestCompareTrade:
         assert side["root_cause"] == "MIRROR_MATCH"
 
     def test_not_applicable(self):
-        """Fields with obligation '-' should be NA."""
-        results = compare_trade({}, {}, "Repo", "NEWT")
+        """Fields with obligation '-' and differing values should be NA."""
+        emisor = {"exclusive arrangements": "YES"}
+        receptor = {"exclusive arrangements": "NO"}
+        results = compare_trade(emisor, receptor, "Repo", "NEWT")
         na_results = [r for r in results if r["result"] == "NA" and r["obligation"] == "-"]
         assert len(na_results) > 0
         for r in na_results:
@@ -318,3 +321,12 @@ class TestCompareTrade:
         entity = next(r for r in results if r["field_name"] == "Report submitting entity")
         # Emisor value is invalid LEI format
         assert entity["emisor_validation"] is not None or entity["result"] == "UNMATCH"
+
+    def test_equal_invalid_values_are_not_marked_valid(self):
+        """If both sides share the same invalid value, reconciliation may match but validation must fail."""
+        emisor = {"Reporting timestamp": "2026-02-31"}
+        receptor = {"Reporting timestamp": "2026-02-31"}
+        result = compare_field("Reporting timestamp", emisor["Reporting timestamp"], receptor["Reporting timestamp"], "Repo", "NEWT")
+        assert result["result"] == "MATCH"
+        assert result["validated"] is False
+        assert result["root_cause"] == "BOTH_INVALID_FORMAT"
