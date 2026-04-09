@@ -236,8 +236,11 @@ class TestCompareTrade:
         assert side["root_cause"] == "MIRROR_MATCH"
 
     def test_not_applicable(self):
-        """Fields with obligation '-' should be NA."""
-        results = compare_trade({}, {}, "Repo", "NEWT")
+        """Fields with obligation '-' and differing values should be NA."""
+        # "Exclusive arrangements" has obligation "-" for Repo/NEWT
+        emisor = {"exclusive arrangements": "YES"}
+        receptor = {"exclusive arrangements": "NO"}
+        results = compare_trade(emisor, receptor, "Repo", "NEWT")
         na_results = [r for r in results if r["result"] == "NA" and r["obligation"] == "-"]
         assert len(na_results) > 0
         for r in na_results:
