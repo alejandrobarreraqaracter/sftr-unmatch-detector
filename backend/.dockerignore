@@ -1,0 +1,6 @@
+.env
+.venv
+__pycache__/
+*.pyc
+sftr_unmatch.db
+report_cache/

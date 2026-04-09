@@ -7,6 +7,7 @@ dist/
 !frontend/.env.example
 backend/.env
 frontend/.env
+backend/report_cache/
 *.db
 __pycache__/
 *.pyc

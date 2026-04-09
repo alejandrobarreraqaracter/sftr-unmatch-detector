@@ -11,13 +11,15 @@ from app.schemas import (
     SessionResponse, SessionDetailResponse, SessionSummary,
     TradeRecordResponse, TradeDetailResponse,
     FieldComparisonResponse, FieldComparisonUpdate,
-    ActivityLogResponse, BulkUpdateRequest,
+    ActivityLogResponse, BulkUpdateRequest, ReprocessSessionResponse,
 )
 from app.services.file_parser import parse_tabular_csv
-from app.services.comparison import compare_trade
+from app.services.comparison import compare_trade, compare_field
 from app.services.export import generate_xlsx
 
 router = APIRouter(prefix="/api", tags=["sessions"])
+
+UNPAIR_FIELDS = {"UTI", "Other counterparty"}
 
 
 # ─── Upload ───────────────────────────────────────────────────────────────────
@@ -176,6 +178,7 @@ def get_session(
         .limit(limit)
         .all()
     )
+    _annotate_trade_pairing(trades, db)
     session.trades = trades
     return session
 
@@ -213,11 +216,10 @@ def get_activity_log(session_id: int, db: DBSession = Depends(get_db)):
     )
 
 
-@router.post("/sessions/{session_id}/export")
-def export_session(
+def _build_export_response(
     session_id: int,
-    only_unmatches: bool = Query(default=False),
     db: DBSession = Depends(get_db),
+    only_unmatches: bool = False,
 ):
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
@@ -240,9 +242,50 @@ def export_session(
     if only_unmatches:
         fcs_query = fcs_query.filter(FieldComparison.result == "UNMATCH")
 
+    trade_pairing = _get_trade_pairing_map(session_id, db)
+    trade_rows = (
+        db.query(TradeRecord)
+        .filter(TradeRecord.session_id == session_id)
+        .order_by(TradeRecord.row_number)
+        .all()
+    )
+    session_data["trade_summaries"] = [
+        {
+            "trade_id": trade.id,
+            "row_number": trade.row_number,
+            "uti": trade.uti,
+            "sft_type": trade.sft_type,
+            "action_type": trade.action_type,
+            "emisor_lei": trade.emisor_lei,
+            "receptor_lei": trade.receptor_lei,
+            "total_fields": trade.total_fields,
+            "total_unmatches": trade.total_unmatches,
+            "critical_count": trade.critical_count,
+            "warning_count": trade.warning_count,
+            "pairing_status": trade_pairing.get(trade.id, {}).get("pairing_status"),
+            "pairing_reason": trade_pairing.get(trade.id, {}).get("pairing_reason"),
+        }
+        for trade in trade_rows
+    ]
+    trade_lookup = {
+        trade.id: {
+            "row_number": trade.row_number,
+            "uti": trade.uti,
+            "sft_type": trade.sft_type,
+            "action_type": trade.action_type,
+        }
+        for trade in trade_rows
+    }
+
     field_results = [
         {
             "trade_id": fc.trade_id,
+            "row_number": trade_lookup.get(fc.trade_id, {}).get("row_number"),
+            "uti": trade_lookup.get(fc.trade_id, {}).get("uti"),
+            "sft_type": trade_lookup.get(fc.trade_id, {}).get("sft_type"),
+            "action_type": trade_lookup.get(fc.trade_id, {}).get("action_type"),
+            "pairing_status": trade_pairing.get(fc.trade_id, {}).get("pairing_status"),
+            "pairing_reason": trade_pairing.get(fc.trade_id, {}).get("pairing_reason"),
             "table_number": fc.table_number,
             "field_number": fc.field_number,
             "field_name": fc.field_name,
@@ -271,6 +314,24 @@ def export_session(
     )
 
 
+@router.get("/sessions/{session_id}/export")
+def export_session_get(
+    session_id: int,
+    only_unmatches: bool = Query(default=False),
+    db: DBSession = Depends(get_db),
+):
+    return _build_export_response(session_id=session_id, db=db, only_unmatches=only_unmatches)
+
+
+@router.post("/sessions/{session_id}/export")
+def export_session_post(
+    session_id: int,
+    only_unmatches: bool = Query(default=False),
+    db: DBSession = Depends(get_db),
+):
+    return _build_export_response(session_id=session_id, db=db, only_unmatches=only_unmatches)
+
+
 # ─── Trades ───────────────────────────────────────────────────────────────────
 
 @router.get("/trades/{trade_id}", response_model=TradeDetailResponse)
@@ -278,6 +339,7 @@ def get_trade(trade_id: int, db: DBSession = Depends(get_db)):
     trade = db.query(TradeRecord).filter(TradeRecord.id == trade_id).first()
     if not trade:
         raise HTTPException(status_code=404, detail="Trade not found")
+    _annotate_trade_pairing([trade], db)
     return trade
 
 
@@ -361,9 +423,166 @@ def bulk_update(session_id: int, req: BulkUpdateRequest, db: DBSession = Depends
     return {"updated": count, "action": req.action}
 
 
+@router.post("/sessions/{session_id}/reprocess", response_model=ReprocessSessionResponse)
+def reprocess_session(session_id: int, db: DBSession = Depends(get_db)):
+    session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
+    if not session:
+        raise HTTPException(status_code=404, detail="Session not found")
+
+    trades = (
+        db.query(TradeRecord)
+        .filter(TradeRecord.session_id == session_id)
+        .order_by(TradeRecord.row_number)
+        .all()
+    )
+
+    session_total_fields = 0
+    session_total_unmatches = 0
+    session_critical = 0
+    session_warning = 0
+    session_trades_with_unmatches = 0
+    fields_reprocessed = 0
+
+    for trade in trades:
+        trade_unmatches = 0
+        trade_critical = 0
+        trade_warning = 0
+
+        for fc in trade.field_comparisons:
+            refreshed = compare_field(
+                fc.field_name,
+                fc.emisor_value,
+                fc.receptor_value,
+                trade.sft_type or session.sft_type or "Repo",
+                trade.action_type or session.action_type or "NEWT",
+            )
+            fc.obligation = refreshed["obligation"]
+            fc.result = refreshed["result"]
+            fc.severity = refreshed["severity"]
+            fc.root_cause = refreshed["root_cause"]
+            fc.validated = refreshed["validated"]
+            fc.updated_at = datetime.now(timezone.utc)
+
+            if refreshed["result"] == "UNMATCH":
+                if fc.status == "EXCLUDED":
+                    fc.status = "PENDING"
+                trade_unmatches += 1
+                if refreshed["severity"] == "CRITICAL":
+                    trade_critical += 1
+                elif refreshed["severity"] == "WARNING":
+                    trade_warning += 1
+            else:
+                fc.status = "EXCLUDED"
+
+            fields_reprocessed += 1
+
+        trade.total_fields = len(trade.field_comparisons)
+        trade.total_unmatches = trade_unmatches
+        trade.critical_count = trade_critical
+        trade.warning_count = trade_warning
+        trade.has_unmatches = trade_unmatches > 0
+
+        session_total_fields += trade.total_fields
+        session_total_unmatches += trade_unmatches
+        session_critical += trade_critical
+        session_warning += trade_warning
+        if trade.has_unmatches:
+            session_trades_with_unmatches += 1
+
+    session.total_trades = len(trades)
+    session.total_fields = session_total_fields
+    session.total_unmatches = session_total_unmatches
+    session.critical_count = session_critical
+    session.warning_count = session_warning
+    session.trades_with_unmatches = session_trades_with_unmatches
+
+    db.add(
+        ActivityLog(
+            session_id=session.id,
+            action="SESSION_REPROCESSED",
+            detail=(
+                f"Reprocessed {len(trades)} trades / {fields_reprocessed} fields — "
+                f"{session_total_unmatches} unmatches ({session_critical} critical)"
+            ),
+        )
+    )
+
+    db.commit()
+    return ReprocessSessionResponse(
+        session_id=session.id,
+        trades_reprocessed=len(trades),
+        fields_reprocessed=fields_reprocessed,
+        total_unmatches=session.total_unmatches,
+        critical_count=session.critical_count,
+        warning_count=session.warning_count,
+    )
+
+
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def _most_common(lst: list[str]) -> Optional[str]:
     if not lst:
         return None
     return max(set(lst), key=lst.count)
+
+
+def _annotate_trade_pairing(trades: list[TradeRecord], db: DBSession) -> None:
+    if not trades:
+        return
+
+    trade_ids = [trade.id for trade in trades]
+    reasons_by_trade = _get_trade_pairing_reasons(trade_ids, db)
+
+    for trade in trades:
+        reasons = reasons_by_trade.get(trade.id, [])
+        if reasons:
+            trade.pairing_status = "UNPAIR"
+            trade.pairing_reason = ", ".join(reasons)
+        elif trade.has_unmatches:
+            trade.pairing_status = "UNMATCH"
+            trade.pairing_reason = None
+        else:
+            trade.pairing_status = None
+            trade.pairing_reason = None
+
+
+def _get_trade_pairing_reasons(trade_ids: list[int], db: DBSession) -> dict[int, list[str]]:
+    pair_fields = (
+        db.query(
+            FieldComparison.trade_id,
+            FieldComparison.field_name,
+            FieldComparison.result,
+        )
+        .filter(
+            FieldComparison.trade_id.in_(trade_ids),
+            FieldComparison.field_name.in_(UNPAIR_FIELDS),
+        )
+        .all()
+    )
+
+    reasons_by_trade: dict[int, list[str]] = {}
+    for trade_id, field_name, result in pair_fields:
+        if result == "UNMATCH":
+            reasons_by_trade.setdefault(trade_id, []).append(field_name)
+    return reasons_by_trade
+
+
+def _get_trade_pairing_map(session_id: int, db: DBSession) -> dict[int, dict[str, Optional[str]]]:
+    trades = (
+        db.query(TradeRecord.id, TradeRecord.has_unmatches)
+        .filter(TradeRecord.session_id == session_id)
+        .all()
+    )
+    trade_ids = [trade_id for trade_id, _has_unmatches in trades]
+    reasons_by_trade = _get_trade_pairing_reasons(trade_ids, db)
+
+    result: dict[int, dict[str, Optional[str]]] = {}
+    for trade_id, has_unmatches in trades:
+        reasons = reasons_by_trade.get(trade_id, [])
+        if reasons:
+            result[trade_id] = {"pairing_status": "UNPAIR", "pairing_reason": ", ".join(reasons)}
+        elif has_unmatches:
+            result[trade_id] = {"pairing_status": "UNMATCH", "pairing_reason": None}
+        else:
+            result[trade_id] = {"pairing_status": None, "pairing_reason": None}
+    return result

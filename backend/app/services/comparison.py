@@ -7,7 +7,7 @@ Produces a FieldComparison result per field with result, severity, and root_caus
 
 import re
 from typing import Optional
-from app.services.field_registry import get_all_fields, get_obligation
+from app.services.field_registry import get_all_fields, get_field_by_name, get_obligation
 
 MIRROR_PAIRS = {
     "GIVE": "TAKE",
@@ -102,63 +102,82 @@ def compare_trade(
 
     for field in all_fields:
         field_name = field["name"]
-        table_number = field["table"]
-        field_number = field["number"]
-        is_mirror = field.get("is_mirror", False)
-
-        obligation = get_obligation(field, sft_type, action_type)
-
-        # Match field by name (case-insensitive fuzzy match against emisor/receptor dicts)
         emisor_val = _get_field_value(emisor_data, field_name)
         receptor_val = _get_field_value(receptor_data, field_name)
+        results.append(compare_field(field_name, emisor_val, receptor_val, sft_type, action_type))
 
-        e_norm = normalize(emisor_val)
-        r_norm = normalize(receptor_val)
+    return results
 
-        tolerance = NUMERIC_TOLERANCES.get(obligation, 0.0001)
 
-        if obligation == "-":
-            result = "NA"
-            severity = "NONE"
-            root_cause = "NOT_APPLICABLE"
-        elif not e_norm and not r_norm:
-            result = "NA"
+def compare_field(
+    field_name: str,
+    emisor_val: Optional[str],
+    receptor_val: Optional[str],
+    sft_type: str = "Repo",
+    action_type: str = "NEWT",
+) -> dict:
+    field = get_field_by_name(field_name)
+    if not field:
+        raise ValueError(f"Field not found in registry: {field_name}")
+
+    table_number = field["table"]
+    field_number = field["number"]
+    is_mirror = field.get("is_mirror", False)
+    obligation = get_obligation(field, sft_type, action_type)
+
+    e_norm = normalize(emisor_val)
+    r_norm = normalize(receptor_val)
+    tolerance = NUMERIC_TOLERANCES.get(obligation, 0.0001)
+
+    if obligation == "-":
+        if not e_norm and not r_norm:
+            result = "MATCH"
             severity = "NONE"
             root_cause = "BOTH_EMPTY"
         elif e_norm == r_norm:
             result = "MATCH"
             severity = "NONE"
             root_cause = "MATCH"
-        elif is_mirror and is_mirror_match(emisor_val, receptor_val):
-            result = "MIRROR"
-            severity = "NONE"
-            root_cause = "MIRROR_MATCH"
-        elif is_numeric(e_norm) and is_numeric(r_norm) and numeric_match(e_norm, r_norm, tolerance):
-            result = "MATCH"
-            severity = "NONE"
-            root_cause = "NUMERIC_WITHIN_TOLERANCE"
         else:
-            result = "UNMATCH"
-            severity = classify_severity(obligation)
-            root_cause = detect_root_cause(e_norm, r_norm, obligation, is_mirror)
+            result = "NA"
+            severity = "NONE"
+            root_cause = "NOT_APPLICABLE"
+    elif not e_norm and not r_norm:
+        result = "MATCH"
+        severity = "NONE"
+        root_cause = "BOTH_EMPTY"
+    elif e_norm == r_norm:
+        result = "MATCH"
+        severity = "NONE"
+        root_cause = "MATCH"
+    elif is_mirror and is_mirror_match(emisor_val or "", receptor_val or ""):
+        result = "MIRROR"
+        severity = "NONE"
+        root_cause = "MIRROR_MATCH"
+    elif is_numeric(e_norm) and is_numeric(r_norm) and numeric_match(e_norm, r_norm, tolerance):
+        result = "MATCH"
+        severity = "NONE"
+        root_cause = "NUMERIC_WITHIN_TOLERANCE"
+    else:
+        result = "UNMATCH"
+        severity = classify_severity(obligation)
+        root_cause = detect_root_cause(e_norm, r_norm, obligation, is_mirror)
 
-        status = "PENDING" if result == "UNMATCH" else "EXCLUDED"
+    status = "PENDING" if result == "UNMATCH" else "EXCLUDED"
 
-        results.append({
-            "table_number": table_number,
-            "field_number": field_number,
-            "field_name": field_name,
-            "obligation": obligation,
-            "emisor_value": emisor_val if emisor_val else None,
-            "receptor_value": receptor_val if receptor_val else None,
-            "result": result,
-            "severity": severity,
-            "root_cause": root_cause,
-            "status": status,
-            "validated": True,
-        })
-
-    return results
+    return {
+        "table_number": table_number,
+        "field_number": field_number,
+        "field_name": field_name,
+        "obligation": obligation,
+        "emisor_value": emisor_val if emisor_val else None,
+        "receptor_value": receptor_val if receptor_val else None,
+        "result": result,
+        "severity": severity,
+        "root_cause": root_cause,
+        "status": status,
+        "validated": True,
+    }
 
 
 def _get_field_value(data: dict[str, str], field_name: str) -> str:

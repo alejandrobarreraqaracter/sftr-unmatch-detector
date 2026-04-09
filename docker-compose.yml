@@ -1,0 +1,44 @@
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: sftr-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - sftr_ollama:/root/.ollama
+
+  backend:
+    build:
+      context: ./backend
+    container_name: sftr-backend
+    environment:
+      DATABASE_URL: sqlite:////app/data/sftr_unmatch.db
+      LLM_BASE_URL: http://ollama:11434
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ollama
+    volumes:
+      - ./backend:/app
+      - sftr_backend_data:/app/data
+      - sftr_report_cache:/app/report_cache
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: sftr-frontend
+    environment:
+      VITE_API_URL: http://localhost:8000
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - sftr_frontend_node_modules:/app/node_modules
+
+volumes:
+  sftr_ollama:
+  sftr_backend_data:
+  sftr_report_cache:
+  sftr_frontend_node_modules:

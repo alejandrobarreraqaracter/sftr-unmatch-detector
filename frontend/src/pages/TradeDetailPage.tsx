@@ -104,6 +104,7 @@ export default function TradeDetailPage() {
   if (!trade) return <div className="flex items-center justify-center h-64"><p className="text-zinc-500">Operación no encontrada</p></div>;
 
   const unmatches = trade.field_comparisons.filter((f) => f.result === "UNMATCH").length;
+  const isUnpair = trade.pairing_status === "UNPAIR";
 
   return (
     <div className="space-y-6">
@@ -120,6 +121,26 @@ export default function TradeDetailPage() {
             {trade.emisor_lei && ` · CP1: ${trade.emisor_lei}`}
             {trade.receptor_lei && ` · CP2: ${trade.receptor_lei}`}
           </p>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            {trade.pairing_status === "UNPAIR" ? (
+              <>
+                <span className="inline-flex rounded-full border border-purple-200 bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-700">
+                  Unpair
+                </span>
+                <span className="text-xs text-zinc-500">
+                  Motivo: {trade.pairing_reason || "UTI / Other counterparty"}
+                </span>
+              </>
+            ) : trade.pairing_status === "UNMATCH" ? (
+              <span className="inline-flex rounded-full border border-red-200 bg-red-50 px-2.5 py-1 text-xs font-semibold text-red-700">
+                Unmatch
+              </span>
+            ) : (
+              <span className="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-2.5 py-1 text-xs font-semibold text-zinc-600">
+                Sin discrepancias
+              </span>
+            )}
+          </div>
         </div>
         <div className="flex gap-2">
           {trade.has_unmatches && (
@@ -194,7 +215,7 @@ export default function TradeDetailPage() {
         <MetricCard label="Total campos" value={trade.total_fields} />
         <MetricCard label="Discrepancias" value={unmatches} color="red" icon={<AlertTriangle className="h-3 w-3" />} />
         <MetricCard label="Críticas" value={trade.critical_count} color="red" />
-        <MetricCard label="Advertencias" value={trade.warning_count} color="amber" />
+        <MetricCard label={isUnpair ? "Tipo: Unpair" : "Advertencias"} value={isUnpair ? 1 : trade.warning_count} color={isUnpair ? "purple" : "amber"} />
       </div>
 
       <Card>
@@ -280,6 +301,7 @@ export default function TradeDetailPage() {
                     <TableHead>Causa raíz</TableHead>
                     <TableHead>Severidad</TableHead>
                     <TableHead>Estado</TableHead>
+                    <TableHead>Responsable</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -308,6 +330,11 @@ export default function TradeDetailPage() {
                       <TableCell className="text-xs text-zinc-500">{field.root_cause ? (ROOT_CAUSE_SHORT[field.root_cause] || field.root_cause) : "—"}</TableCell>
                       <TableCell><SeverityBadge severity={field.severity} /></TableCell>
                       <TableCell><StatusBadge status={field.status} /></TableCell>
+                      <TableCell className="text-xs text-zinc-600">
+                        <span className="block max-w-32 truncate">
+                          {field.assignee || "—"}
+                        </span>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>

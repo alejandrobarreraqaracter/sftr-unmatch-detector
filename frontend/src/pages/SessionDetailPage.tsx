@@ -4,20 +4,25 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SeverityBadge } from "@/components/SeverityBadge";
-import { getSession, getSessionSummary, bulkUpdate, exportUrl, generateNarrative, type SessionDetail, type TradeRecord, type SessionSummary } from "@/lib/api";
+import { getSession, getSessionSummary, bulkUpdate, exportUrl, generateNarrative, reprocessSession, type SessionDetail, type TradeRecord, type SessionSummary } from "@/lib/api";
 import { toast } from "sonner";
-import { Download, Search, AlertTriangle, CheckCircle2, ChevronRight, Sparkles, X } from "lucide-react";
+import { Download, RefreshCcw, Search, AlertTriangle, CheckCircle2, ChevronRight, Sparkles, X } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+
+type PairingFilter = "ALL" | "UNPAIR" | "UNMATCH" | "CLEAN";
 
 export default function SessionDetailPage() {
   const { id } = useParams<{ id: string }>();
   const [session, setSession] = useState<SessionDetail | null>(null);
   const [summary, setSummary] = useState<SessionSummary | null>(null);
   const [search, setSearch] = useState("");
+  const [pairingFilter, setPairingFilter] = useState<PairingFilter>("ALL");
   const [loading, setLoading] = useState(true);
   const [narrative, setNarrative] = useState<string | null>(null);
   const [generatingNarrative, setGeneratingNarrative] = useState(false);
+  const [reprocessing, setReprocessing] = useState(false);
 
   const sessionId = Number(id);
 
@@ -30,9 +35,16 @@ export default function SessionDetailPage() {
   }, [id, sessionId]);
 
   const filteredTrades = session?.trades.filter((t) => {
+    if (pairingFilter === "UNPAIR" && t.pairing_status !== "UNPAIR") return false;
+    if (pairingFilter === "UNMATCH" && t.pairing_status !== "UNMATCH") return false;
+    if (pairingFilter === "CLEAN" && t.has_unmatches) return false;
     if (!search) return true;
     return (t.uti || "").toLowerCase().includes(search.toLowerCase());
   }) ?? [];
+
+  const unpairCount = session?.trades.filter((t) => t.pairing_status === "UNPAIR").length ?? 0;
+  const unmatchOnlyCount = session?.trades.filter((t) => t.pairing_status === "UNMATCH").length ?? 0;
+  const cleanCount = session ? session.trades.length - (unpairCount + unmatchOnlyCount) : 0;
 
   const handleGenerateNarrative = async () => {
     if (!session) return;
@@ -59,6 +71,23 @@ export default function SessionDetailPage() {
     }
   };
 
+  const handleReprocess = async () => {
+    setReprocessing(true);
+    try {
+      const result = await reprocessSession(sessionId);
+      const [s, sum] = await Promise.all([getSession(sessionId), getSessionSummary(sessionId)]);
+      setSession(s);
+      setSummary(sum);
+      toast.success(
+        `Sesión reprocesada: ${result.fields_reprocessed} campos revisados, ${result.total_unmatches} discrepancias`
+      );
+    } catch {
+      toast.error("Error al reprocesar la sesión");
+    } finally {
+      setReprocessing(false);
+    }
+  };
+
   if (loading) return <div className="flex items-center justify-center h-64"><p className="text-zinc-500">Cargando sesión...</p></div>;
   if (!session) return <div className="flex items-center justify-center h-64"><p className="text-zinc-500">Sesión no encontrada</p></div>;
 
@@ -78,6 +107,10 @@ export default function SessionDetailPage() {
           <a href={exportUrl(sessionId, true)} download>
             <Button variant="outline" size="sm"><Download className="h-4 w-4 mr-1" /> Exportar discrepancias</Button>
           </a>
+          <Button variant="outline" size="sm" onClick={handleReprocess} disabled={reprocessing}>
+            <RefreshCcw className="h-4 w-4 mr-1" />
+            {reprocessing ? "Reprocesando..." : "Reprocesar sesión"}
+          </Button>
           <Button
             variant="outline" size="sm"
             onClick={handleGenerateNarrative}
@@ -140,6 +173,7 @@ export default function SessionDetailPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
           <MetricCard label="Total operaciones" value={summary.total_trades} />
           <MetricCard label="Con discrepancias" value={summary.trades_with_unmatches} color="red" />
+          <MetricCard label="Unpair" value={unpairCount} color="purple" />
           <MetricCard label="Total discrepancias" value={summary.total_unmatches} color="red" />
           <MetricCard label="Críticas" value={summary.critical_count} color="red" icon={<AlertTriangle className="h-3 w-3" />} />
           <MetricCard label="Advertencias" value={summary.warning_count} color="amber" />
@@ -149,19 +183,43 @@ export default function SessionDetailPage() {
 
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <CardTitle className="text-base">
               Operaciones ({filteredTrades.length} de {session.trades.length})
             </CardTitle>
-            <div className="relative">
-              <Search className="h-4 w-4 absolute left-2 top-2.5 text-zinc-400" />
-              <Input
-                placeholder="Buscar por UTI..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-8 w-52 h-9"
-              />
+            <div className="flex flex-wrap items-center gap-2">
+              <Select value={pairingFilter} onValueChange={(value) => setPairingFilter(value as PairingFilter)}>
+                <SelectTrigger className="h-9 w-40 text-xs">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ALL">Todos</SelectItem>
+                  <SelectItem value="UNPAIR">Solo Unpair</SelectItem>
+                  <SelectItem value="UNMATCH">Solo Unmatch</SelectItem>
+                  <SelectItem value="CLEAN">Solo limpias</SelectItem>
+                </SelectContent>
+              </Select>
+              <div className="relative">
+                <Search className="h-4 w-4 absolute left-2 top-2.5 text-zinc-400" />
+                <Input
+                  placeholder="Buscar por UTI..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="pl-8 w-52 h-9"
+                />
+              </div>
             </div>
+          </div>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="inline-flex rounded-full border border-purple-200 bg-purple-50 px-2 py-1 font-medium text-purple-700">
+              Unpair: {unpairCount}
+            </span>
+            <span className="inline-flex rounded-full border border-red-200 bg-red-50 px-2 py-1 font-medium text-red-700">
+              Unmatch: {unmatchOnlyCount}
+            </span>
+            <span className="inline-flex rounded-full border border-zinc-200 bg-zinc-50 px-2 py-1 font-medium text-zinc-600">
+              Limpias: {cleanCount}
+            </span>
           </div>
         </CardHeader>
         <CardContent>
@@ -174,6 +232,7 @@ export default function SessionDetailPage() {
                   <TableHead>Tipo</TableHead>
                   <TableHead className="text-right">Campos</TableHead>
                   <TableHead className="text-right">Discrepancias</TableHead>
+                  <TableHead>Tipo</TableHead>
                   <TableHead className="text-right">Críticas</TableHead>
                   <TableHead className="text-right">Advertencias</TableHead>
                   <TableHead className="w-8"></TableHead>
@@ -193,11 +252,13 @@ export default function SessionDetailPage() {
 }
 
 function TradeRow({ trade, sessionId }: { trade: TradeRecord; sessionId: number }) {
-  const rowBg = trade.has_unmatches
-    ? trade.critical_count > 0
-      ? "bg-red-50/40 hover:bg-red-50"
-      : "bg-amber-50/40 hover:bg-amber-50"
-    : "hover:bg-zinc-50";
+  const rowBg = trade.pairing_status === "UNPAIR"
+    ? "bg-purple-100/60 hover:bg-purple-100"
+    : trade.has_unmatches
+      ? trade.critical_count > 0
+        ? "bg-red-50/40 hover:bg-red-50"
+        : "bg-amber-50/40 hover:bg-amber-50"
+      : "hover:bg-zinc-50";
 
   return (
     <TableRow className={`cursor-pointer ${rowBg}`}>
@@ -213,6 +274,24 @@ function TradeRow({ trade, sessionId }: { trade: TradeRecord; sessionId: number 
         {trade.total_unmatches > 0
           ? <span className="text-xs font-semibold text-red-700">{trade.total_unmatches}</span>
           : <span className="text-xs text-green-600">0</span>}
+      </TableCell>
+      <TableCell>
+        {trade.pairing_status === "UNPAIR" ? (
+          <div className="flex flex-col gap-1">
+            <span className="inline-flex w-fit rounded-full border border-purple-200 bg-purple-50 px-2 py-0.5 text-[11px] font-semibold text-purple-700">
+              Unpair
+            </span>
+            <span className="text-[11px] text-zinc-500">
+              {trade.pairing_reason || "UTI / Other counterparty"}
+            </span>
+          </div>
+        ) : trade.pairing_status === "UNMATCH" ? (
+          <span className="inline-flex w-fit rounded-full border border-red-200 bg-red-50 px-2 py-0.5 text-[11px] font-semibold text-red-700">
+            Unmatch
+          </span>
+        ) : (
+          <span className="text-xs text-zinc-400">—</span>
+        )}
       </TableCell>
       <TableCell className="text-right">
         {trade.critical_count > 0

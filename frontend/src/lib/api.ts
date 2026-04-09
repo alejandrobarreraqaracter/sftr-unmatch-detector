@@ -41,6 +41,8 @@ export interface TradeRecord {
   critical_count: number;
   warning_count: number;
   has_unmatches: boolean;
+  pairing_status: "UNPAIR" | "UNMATCH" | null;
+  pairing_reason: string | null;
 }
 
 export interface FieldComparison {
@@ -108,6 +110,182 @@ export interface TrendItem {
   total_unmatches: number;
   critical_count: number;
   sessions: number;
+}
+
+export interface AnalyticsOverview {
+  date_from: string | null;
+  date_to: string | null;
+  sessions: number;
+  total_trades: number;
+  trades_with_unmatches: number;
+  total_unmatches: number;
+  critical_count: number;
+  warning_count: number;
+  unpair_trades: number;
+  unmatch_trades: number;
+  clean_trades: number;
+  pending_fields: number;
+  resolved_fields: number;
+  in_negotiation_fields: number;
+  excluded_fields: number;
+  quality_rate: number;
+  resolution_rate: number;
+}
+
+export interface AnalyticsDailyItem {
+  date: string;
+  sessions: number;
+  total_trades: number;
+  trades_with_unmatches: number;
+  total_unmatches: number;
+  critical_count: number;
+  warning_count: number;
+  unpair_trades: number;
+  unmatch_trades: number;
+  clean_trades: number;
+  resolved_fields: number;
+  pending_fields: number;
+}
+
+export interface AnalyticsDelta {
+  a: number;
+  b: number;
+  abs: number;
+  pct: number | null;
+}
+
+export interface AnalyticsFieldComparisonItem {
+  field_name: string;
+  table_number: number;
+  count_a: number;
+  count_b: number;
+  delta: number;
+}
+
+export interface AnalyticsComparison {
+  period_a: AnalyticsOverview;
+  period_b: AnalyticsOverview;
+  deltas: Record<string, AnalyticsDelta>;
+  top_fields_comparison: AnalyticsFieldComparisonItem[];
+}
+
+export interface AnalyticsDaySession {
+  id: number;
+  created_at: string;
+  business_date: string;
+  filename: string | null;
+  emisor_name: string | null;
+  receptor_name: string | null;
+  sft_type: string | null;
+  action_type: string | null;
+  total_trades: number;
+  trades_with_unmatches: number;
+  total_unmatches: number;
+  critical_count: number;
+  warning_count: number;
+}
+
+export interface RegulatoryTopFieldItem {
+  field_name: string;
+  table_number: number;
+  count: number;
+  critical_count: number;
+  warning_count: number;
+}
+
+export interface RegulatoryOpenItem {
+  business_date: string;
+  session_id: number;
+  trade_id: number;
+  row_number: number;
+  uti: string | null;
+  field_name: string;
+  table_number: number;
+  field_number: number;
+  severity: string;
+  status: string;
+  assignee: string | null;
+  root_cause: string | null;
+  notes: string | null;
+  updated_at: string | null;
+}
+
+export interface RegulatoryCounterpartyItem {
+  emisor_name: string;
+  receptor_name: string;
+  sessions: number;
+  total_trades: number;
+  total_unmatches: number;
+  critical_count: number;
+}
+
+export interface RegulatoryDaySummary {
+  date: string;
+  sessions: number;
+  total_trades: number;
+  trades_with_unmatches: number;
+  unpair_trades: number;
+  total_unmatches: number;
+  critical_count: number;
+  warning_count: number;
+  resolved_fields: number;
+  pending_fields: number;
+}
+
+export interface RegulatoryReportPreview {
+  date_from: string | null;
+  date_to: string | null;
+  generated_at: string;
+  sessions: number;
+  filenames: string[];
+  overview: AnalyticsOverview;
+  daily_summary: RegulatoryDaySummary[];
+  top_fields: RegulatoryTopFieldItem[];
+  top_counterparties: RegulatoryCounterpartyItem[];
+  open_items_count: number;
+  critical_open_items_count: number;
+  open_items: RegulatoryOpenItem[];
+  comparison_to_previous_period: {
+    previous_date_from: string;
+    previous_date_to: string;
+    deltas: Record<string, AnalyticsDelta>;
+  } | null;
+  risk_residual: {
+    level: string;
+    open_items: number;
+    critical_open_items: number;
+    unresolved_unpair_trades: number;
+    top_field_concentration_pct: number;
+    summary: string;
+  } | null;
+}
+
+export interface RegulatorySnapshot {
+  id: number;
+  report_type: string;
+  date_from: string | null;
+  date_to: string | null;
+  created_at: string;
+  created_by: string | null;
+  source_sessions_count: number;
+  source_trades_count: number;
+  source_field_comparisons_count: number;
+  report_version: string;
+  narrative_markdown: string | null;
+  narrative_provider: string | null;
+  narrative_model: string | null;
+  payload: RegulatoryReportPreview;
+}
+
+export interface RegulatorySnapshotArtifactsResponse {
+  snapshot_id: number;
+  artifacts: {
+    format: string;
+    cached: boolean;
+    size_bytes: number;
+    path: string;
+    mtime?: number;
+  }[];
 }
 
 // ─── API calls ────────────────────────────────────────────────────────────────
@@ -202,6 +380,34 @@ export interface SessionNarrative {
   narrative: string;
 }
 
+export interface ReprocessSessionResult {
+  session_id: number;
+  trades_reprocessed: number;
+  fields_reprocessed: number;
+  total_unmatches: number;
+  critical_count: number;
+  warning_count: number;
+}
+
+export interface AnalyticsNarrative {
+  provider: string;
+  model: string;
+  date_from: string | null;
+  date_to: string | null;
+  narrative: string;
+}
+
+export interface AnalyticsChatResponse {
+  provider: string;
+  model: string;
+  date_from: string | null;
+  date_to: string | null;
+  question: string;
+  answer: string;
+  suggested_visual: "none" | "daily_trend" | "top_fields" | "counterparties" | "day_sessions" | "comparison";
+  selected_day?: string | null;
+}
+
 export async function getAIStatus(): Promise<AIStatus> {
   return request<AIStatus>("/api/ai/status");
 }
@@ -218,22 +424,182 @@ export async function generateNarrative(sessionId: number): Promise<SessionNarra
   return request<SessionNarrative>(`/api/ai/sessions/${sessionId}/narrative`, { method: "POST" });
 }
 
-export async function getTopFields(limit = 10): Promise<TopFieldItem[]> {
-  return request<TopFieldItem[]>(`/api/analytics/top-fields?limit=${limit}`);
+export async function reprocessSession(sessionId: number): Promise<ReprocessSessionResult> {
+  return request<ReprocessSessionResult>(`/api/sessions/${sessionId}/reprocess`, { method: "POST" });
 }
 
-export async function getTrend(days = 30): Promise<TrendItem[]> {
-  return request<TrendItem[]>(`/api/analytics/trend?days=${days}`);
+function withDateRange(path: string, dateFrom?: string, dateTo?: string): string {
+  const params = new URLSearchParams();
+  if (dateFrom) params.set("date_from", dateFrom);
+  if (dateTo) params.set("date_to", dateTo);
+  const query = params.toString();
+  return query ? `${path}${path.includes("?") ? "&" : "?"}${query}` : path;
 }
 
-export async function getByCounterparty(): Promise<
-  { emisor_name: string; receptor_name: string; sessions: number; total_unmatches: number; critical_count: number }[]
+export async function getAnalyticsOverview(dateFrom?: string, dateTo?: string): Promise<AnalyticsOverview> {
+  return request<AnalyticsOverview>(withDateRange("/api/analytics/overview", dateFrom, dateTo));
+}
+
+export async function getAnalyticsDaily(dateFrom?: string, dateTo?: string): Promise<AnalyticsDailyItem[]> {
+  return request<AnalyticsDailyItem[]>(withDateRange("/api/analytics/daily", dateFrom, dateTo));
+}
+
+export async function getTopFields(limit = 10, dateFrom?: string, dateTo?: string): Promise<TopFieldItem[]> {
+  return request<TopFieldItem[]>(withDateRange(`/api/analytics/top-fields?limit=${limit}`, dateFrom, dateTo));
+}
+
+export async function getByCounterparty(dateFrom?: string, dateTo?: string): Promise<
+  { emisor_name: string; receptor_name: string; sessions: number; total_unmatches: number; critical_count: number; total_trades: number }[]
 > {
-  return request(`/api/analytics/by-counterparty`);
+  return request(withDateRange("/api/analytics/by-counterparty", dateFrom, dateTo));
 }
 
-export async function getBySftType(): Promise<
-  { sft_type: string; sessions: number; total_unmatches: number; critical_count: number }[]
+export async function getBySftType(dateFrom?: string, dateTo?: string): Promise<
+  { sft_type: string; sessions: number; total_unmatches: number; critical_count: number; total_trades: number }[]
 > {
-  return request(`/api/analytics/by-sft-type`);
+  return request(withDateRange("/api/analytics/by-sft-type", dateFrom, dateTo));
+}
+
+export async function generateAnalyticsReport(dateFrom?: string, dateTo?: string): Promise<AnalyticsNarrative> {
+  return request<AnalyticsNarrative>(withDateRange("/api/ai/analytics/report", dateFrom, dateTo), { method: "POST" });
+}
+
+export async function downloadAnalyticsReport(
+  format: "pdf" | "doc",
+  narrative: AnalyticsNarrative
+): Promise<void> {
+  const res = await fetch(`${API_URL}/api/ai/analytics/report/export`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      format,
+      narrative: narrative.narrative,
+      date_from: narrative.date_from,
+      date_to: narrative.date_to,
+      provider: narrative.provider,
+      model: narrative.model,
+    }),
+  });
+  if (!res.ok) {
+    const body = await res.text();
+    throw new Error(`API error ${res.status}: ${body}`);
+  }
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const anchor = document.createElement("a");
+  const filenameDate = narrative.date_from || new Date().toISOString().slice(0, 10);
+  anchor.href = url;
+  anchor.download = `sftr_analytics_report_${filenameDate}.${format}`;
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  window.URL.revokeObjectURL(url);
+}
+
+export async function getAnalyticsComparison(
+  fromA: string,
+  toA: string,
+  fromB: string,
+  toB: string
+): Promise<AnalyticsComparison> {
+  const params = new URLSearchParams({
+    from_a: fromA,
+    to_a: toA,
+    from_b: fromB,
+    to_b: toB,
+  });
+  return request<AnalyticsComparison>(`/api/analytics/compare?${params.toString()}`);
+}
+
+export async function generateAnalyticsComparisonReport(
+  fromA: string,
+  toA: string,
+  fromB: string,
+  toB: string
+): Promise<AnalyticsNarrative> {
+  const params = new URLSearchParams({
+    from_a: fromA,
+    to_a: toA,
+    from_b: fromB,
+    to_b: toB,
+  });
+  return request<AnalyticsNarrative>(`/api/ai/analytics/compare-report?${params.toString()}`, { method: "POST" });
+}
+
+export async function analyticsChat(
+  question: string,
+  dateFrom?: string,
+  dateTo?: string,
+  selectedDay?: string,
+  comparison?: {
+    fromA: string;
+    toA: string;
+    fromB: string;
+    toB: string;
+  }
+): Promise<AnalyticsChatResponse> {
+  return request<AnalyticsChatResponse>("/api/ai/analytics/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      question,
+      date_from: dateFrom,
+      date_to: dateTo,
+      selected_day: selectedDay,
+      compare_from_a: comparison?.fromA,
+      compare_to_a: comparison?.toA,
+      compare_from_b: comparison?.fromB,
+      compare_to_b: comparison?.toB,
+    }),
+  });
+}
+
+export async function getAnalyticsSessionsByDay(day: string): Promise<AnalyticsDaySession[]> {
+  const params = new URLSearchParams({ day });
+  return request<AnalyticsDaySession[]>(`/api/analytics/sessions-by-day?${params.toString()}`);
+}
+
+export async function getRegulatoryReportPreview(dateFrom?: string, dateTo?: string): Promise<RegulatoryReportPreview> {
+  return request<RegulatoryReportPreview>(withDateRange("/api/reporting/regulatory/preview", dateFrom, dateTo));
+}
+
+export function regulatoryReportExportUrl(dateFrom?: string, dateTo?: string): string {
+  return `${API_URL}${withDateRange("/api/reporting/regulatory/export.xlsx", dateFrom, dateTo)}`;
+}
+
+export async function generateRegulatorySnapshot(
+  dateFrom?: string,
+  dateTo?: string,
+  includeAiNarrative = false,
+  createdBy?: string
+): Promise<RegulatorySnapshot> {
+  return request<RegulatorySnapshot>("/api/reporting/regulatory/generate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      date_from: dateFrom,
+      date_to: dateTo,
+      include_ai_narrative: includeAiNarrative,
+      created_by: createdBy,
+    }),
+  });
+}
+
+export function regulatorySnapshotExportUrl(snapshotId: number, format: "xlsx" | "pdf" | "doc"): string {
+  return `${API_URL}/api/reporting/regulatory/snapshots/${snapshotId}/export.${format}`;
+}
+
+export async function getRegulatorySnapshots(): Promise<RegulatorySnapshot[]> {
+  return request<RegulatorySnapshot[]>("/api/reporting/regulatory/snapshots");
+}
+
+export async function getRegulatorySnapshotArtifacts(snapshotId: number): Promise<RegulatorySnapshotArtifactsResponse> {
+  return request<RegulatorySnapshotArtifactsResponse>(`/api/reporting/regulatory/snapshots/${snapshotId}/artifacts`);
+}
+
+export async function warmRegulatorySnapshot(snapshotId: number): Promise<{ snapshot_id: number; status: string }> {
+  return request<{ snapshot_id: number; status: string }>(`/api/reporting/regulatory/snapshots/${snapshotId}/warm-cache`, {
+    method: "POST",
+  });
 }

@@ -90,3 +90,22 @@ class ActivityLog(Base):
     session = relationship("Session", back_populates="activity_logs")
     trade = relationship("TradeRecord", back_populates="activity_logs")
     field_comparison = relationship("FieldComparison", back_populates="activity_logs")
+
+
+class ReportingSnapshot(Base):
+    __tablename__ = "reporting_snapshots"
+
+    id = Column(Integer, primary_key=True, index=True)
+    report_type = Column(String(50), nullable=False, default="REGULATORY")
+    date_from = Column(String(10), nullable=True)
+    date_to = Column(String(10), nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_by = Column(String(255), nullable=True)
+    source_sessions_count = Column(Integer, default=0)
+    source_trades_count = Column(Integer, default=0)
+    source_field_comparisons_count = Column(Integer, default=0)
+    payload_json = Column(Text, nullable=False)
+    narrative_markdown = Column(Text, nullable=True)
+    narrative_provider = Column(String(50), nullable=True)
+    narrative_model = Column(String(100), nullable=True)
+    report_version = Column(String(20), nullable=False, default="v1")

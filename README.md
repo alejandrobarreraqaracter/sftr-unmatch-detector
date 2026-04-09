@@ -12,6 +12,10 @@ Este repositorio ya no usa el modelo inicial de "2 ficheros, 1 operación". El n
 
 La arquitectura actual está alineada con cargas masivas de miles de operaciones por fichero.
 
+## Documentos de diseño
+
+- Diseño de reporte regulatorio por rango de fechas: [regulatory-reporting-design.md](/home/alejandrobarrera/sftr-unmatch-detector/docs/regulatory-reporting-design.md)
+
 ## Qué hace el sistema
 
 - Carga un CSV tabular con ambas contrapartes en columnas separadas
@@ -33,17 +37,26 @@ La arquitectura actual está alineada con cargas masivas de miles de operaciones
 - responsable
 - notas
 - acciones masivas
-- Exporta resultados a XLSX
+- Exporta resultados operativos a XLSX
+- Genera reporting regulatorio por rango de fechas con:
+- preview agregado
+- export estructurado en XLSX
+- snapshots reproducibles
+- export congelado de snapshots en XLSX, PDF y Word
+- caché local de artefactos para evitar regeneraciones innecesarias
 - Añade una capa opcional de IA para:
 - analizar una discrepancia concreta
 - resumir una operación
 - redactar una narrativa ejecutiva de la sesión
+- redactar narrativa analítica por rango de fechas
+- responder preguntas en el chat analítico guiado
+- redactar narrativa regulatoria congelada dentro de un snapshot
 
 ## Arquitectura funcional
 
 ### Modelo de datos
 
-El backend trabaja con cuatro entidades principales definidas en [models.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/models.py):
+El backend trabaja con cinco entidades principales definidas en [models.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/models.py):
 
 - `Session`
   Resume una carga completa: fichero, contrapartes, tipo predominante, número total de operaciones y métricas agregadas.
@@ -53,6 +66,8 @@ El backend trabaja con cuatro entidades principales definidas en [models.py](/ho
   Representa la comparación de un campo SFTR concreto dentro de una operación.
 - `ActivityLog`
   Registra cambios y acciones sobre la sesión, la operación o una comparación.
+- `ReportingSnapshot`
+  Congela un payload agregado de reporting regulatorio, junto con su narrativa y metadatos de emisión, para poder reexportarlo sin recalcular el rango completo.
 
 Relación conceptual:
 
@@ -61,6 +76,11 @@ Session
   -> TradeRecord
        -> FieldComparison
   -> ActivityLog
+
+ReportingSnapshot
+  -> payload agregado serializado
+  -> narrativa congelada
+  -> artefactos cacheados (xlsx/pdf/doc)
 ```
 
 ### Flujo backend
@@ -88,10 +108,14 @@ backend/
       sessions.py
       analytics.py
       ai.py
+      reporting.py
     services/
       file_parser.py
       comparison.py
       export.py
+      regulatory_reporting.py
+      report_cache.py
+      report_export.py
       field_registry.py
       llm_provider.py
       ai_agents.py
@@ -100,6 +124,7 @@ backend/
     main.py
     models.py
     schemas.py
+  report_cache/
   sample_data/
 frontend/
   src/
@@ -271,11 +296,11 @@ La capa IA es desacoplable y configurable por proveedor.
 
 ### Configuración
 
-Archivo: [backend/.env](/home/alejandrobarrera/sftr-unmatch-detector/backend/.env)
+Plantilla recomendada: [backend/.env.example](/home/alejandrobarrera/sftr-unmatch-detector/backend/.env.example)
 
 ```env
 LLM_PROVIDER=ollama
-LLM_MODEL=gemma4:e4b
+LLM_MODEL=gemma4:e2b
 LLM_BASE_URL=http://localhost:11434
 LLM_API_KEY=
 ```
@@ -298,6 +323,14 @@ Implementados en [ai_agents.py](/home/alejandrobarrera/sftr-unmatch-detector/bac
   Resume y prioriza discrepancias de una operación.
 - `generate_session_narrative`
   Genera una narrativa ejecutiva de una sesión completa.
+- `generate_analytics_report`
+  Redacta un informe narrativo del rango temporal seleccionado en analítica.
+- `generate_analytics_compare_report`
+  Redacta una comparación narrativa entre dos periodos.
+- `answer_analytics_chat`
+  Responde preguntas del chat analítico guiado con contexto agregado del rango, del día seleccionado y de la comparación entre periodos.
+- `generate_regulatory_narrative`
+  Redacta una narrativa regulatoria basada solo en payload agregado congelado, no sobre detalle bruto.
 
 ### Uso esperado
 
@@ -317,6 +350,26 @@ La IA es una capa adicional de interpretación. La lógica determinista de conci
   Vista de operaciones de una sesión, export y resumen IA.
 - [TradeDetailPage.tsx](/home/alejandrobarrera/sftr-unmatch-detector/frontend/src/pages/TradeDetailPage.tsx)
   Detalle completo de una operación con filtros por campo.
+- [AnalyticsPage.tsx](/home/alejandrobarrera/sftr-unmatch-detector/frontend/src/pages/AnalyticsPage.tsx)
+  Analítica agregada por rango, comparación entre periodos, drill-down diario, informe IA, chat analítico guiado y bloque de reporting regulatorio.
+
+### Capacidades actuales de analítica y reporting
+
+- Filtro por rango de fechas
+- KPIs agregados del periodo
+- evolución diaria de discrepancias, críticas y `UNPAIR`
+- distribución operativa diaria
+- top campos con más incidencias
+- análisis por contraparte
+- análisis por tipo SFT
+- comparación entre dos periodos con deltas absolutos y porcentuales
+- informe IA del rango seleccionado
+- informe IA comparativo entre periodos
+- drill-down desde la analítica diaria hasta las sesiones concretas
+- chat analítico guiado con visual sugerido clicable
+- preview de reporte regulatorio por rango
+- generación de snapshot regulatorio reproducible
+- histórico reciente de snapshots y estado de caché de artefactos
 
 ### Componentes principales
 
@@ -339,7 +392,9 @@ La IA es una capa adicional de interpretación. La lógica determinista de conci
 | `GET` | `/api/sessions/{id}/summary` | Resumen agregado |
 | `GET` | `/api/sessions/{id}/activity` | Trazabilidad |
 | `POST` | `/api/sessions/{id}/bulk-update` | Acción masiva |
+| `GET` | `/api/sessions/{id}/export` | Export XLSX |
 | `POST` | `/api/sessions/{id}/export` | Export XLSX |
+| `POST` | `/api/sessions/{id}/reprocess` | Recalcula una sesión ya cargada con la lógica de comparación actual |
 
 ### Operaciones
 
@@ -357,10 +412,13 @@ La IA es una capa adicional de interpretación. La lógica determinista de conci
 
 | Método | Endpoint | Descripción |
 | --- | --- | --- |
+| `GET` | `/api/analytics/overview` | Resumen agregado del rango |
+| `GET` | `/api/analytics/daily` | Serie diaria del rango |
 | `GET` | `/api/analytics/top-fields` | Campos con más discrepancias |
-| `GET` | `/api/analytics/trend` | Tendencia por fecha |
 | `GET` | `/api/analytics/by-counterparty` | Resumen por contrapartes |
 | `GET` | `/api/analytics/by-sft-type` | Resumen por tipo SFT |
+| `GET` | `/api/analytics/compare` | Comparación entre dos periodos |
+| `GET` | `/api/analytics/sessions-by-day` | Drill-down a las sesiones de un día |
 
 ### IA
 
@@ -370,6 +428,25 @@ La IA es una capa adicional de interpretación. La lógica determinista de conci
 | `POST` | `/api/ai/field-comparisons/{fc_id}/analyze` | Análisis IA de una discrepancia |
 | `POST` | `/api/ai/trades/{trade_id}/analyze` | Análisis IA de una operación |
 | `POST` | `/api/ai/sessions/{session_id}/narrative` | Narrativa ejecutiva de una sesión |
+| `POST` | `/api/ai/analytics/report` | Informe IA del rango analítico |
+| `POST` | `/api/ai/analytics/compare-report` | Informe IA comparativo entre periodos |
+| `POST` | `/api/ai/analytics/chat` | Chat analítico guiado |
+| `POST` | `/api/ai/analytics/report/export` | Export PDF o Word del informe analítico ya generado |
+
+### Reporting regulatorio
+
+| Método | Endpoint | Descripción |
+| --- | --- | --- |
+| `GET` | `/api/reporting/regulatory/preview` | Preview regulatorio por rango |
+| `GET` | `/api/reporting/regulatory/export.xlsx` | Export regulatorio estructurado del rango |
+| `POST` | `/api/reporting/regulatory/generate` | Genera snapshot regulatorio reproducible |
+| `GET` | `/api/reporting/regulatory/snapshots` | Lista snapshots recientes |
+| `GET` | `/api/reporting/regulatory/snapshots/{id}` | Recupera un snapshot |
+| `GET` | `/api/reporting/regulatory/snapshots/{id}/export.xlsx` | Export XLSX desde snapshot congelado |
+| `GET` | `/api/reporting/regulatory/snapshots/{id}/export.pdf` | Export PDF desde snapshot congelado |
+| `GET` | `/api/reporting/regulatory/snapshots/{id}/export.doc` | Export Word desde snapshot congelado |
+| `GET` | `/api/reporting/regulatory/snapshots/{id}/artifacts` | Estado de artefactos cacheados |
+| `POST` | `/api/reporting/regulatory/snapshots/{id}/warm-cache` | Precalienta caché de artefactos |
 
 ## Setup local
 
@@ -418,6 +495,161 @@ backend/sftr_unmatch.db
 
 Puede sobrescribirse con `DATABASE_URL`.
 
+### Caché de reportes
+
+Los artefactos exportados desde snapshots regulatorios se guardan localmente en:
+
+```text
+backend/report_cache/
+```
+
+Ese directorio:
+
+- no se versiona en Git
+- acelera reexportaciones de `XLSX`, `PDF` y `Word`
+- puede precalentarse con `warm-cache` antes de una demo o entrega formal
+
+## Docker
+
+El repositorio ya incluye una dockerización simple orientada a desarrollo, demo y handoff:
+
+- [docker-compose.yml](/home/alejandrobarrera/sftr-unmatch-detector/docker-compose.yml)
+- [backend/Dockerfile](/home/alejandrobarrera/sftr-unmatch-detector/backend/Dockerfile)
+- [frontend/Dockerfile](/home/alejandrobarrera/sftr-unmatch-detector/frontend/Dockerfile)
+
+### Qué levanta
+
+- `backend`
+  FastAPI en `:8000`
+- `frontend`
+  Vite en `:5173`
+- `ollama`
+  Servicio local de modelos en `:11434`
+
+### Persistencia en contenedores
+
+`docker-compose` monta volúmenes dedicados para:
+
+- modelos de `Ollama`
+- SQLite en `/app/data/sftr_unmatch.db`
+- caché de snapshots regulatorios en `/app/report_cache`
+- `node_modules` del frontend
+
+Esto evita perder:
+
+- modelos descargados
+- base de datos
+- artefactos cacheados `XLSX/PDF/Word`
+
+al reiniciar contenedores.
+
+### Arranque rápido
+
+Primero, si quieres IA con proveedor externo:
+
+1. Copia [backend/.env.example](/home/alejandrobarrera/sftr-unmatch-detector/backend/.env.example) a `backend/.env`.
+2. Ajusta `LLM_PROVIDER`, `LLM_MODEL` y `LLM_API_KEY` según corresponda.
+
+Luego:
+
+```bash
+docker compose up --build
+```
+
+Servicios esperados:
+
+- frontend: `http://localhost:5173`
+- backend: `http://localhost:8000`
+- docs API: `http://localhost:8000/docs`
+- ollama: `http://localhost:11434`
+
+### Descargar un modelo en el servicio `ollama`
+
+La primera vez que levantes el stack, el servicio `ollama` arrancará vacío. Para descargar el modelo:
+
+```bash
+docker compose exec ollama ollama pull gemma4:e2b
+```
+
+Después puedes comprobarlo con:
+
+```bash
+docker compose exec ollama ollama list
+```
+
+Si prefieres hacerlo en un solo paso, tienes un script en la raíz:
+
+```bash
+bash ./start-docker-stack.sh
+```
+
+También acepta un modelo alternativo:
+
+```bash
+bash ./start-docker-stack.sh gemma4:e4b
+```
+
+### Scripts auxiliares
+
+Parar el stack:
+
+```bash
+bash ./stop-docker-stack.sh
+```
+
+Parar y limpiar volúmenes e imágenes locales del proyecto:
+
+```bash
+bash ./clean-docker-stack.sh
+```
+
+Comprobar salud del stack y del modelo cargado:
+
+```bash
+bash ./check-docker-stack.sh
+```
+
+Con modelo alternativo:
+
+```bash
+bash ./check-docker-stack.sh gemma4:e4b
+```
+
+El backend del stack apunta por defecto a:
+
+```env
+LLM_BASE_URL=http://ollama:11434
+```
+
+por lo que no depende de un daemon ambiguo del host.
+
+### Parada
+
+```bash
+docker compose down
+```
+
+### Limpiar también volúmenes
+
+```bash
+docker compose down -v
+```
+
+### Notas importantes
+
+- La primera descarga de un modelo puede tardar y ocupar varios GB.
+- Si prefieres usar el `Ollama` del host en vez del servicio del stack, puedes hacerlo reemplazando `LLM_BASE_URL`.
+- Para apuntar al `Ollama` del host desde Docker, usa:
+
+```env
+LLM_PROVIDER=ollama
+LLM_MODEL=gemma4:e2b
+LLM_BASE_URL=http://host.docker.internal:11434
+```
+
+- Para Docker es más simple usar `Anthropic` u `OpenAI` mediante `backend/.env`.
+- El stack actual usa SQLite para reproducibilidad y simplicidad; cuando el volumen crezca, el siguiente salto natural es `PostgreSQL`.
+
 ### Configuración recomendada para Devin + Anthropic
 
 Si vas a probar el repositorio dentro de `app.devin.ai`, lo recomendable es usar `Anthropic` u `OpenAI` con API key. Un `Ollama` local en tu máquina no será accesible desde Devin salvo que lo expongas como servicio remoto.
@@ -449,6 +681,8 @@ Ficheros relevantes:
 - [sftr_reconciliation_sample.csv](/home/alejandrobarrera/sftr-unmatch-detector/backend/sample_data/sftr_reconciliation_sample.csv)
   Fichero tabular de ejemplo con 5 operaciones y 313 columnas.
 - [sftr_reconciliation_demo.csv](/home/alejandrobarrera/sftr-unmatch-detector/backend/sample_data/sftr_reconciliation_demo.csv)
+- [march_2026](/home/alejandrobarrera/sftr-unmatch-detector/backend/sample_data/march_2026)
+  Lote de CSV sintéticos diarios para todo marzo de 2026, auditados con el comparador real del backend.
 - [emisor_report.csv](/home/alejandrobarrera/sftr-unmatch-detector/backend/sample_data/emisor_report.csv)
 - [receptor_report.csv](/home/alejandrobarrera/sftr-unmatch-detector/backend/sample_data/receptor_report.csv)
   Artefactos del modelo anterior, mantenidos como referencia.
@@ -464,8 +698,11 @@ El proyecto está funcional, pero no cerrado. Puntos importantes:
 - no hay suite de tests automatizados
 - no hay migraciones versionadas, se sigue usando `Base.metadata.create_all()`
 - la vista de sesión todavía no implementa paginación frontend real para cargas muy grandes
-- el export XLSX sigue siendo funcional, pero su formato aún puede adaptarse mejor al nuevo modelo por operación
+- SQLite sigue siendo suficiente para el MVP avanzado, pero no es la base adecuada para volúmenes tipo Santander a escala real
+- la dockerización actual está pensada para desarrollo/demo; no sustituye una arquitectura de despliegue productiva
+- la generación de snapshots y exports ya evita recalcular informes completos, pero aún no hay jobs asíncronos con cola ni materializaciones persistidas por día
 - la UI no está completamente unificada en español en todas las pantallas
+- snapshots creados antes de la introducción de `comparison_to_previous_period` y `risk_residual` pueden no contener esos campos enriquecidos
 
 ## Qué se ha hecho en esta iteración
 
@@ -479,15 +716,25 @@ El proyecto está funcional, pero no cerrado. Puntos importantes:
 - edición de discrepancias por campo
 - capa IA desacoplable por proveedor
 - branding qaracter aplicado al frontend
+- analítica por rango con drill-down diario
+- comparación entre periodos e informe IA comparativo
+- chat analítico guiado con visual sugerido
+- preview regulatorio por rango
+- snapshots regulatorios reproducibles
+- narrativa regulatoria congelada sobre payload agregado
+- caché local de artefactos `XLSX/PDF/Word`
+- dockerización simple para backend y frontend
 
 ## Siguientes mejoras naturales
 
 - mapping configurable de columnas de entrada
 - validación proactiva de LEI, ISIN, fechas y divisas
 - tolerancias por campo
-- trazabilidad y reporting auditable más formal
-- paginación y búsqueda server-side para sesiones grandes
 - tests de parser, comparación y API
+- migraciones versionadas
+- PostgreSQL y estrategia de índices/particionado
+- materializaciones o snapshots agregados diarios para reporting masivo
+- jobs asíncronos reales para generación pesada
 
 ## Referencias de implementación
 
@@ -497,8 +744,12 @@ El proyecto está funcional, pero no cerrado. Puntos importantes:
 - parser: [file_parser.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/file_parser.py)
 - comparación: [comparison.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/comparison.py)
 - export: [export.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/export.py)
+- reporting regulatorio: [regulatory_reporting.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/regulatory_reporting.py)
+- caché de artefactos: [report_cache.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/report_cache.py)
+- export PDF/Word: [report_export.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/report_export.py)
 - IA: [llm_provider.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/llm_provider.py)
 - IA: [ai_agents.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/services/ai_agents.py)
 - router sesiones: [sessions.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/routers/sessions.py)
 - router analítica: [analytics.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/routers/analytics.py)
 - router IA: [ai.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/routers/ai.py)
+- router reporting: [reporting.py](/home/alejandrobarrera/sftr-unmatch-detector/backend/app/routers/reporting.py)
