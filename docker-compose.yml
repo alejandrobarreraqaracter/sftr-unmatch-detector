@@ -13,7 +13,6 @@ services:
     container_name: sftr-backend
     environment:
       DATABASE_URL: sqlite:////app/data/sftr_unmatch.db
-      LLM_BASE_URL: http://ollama:11434
     ports:
       - "8000:8000"
     depends_on:
