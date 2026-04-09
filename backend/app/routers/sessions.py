@@ -163,21 +163,35 @@ def get_session(
     session_id: int,
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=100, le=500),
+    has_unmatches: Optional[bool] = Query(default=None),
+    search: Optional[str] = Query(default=None),
+    min_severity: Optional[str] = Query(default=None),
     db: DBSession = Depends(get_db),
 ):
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
 
-    # Load trades paginated (without field_comparisons — those are per-trade)
-    trades = (
-        db.query(TradeRecord)
-        .filter(TradeRecord.session_id == session_id)
-        .order_by(TradeRecord.row_number)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
+    # Load trades paginated with optional filters
+    query = db.query(TradeRecord).filter(TradeRecord.session_id == session_id)
+
+    # Filter: only trades with unmatches
+    if has_unmatches is not None:
+        query = query.filter(TradeRecord.has_unmatches == has_unmatches)
+
+    # Filter: minimum severity (CRITICAL only, or CRITICAL+WARNING)
+    if min_severity == "CRITICAL":
+        query = query.filter(TradeRecord.critical_count > 0)
+    elif min_severity == "WARNING":
+        query = query.filter(
+            (TradeRecord.critical_count > 0) | (TradeRecord.warning_count > 0)
+        )
+
+    # Search: by UTI
+    if search:
+        query = query.filter(TradeRecord.uti.ilike(f"%{search}%"))
+
+    trades = query.order_by(TradeRecord.row_number).offset(skip).limit(limit).all()
     _annotate_trade_pairing(trades, db)
     session.trades = trades
     return session
@@ -306,6 +320,15 @@ def _build_export_response(
     xlsx_bytes = generate_xlsx(session_data, field_results, only_unmatches)
     date_str = datetime.now().strftime("%Y%m%d")
     filename = f"sftr_unmatch_{session.id}_{date_str}.xlsx"
+
+    # Audit trail: log export action
+    log = ActivityLog(
+        session_id=session_id,
+        action="SESSION_EXPORTED",
+        detail=f"Exported {'unmatches only' if only_unmatches else 'all fields'} — {len(field_results)} rows, file: {filename}",
+    )
+    db.add(log)
+    db.commit()
 
     return StreamingResponse(
         BytesIO(xlsx_bytes),

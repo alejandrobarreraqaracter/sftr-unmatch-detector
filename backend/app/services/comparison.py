@@ -8,19 +8,14 @@ Produces a FieldComparison result per field with result, severity, and root_caus
 import re
 from typing import Optional
 from app.services.field_registry import get_all_fields, get_field_by_name, get_obligation
+from app.services.tolerances import get_tolerance
+from app.services.validators import validate_field_value
 
 MIRROR_PAIRS = {
     "GIVE": "TAKE",
     "TAKE": "GIVE",
     "MRGG": "MRGE",
     "MRGE": "MRGG",
-}
-
-# Numeric tolerance per obligation type (absolute delta)
-NUMERIC_TOLERANCES: dict[str, float] = {
-    "M": 0.0001,   # Critical fields: very tight
-    "C": 0.01,     # Conditional fields: slightly looser
-    "O": 0.01,
 }
 
 NUMERIC_RE = re.compile(r"^-?\d+(\.\d+)?([eE][+-]?\d+)?$")
@@ -127,7 +122,11 @@ def compare_field(
 
     e_norm = normalize(emisor_val)
     r_norm = normalize(receptor_val)
-    tolerance = NUMERIC_TOLERANCES.get(obligation, 0.0001)
+    tolerance = get_tolerance(field_name, obligation)
+
+    # Proactive validation: check individual field values
+    emisor_validation = validate_field_value(field_name, emisor_val) if emisor_val else None
+    receptor_validation = validate_field_value(field_name, receptor_val) if receptor_val else None
 
     if obligation == "-":
         if not e_norm and not r_norm:
@@ -164,6 +163,16 @@ def compare_field(
         root_cause = detect_root_cause(e_norm, r_norm, obligation, is_mirror)
 
     status = "PENDING" if result == "UNMATCH" else "EXCLUDED"
+    validated = not (emisor_validation or receptor_validation)
+
+    # Preserve validation issues even when values happen to match.
+    if emisor_validation or receptor_validation:
+        if emisor_validation and receptor_validation:
+            root_cause = "BOTH_INVALID_FORMAT"
+        elif emisor_validation:
+            root_cause = f"EMISOR_{emisor_validation}"
+        elif receptor_validation:
+            root_cause = f"RECEPTOR_{receptor_validation}"
 
     return {
         "table_number": table_number,
@@ -176,7 +185,9 @@ def compare_field(
         "severity": severity,
         "root_cause": root_cause,
         "status": status,
-        "validated": True,
+        "validated": validated,
+        "emisor_validation": emisor_validation,
+        "receptor_validation": receptor_validation,
     }
 
 

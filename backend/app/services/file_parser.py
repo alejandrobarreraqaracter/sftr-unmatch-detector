@@ -11,18 +11,10 @@ Column name normalization: lowercase, non-alphanumeric chars replaced with under
 Example: "Reporting timestamp" → "reporting_timestamp_cp1" / "reporting_timestamp_cp2"
 """
 
-import re
 import pandas as pd
 from io import BytesIO
-from typing import Optional
 
-
-def normalize_col(name: str) -> str:
-    """Normalize a string to a column-safe name."""
-    name = str(name).strip().lower()
-    name = re.sub(r"[^a-z0-9]+", "_", name)
-    name = re.sub(r"_+", "_", name)
-    return name.strip("_")
+from app.services.column_mapping import normalize_col, build_column_index, resolve_alias
 
 
 def parse_tabular_csv(content: bytes) -> list[dict]:
@@ -37,31 +29,24 @@ def parse_tabular_csv(content: bytes) -> list[dict]:
     df = pd.read_csv(BytesIO(content), sep=";", dtype=str, keep_default_na=False)
     df.columns = [c.strip() for c in df.columns]
 
-    # Build normalized column index
-    norm_to_original: dict[str, str] = {normalize_col(c): c for c in df.columns}
-
-    # Identify CP1/CP2 column pairs
-    cp1_cols: dict[str, str] = {}   # base_name -> original_col
-    cp2_cols: dict[str, str] = {}
-
-    for norm, orig in norm_to_original.items():
-        if norm.endswith("_cp1"):
-            base = norm[:-4]
-            cp1_cols[base] = orig
-        elif norm.endswith("_cp2"):
-            base = norm[:-4]
-            cp2_cols[base] = orig
-
-    metadata_keys = {"uti", "sft_type", "action_type", "emisor_name", "receptor_name", "emisor_lei", "receptor_lei"}
+    # Build column index with alias resolution
+    cp1_cols, cp2_cols, norm_to_original = build_column_index(list(df.columns))
 
     rows = []
     for _, row in df.iterrows():
         raw = row.to_dict()
 
         def get_meta(key: str, default: str = "") -> str:
+            # Check direct normalized key first
             orig = norm_to_original.get(key)
             if orig:
                 return str(raw.get(orig, "")).strip()
+            # Check alias
+            canonical = resolve_alias(key)
+            if canonical != key:
+                orig = norm_to_original.get(canonical)
+                if orig:
+                    return str(raw.get(orig, "")).strip()
             return default
 
         emisor: dict[str, str] = {}
