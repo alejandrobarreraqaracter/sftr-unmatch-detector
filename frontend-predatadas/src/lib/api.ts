@@ -2,8 +2,39 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
 export type ProductType = "sftr" | "predatadas";
 const DEFAULT_PRODUCT_TYPE: ProductType = "predatadas";
 
+export type DemoUser = {
+  username: string;
+  display_name: string;
+};
+
+const DEMO_USER_STORAGE_KEY = "predatadas-demo-user";
+
+export function getStoredDemoUser(): DemoUser | null {
+  const raw = window.localStorage.getItem(DEMO_USER_STORAGE_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as DemoUser;
+  } catch {
+    window.localStorage.removeItem(DEMO_USER_STORAGE_KEY);
+    return null;
+  }
+}
+
+export function setStoredDemoUser(user: DemoUser | null) {
+  if (!user) {
+    window.localStorage.removeItem(DEMO_USER_STORAGE_KEY);
+    return;
+  }
+  window.localStorage.setItem(DEMO_USER_STORAGE_KEY, JSON.stringify(user));
+}
+
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, options);
+  const headers = new Headers(options?.headers);
+  const demoUser = getStoredDemoUser();
+  if (demoUser?.username) {
+    headers.set("X-Demo-User", demoUser.username);
+  }
+  const res = await fetch(`${API_URL}${path}`, { ...options, headers });
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`API error ${res.status}: ${body}`);
@@ -363,7 +394,59 @@ export function exportUrl(sessionId: number, unmatches_only = false): string {
 export interface AIStatus {
   provider: string;
   model: string;
+  label?: string;
+  profile_key?: string;
   available: boolean;
+}
+
+export interface LLMProfile {
+  id: number;
+  profile_key: string;
+  label: string;
+  provider: string;
+  model: string;
+  base_url: string | null;
+  input_cost_per_million: number | null;
+  output_cost_per_million: number | null;
+  enabled: boolean;
+  is_active: boolean;
+  sort_order: number;
+}
+
+export interface LLMUsageOverview {
+  total_requests: number;
+  total_input_tokens: number;
+  total_output_tokens: number;
+  total_cached_input_tokens: number;
+  total_cost: number;
+  date_from: string | null;
+  date_to: string | null;
+}
+
+export interface LLMUsageDailyItem {
+  date: string;
+  requests: number;
+  input_tokens: number;
+  output_tokens: number;
+  total_cost: number;
+}
+
+export interface LLMUsageByUserItem {
+  username: string;
+  display_name: string;
+  requests: number;
+  input_tokens: number;
+  output_tokens: number;
+  total_cost: number;
+}
+
+export interface LLMUsageByModelItem {
+  provider: string;
+  model: string;
+  requests: number;
+  input_tokens: number;
+  output_tokens: number;
+  total_cost: number;
 }
 
 export interface FieldAnalysis {
@@ -417,10 +500,55 @@ export interface AnalyticsChatResponse {
   answer: string;
   suggested_visual: "none" | "daily_trend" | "top_fields" | "counterparties" | "day_sessions" | "comparison";
   selected_day?: string | null;
+  guardrail_triggered?: boolean;
+}
+
+export async function loginDemoUser(username: string, password: string): Promise<DemoUser> {
+  return request<DemoUser>("/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+}
+
+export async function getDemoUsers(): Promise<DemoUser[]> {
+  return request<DemoUser[]>("/api/auth/users");
+}
+
+export async function getMe(): Promise<DemoUser> {
+  return request<DemoUser>("/api/auth/me");
 }
 
 export async function getAIStatus(): Promise<AIStatus> {
   return request<AIStatus>("/api/ai/status");
+}
+
+export async function getAIProfiles(): Promise<LLMProfile[]> {
+  return request<LLMProfile[]>("/api/ai/profiles");
+}
+
+export async function activateAIProfile(profileKey: string): Promise<LLMProfile> {
+  return request<LLMProfile>("/api/ai/profiles/activate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ profile_key: profileKey }),
+  });
+}
+
+export async function getLLMUsageOverview(dateFrom?: string, dateTo?: string): Promise<LLMUsageOverview> {
+  return request<LLMUsageOverview>(withDateRange("/api/ai/usage/overview", dateFrom, dateTo));
+}
+
+export async function getLLMUsageDaily(dateFrom?: string, dateTo?: string): Promise<LLMUsageDailyItem[]> {
+  return request<LLMUsageDailyItem[]>(withDateRange("/api/ai/usage/daily", dateFrom, dateTo));
+}
+
+export async function getLLMUsageByUser(dateFrom?: string, dateTo?: string): Promise<LLMUsageByUserItem[]> {
+  return request<LLMUsageByUserItem[]>(withDateRange("/api/ai/usage/by-user", dateFrom, dateTo));
+}
+
+export async function getLLMUsageByModel(dateFrom?: string, dateTo?: string): Promise<LLMUsageByModelItem[]> {
+  return request<LLMUsageByModelItem[]>(withDateRange("/api/ai/usage/by-model", dateFrom, dateTo));
 }
 
 export async function analyzeField(fcId: number): Promise<FieldAnalysis> {
