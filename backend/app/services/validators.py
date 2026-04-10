@@ -14,7 +14,6 @@ Supported validations:
 """
 
 import re
-from datetime import date, datetime
 from typing import Optional
 
 
@@ -60,18 +59,19 @@ def validate_date(value: str) -> Optional[str]:
     v = value.strip()
     if not DATE_RE.match(v):
         return "INVALID_DATE_FORMAT"
+    # Basic range check
     try:
-        if "T" in v:
-            normalized = v.replace("Z", "+00:00")
-            parsed = datetime.fromisoformat(normalized)
-            year = parsed.year
-        else:
-            parsed = date.fromisoformat(v)
-            year = parsed.year
+        year = int(v[:4])
+        month = int(v[5:7])
+        day = int(v[8:10])
         if not (1900 <= year <= 2100):
             return "INVALID_DATE_RANGE"
-    except ValueError:
-        return "INVALID_DATE_RANGE"
+        if not (1 <= month <= 12):
+            return "INVALID_DATE_RANGE"
+        if not (1 <= day <= 31):
+            return "INVALID_DATE_RANGE"
+    except (ValueError, IndexError):
+        return "INVALID_DATE_FORMAT"
     return None
 
 

@@ -221,10 +221,9 @@ def compare_field(
         root_cause = detect_root_cause(e_norm, r_norm, obligation, is_mirror)
 
     status = "PENDING" if result == "UNMATCH" else "EXCLUDED"
-    validated = not (emisor_validation or receptor_validation)
 
-    # Preserve validation issues even when values happen to match.
-    if emisor_validation or receptor_validation:
+    # If root_cause is VALUE_MISMATCH but we have validation errors, enrich it
+    if root_cause == "VALUE_MISMATCH" and (emisor_validation or receptor_validation):
         if emisor_validation and receptor_validation:
             root_cause = "BOTH_INVALID_FORMAT"
         elif emisor_validation:
@@ -246,7 +245,7 @@ def compare_field(
         "severity": severity,
         "root_cause": root_cause,
         "status": status,
-        "validated": validated,
+        "validated": True,
         "emisor_validation": emisor_validation,
         "receptor_validation": receptor_validation,
     }
