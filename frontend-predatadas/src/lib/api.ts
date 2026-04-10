@@ -423,6 +423,25 @@ export interface LLMUsageOverview {
   date_to: string | null;
 }
 
+export interface LLMUsageLimitStatus {
+  username: string;
+  display_name: string;
+  window_hours: number;
+  token_limit: number;
+  warning_ratio: number;
+  requests_used: number;
+  input_tokens_used: number;
+  output_tokens_used: number;
+  total_tokens_used: number;
+  remaining_tokens: number;
+  total_cost: number;
+  window_started_at: string;
+  resets_at: string;
+  is_near_limit: boolean;
+  is_blocked: boolean;
+  active_alerts: string[];
+}
+
 export interface LLMUsageDailyItem {
   date: string;
   requests: number;
@@ -501,6 +520,7 @@ export interface AnalyticsChatResponse {
   suggested_visual: "none" | "daily_trend" | "top_fields" | "counterparties" | "day_sessions" | "comparison";
   selected_day?: string | null;
   guardrail_triggered?: boolean;
+  usage_status?: LLMUsageLimitStatus;
 }
 
 export async function loginDemoUser(username: string, password: string): Promise<DemoUser> {
@@ -537,6 +557,10 @@ export async function activateAIProfile(profileKey: string): Promise<LLMProfile>
 
 export async function getLLMUsageOverview(dateFrom?: string, dateTo?: string): Promise<LLMUsageOverview> {
   return request<LLMUsageOverview>(withDateRange("/api/ai/usage/overview", dateFrom, dateTo));
+}
+
+export async function getMyLLMUsageLimitStatus(): Promise<LLMUsageLimitStatus> {
+  return request<LLMUsageLimitStatus>("/api/ai/usage/limits/me");
 }
 
 export async function getLLMUsageDaily(dateFrom?: string, dateTo?: string): Promise<LLMUsageDailyItem[]> {

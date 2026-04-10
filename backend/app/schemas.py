@@ -190,6 +190,25 @@ class LLMUsageOverview(BaseModel):
     date_to: Optional[str] = None
 
 
+class LLMUsageLimitStatus(BaseModel):
+    username: str
+    display_name: str
+    window_hours: int
+    token_limit: int
+    warning_ratio: float
+    requests_used: int
+    input_tokens_used: int
+    output_tokens_used: int
+    total_tokens_used: int
+    remaining_tokens: int
+    total_cost: float
+    window_started_at: datetime
+    resets_at: datetime
+    is_near_limit: bool
+    is_blocked: bool
+    active_alerts: list[str]
+
+
 class LLMUsageDailyItem(BaseModel):
     date: str
     requests: int

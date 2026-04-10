@@ -19,6 +19,7 @@ from app.schemas import (
     LLMUsageByModelItem,
     LLMUsageByUserItem,
     LLMUsageDailyItem,
+    LLMUsageLimitStatus,
     LLMUsageOverview,
 )
 from app.services.ai_agents import (
@@ -31,7 +32,15 @@ from app.services.ai_agents import (
     is_analytics_question_in_scope,
 )
 from app.services.demo_users import get_demo_user
-from app.services.llm_runtime import activate_profile, get_active_profile, get_provider_for_request, list_llm_profiles, record_usage_event
+from app.services.llm_runtime import (
+    activate_profile,
+    enforce_usage_limit,
+    get_active_profile,
+    get_provider_for_request,
+    get_usage_limit_status,
+    list_llm_profiles,
+    record_usage_event,
+)
 from app.services.report_export import generate_pdf_report, generate_word_report_html
 from app.config import OLLAMA_BASE_URL
 
@@ -79,6 +88,12 @@ def _get_request_user(x_demo_user: str | None) -> tuple[str, str]:
     if user:
         return user["username"], user["display_name"]
     return "anonymous", "Invitado"
+
+
+def _prepare_llm_request(db: DBSession, x_demo_user: str | None):
+    usage_status = enforce_usage_limit(db, x_demo_user)
+    profile, provider = get_provider_for_request(db)
+    return usage_status, profile, provider
 
 
 @router.get("/status")
@@ -130,6 +145,14 @@ def usage_overview(
         date_from=date_from,
         date_to=date_to,
     )
+
+
+@router.get("/usage/limits/me", response_model=LLMUsageLimitStatus)
+def usage_limits_me(
+    db: DBSession = Depends(get_db),
+    x_demo_user: str | None = Header(default=None),
+):
+    return LLMUsageLimitStatus(**get_usage_limit_status(db, x_demo_user))
 
 
 @router.get("/usage/daily", response_model=list[LLMUsageDailyItem])
@@ -267,7 +290,7 @@ async def analyze_field_comparison(fc_id: int, db: DBSession = Depends(get_db), 
     trade = db.query(TradeRecord).filter(TradeRecord.id == fc.trade_id).first()
 
     try:
-        profile, provider = get_provider_for_request(db)
+        _, profile, provider = _prepare_llm_request(db, x_demo_user)
         result = await analyze_field(
             provider=provider,
             field_name=fc.field_name,
@@ -309,7 +332,7 @@ async def analyze_trade_endpoint(trade_id: int, db: DBSession = Depends(get_db),
         return {"trade_id": trade_id, "summary": "No unmatches found in this trade.", "priority_field": None, "main_risk": None, "recommended_action": None}
 
     try:
-        profile, provider = get_provider_for_request(db)
+        _, profile, provider = _prepare_llm_request(db, x_demo_user)
         result = await analyze_trade(
             provider=provider,
             uti=trade.uti or f"Trade #{trade.row_number}",
@@ -372,7 +395,7 @@ async def session_narrative(session_id: int, db: DBSession = Depends(get_db), x_
     }
 
     try:
-        profile, provider = get_provider_for_request(db)
+        _, profile, provider = _prepare_llm_request(db, x_demo_user)
         narrative = await generate_session_narrative(provider, session_data, top_fields, sample_trades)
         record_usage_event(db, profile, provider, "session_narrative", x_demo_user)
     except httpx.HTTPError as exc:
@@ -473,7 +496,7 @@ async def analytics_report(
     daily_items = sorted(daily_map.values(), key=lambda item: item["date"])
 
     try:
-        profile, provider = get_provider_for_request(db)
+        _, profile, provider = _prepare_llm_request(db, x_demo_user)
         narrative = await generate_analytics_narrative(provider, overview, daily_items, top_fields, counterparties)
         record_usage_event(db, profile, provider, "analytics_report", x_demo_user)
     except httpx.HTTPError as exc:
@@ -493,7 +516,7 @@ async def analytics_chat(
     db: DBSession = Depends(get_db),
     x_demo_user: str | None = Header(default=None),
 ):
-    profile, provider = get_provider_for_request(db)
+    usage_status, profile, provider = _prepare_llm_request(db, x_demo_user)
     if not is_analytics_question_in_scope(request.question):
         return {
             "provider": profile.provider,
@@ -509,6 +532,7 @@ async def analytics_chat(
             "selected_day": request.selected_day,
             "product_type": request.product_type,
             "guardrail_triggered": True,
+            "usage_status": usage_status,
         }
     sessions = _get_filtered_sessions(db, request.date_from, request.date_to, request.product_type)
     session_ids = [session.id for session in sessions]
@@ -667,6 +691,7 @@ async def analytics_chat(
         "selected_day": request.selected_day,
         "product_type": request.product_type,
         "guardrail_triggered": False,
+        "usage_status": usage_status,
     }
 
 
@@ -682,7 +707,7 @@ async def analytics_compare_report(
 ):
     comparison = compare_periods(from_a=from_a, to_a=to_a, from_b=from_b, to_b=to_b, product_type=product_type, db=db)
     try:
-        profile, provider = get_provider_for_request(db)
+        _, profile, provider = _prepare_llm_request(db, x_demo_user)
         narrative = await generate_comparison_narrative(
             provider,
             comparison["period_a"],

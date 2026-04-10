@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from typing import Optional
 
 from sqlalchemy.orm import Session as DBSession
@@ -8,6 +8,9 @@ from sqlalchemy.orm import Session as DBSession
 from app.config import (
     ANTHROPIC_API_KEY,
     DEFAULT_LLM_PROFILES,
+    LLM_USAGE_TOKEN_LIMIT_PER_WINDOW,
+    LLM_USAGE_WARNING_RATIO,
+    LLM_USAGE_WINDOW_HOURS,
     OLLAMA_BASE_URL,
     OPENAI_API_KEY,
     OPENAI_BASE_URL,
@@ -20,6 +23,7 @@ from app.services.llm_provider import (
     OllamaProvider,
     OpenAIProvider,
 )
+from fastapi import HTTPException
 
 
 def ensure_llm_profiles_seeded(db: DBSession) -> list[LLMProfile]:
@@ -177,3 +181,76 @@ def record_usage_event(
     db.commit()
     db.refresh(event)
     return event
+
+
+def get_usage_limit_status(
+    db: DBSession,
+    username: Optional[str],
+    *,
+    now: Optional[datetime] = None,
+) -> dict[str, object]:
+    user = get_demo_user(username)
+    normalized_username = user["username"] if user else (username or "anonymous")
+    display_name = user["display_name"] if user else normalized_username
+
+    current_time = now or datetime.now(timezone.utc)
+    window_started_at = current_time - timedelta(hours=LLM_USAGE_WINDOW_HOURS)
+    rows = (
+        db.query(LLMUsageEvent)
+        .filter(
+            LLMUsageEvent.username == normalized_username,
+            LLMUsageEvent.created_at >= window_started_at,
+        )
+        .all()
+    )
+
+    input_tokens_used = sum(row.input_tokens for row in rows)
+    output_tokens_used = sum(row.output_tokens for row in rows)
+    total_tokens_used = input_tokens_used + output_tokens_used
+    remaining_tokens = max(LLM_USAGE_TOKEN_LIMIT_PER_WINDOW - total_tokens_used, 0)
+    threshold_tokens = int(LLM_USAGE_TOKEN_LIMIT_PER_WINDOW * LLM_USAGE_WARNING_RATIO)
+    is_blocked = total_tokens_used >= LLM_USAGE_TOKEN_LIMIT_PER_WINDOW
+    is_near_limit = not is_blocked and total_tokens_used >= threshold_tokens
+
+    alerts: list[str] = []
+    if is_blocked:
+        alerts.append(
+            f"Límite de {LLM_USAGE_TOKEN_LIMIT_PER_WINDOW:,} tokens alcanzado en la ventana de {LLM_USAGE_WINDOW_HOURS} horas."
+        )
+    elif is_near_limit:
+        alerts.append(
+            f"Consumo alto: {total_tokens_used:,} de {LLM_USAGE_TOKEN_LIMIT_PER_WINDOW:,} tokens usados en la ventana actual."
+        )
+
+    oldest_event = min((row.created_at for row in rows), default=current_time)
+    return {
+        "username": normalized_username,
+        "display_name": display_name,
+        "window_hours": LLM_USAGE_WINDOW_HOURS,
+        "token_limit": LLM_USAGE_TOKEN_LIMIT_PER_WINDOW,
+        "warning_ratio": LLM_USAGE_WARNING_RATIO,
+        "requests_used": len(rows),
+        "input_tokens_used": input_tokens_used,
+        "output_tokens_used": output_tokens_used,
+        "total_tokens_used": total_tokens_used,
+        "remaining_tokens": remaining_tokens,
+        "total_cost": round(sum(row.estimated_total_cost for row in rows), 6),
+        "window_started_at": window_started_at,
+        "resets_at": oldest_event + timedelta(hours=LLM_USAGE_WINDOW_HOURS),
+        "is_near_limit": is_near_limit,
+        "is_blocked": is_blocked,
+        "active_alerts": alerts,
+    }
+
+
+def enforce_usage_limit(db: DBSession, username: Optional[str]) -> dict[str, object]:
+    status = get_usage_limit_status(db, username)
+    if status["is_blocked"]:
+        raise HTTPException(
+            status_code=429,
+            detail=(
+                f"Límite de consumo IA alcanzado para {status['display_name']}. "
+                f"Se reactivará automáticamente tras la ventana de {status['window_hours']} horas."
+            ),
+        )
+    return status

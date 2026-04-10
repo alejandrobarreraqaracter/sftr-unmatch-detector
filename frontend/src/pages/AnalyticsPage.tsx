@@ -96,6 +96,14 @@ const markdownComponents = {
   ),
 } as const;
 
+function getErrorMessage(error: unknown, fallback: string) {
+  if (error instanceof Error && error.message) {
+    const match = error.message.match(/API error \d+:\s*(.*)$/s);
+    return match?.[1]?.trim() || error.message;
+  }
+  return fallback;
+}
+
 const ANALYTICS_GUIDED_QUESTIONS = [
   "Resume la situación general del rango seleccionado.",
   "¿Qué días concentran más riesgo operativo y por qué?",
@@ -293,8 +301,8 @@ export default function AnalyticsPage() {
     try {
       const result = await generateAnalyticsReport(dateFrom || undefined, dateTo || undefined);
       setNarrative(result);
-    } catch {
-      toast.error("Error al generar el informe IA");
+    } catch (error) {
+      toast.error(getErrorMessage(error, "Error al generar el informe IA"));
     } finally {
       setGeneratingReport(false);
     }
@@ -325,8 +333,8 @@ export default function AnalyticsPage() {
       setRegulatorySnapshot(snapshot);
       setRegulatorySnapshots((prev) => [snapshot, ...prev.filter((item) => item.id !== snapshot.id)]);
       toast.success(includeAiNarrative ? "Snapshot regulatorio con IA guardado" : "Snapshot regulatorio guardado");
-    } catch {
-      toast.error("Error al guardar el snapshot regulatorio");
+    } catch (error) {
+      toast.error(getErrorMessage(error, "Error al guardar el snapshot regulatorio"));
     } finally {
       setSavingRegulatorySnapshot(null);
     }
@@ -385,8 +393,8 @@ export default function AnalyticsPage() {
     try {
       const result = await generateAnalyticsComparisonReport(compareFromA, compareToA, compareFromB, compareToB);
       setComparisonNarrative(result);
-    } catch {
-      toast.error("Error al generar el informe comparativo IA");
+    } catch (error) {
+      toast.error(getErrorMessage(error, "Error al generar el informe comparativo IA"));
     } finally {
       setGeneratingComparisonReport(false);
     }
@@ -465,19 +473,19 @@ export default function AnalyticsPage() {
             }
           : message
       )));
-    } catch {
+    } catch (error) {
       setChatMessages((prev) => prev.map((message) => (
         message.id === assistantMessageId
           ? {
               ...message,
-              content: "No he podido generar la respuesta analítica en este momento.",
+              content: getErrorMessage(error, "No he podido generar la respuesta analítica en este momento."),
               animate: false,
               loading: false,
               loadingPhase: undefined,
             }
           : message
       )));
-      toast.error("Error al consultar el chat analítico");
+      toast.error(getErrorMessage(error, "Error al consultar el chat analítico"));
     } finally {
       window.clearTimeout(phaseTimeoutId);
       setAskingChat(false);

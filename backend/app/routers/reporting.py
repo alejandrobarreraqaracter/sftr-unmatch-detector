@@ -15,7 +15,7 @@ from app.schemas import (
     RegulatorySnapshotResponse,
 )
 from app.services.ai_agents import generate_regulatory_narrative
-from app.services.llm_runtime import get_provider_for_request, record_usage_event
+from app.services.llm_runtime import enforce_usage_limit, get_provider_for_request, record_usage_event
 from app.services.regulatory_reporting import (
     build_regulatory_narrative_fallback,
     build_regulatory_report_preview,
@@ -73,6 +73,7 @@ async def regulatory_generate_snapshot(
 
     if request.include_ai_narrative:
         try:
+            enforce_usage_limit(db, x_demo_user)
             profile, provider = get_provider_for_request(db)
             provider_name = profile.provider
             model_name = profile.model

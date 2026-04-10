@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { LayoutDashboard, Upload, List, BarChart3, Cpu, LogOut, ShieldCheck } from "lucide-react";
-import { activateAIProfile, getAIProfiles, getAIStatus, type AIStatus, type LLMProfile } from "@/lib/api";
+import { activateAIProfile, getAIProfiles, getAIStatus, getMyLLMUsageLimitStatus, type AIStatus, type LLMProfile, type LLMUsageLimitStatus } from "@/lib/api";
 import { useAuth } from "./AuthProvider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { toast } from "sonner";
@@ -18,14 +18,16 @@ export default function Sidebar() {
   const location = useLocation();
   const [aiStatus, setAIStatus] = useState<AIStatus | null>(null);
   const [profiles, setProfiles] = useState<LLMProfile[]>([]);
+  const [usageLimit, setUsageLimit] = useState<LLMUsageLimitStatus | null>(null);
   const [switchingProfile, setSwitchingProfile] = useState(false);
   const { user, logout } = useAuth();
 
   useEffect(() => {
-    Promise.all([getAIStatus(), getAIProfiles()])
-      .then(([status, availableProfiles]) => {
+    Promise.all([getAIStatus(), getAIProfiles(), getMyLLMUsageLimitStatus()])
+      .then(([status, availableProfiles, limitStatus]) => {
         setAIStatus(status);
         setProfiles(availableProfiles);
+        setUsageLimit(limitStatus);
       })
       .catch(() => {});
   }, []);
@@ -35,9 +37,10 @@ export default function Sidebar() {
     setSwitchingProfile(true);
     try {
       await activateAIProfile(profileKey);
-      const [status, availableProfiles] = await Promise.all([getAIStatus(), getAIProfiles()]);
+      const [status, availableProfiles, limitStatus] = await Promise.all([getAIStatus(), getAIProfiles(), getMyLLMUsageLimitStatus()]);
       setAIStatus(status);
       setProfiles(availableProfiles);
+      setUsageLimit(limitStatus);
       toast.success("Perfil IA actualizado");
     } catch {
       toast.error("No se pudo cambiar el perfil IA");
@@ -111,6 +114,16 @@ export default function Sidebar() {
                 ))}
               </SelectContent>
             </Select>
+          </div>
+        )}
+        {usageLimit && (usageLimit.is_near_limit || usageLimit.is_blocked) && (
+          <div className={`rounded-md border px-2 py-2 text-[11px] ${usageLimit.is_blocked ? "border-red-400/40 bg-red-500/10 text-red-200" : "border-amber-400/40 bg-amber-500/10 text-amber-100"}`}>
+            <p className="font-medium">
+              {usageLimit.is_blocked ? "Límite IA bloqueado" : "Consumo IA alto"}
+            </p>
+            <p>
+              {usageLimit.total_tokens_used.toLocaleString("es-ES")} / {usageLimit.token_limit.toLocaleString("es-ES")} tokens
+            </p>
           </div>
         )}
         <p className="text-xs text-white/40">Reglamento UE 2015/2365</p>

@@ -9,10 +9,12 @@ import {
   getLLMUsageByModel,
   getLLMUsageByUser,
   getLLMUsageDaily,
+  getMyLLMUsageLimitStatus,
   getLLMUsageOverview,
   type LLMUsageByModelItem,
   type LLMUsageByUserItem,
   type LLMUsageDailyItem,
+  type LLMUsageLimitStatus,
   type LLMUsageOverview,
 } from "@/lib/api";
 import { toast } from "sonner";
@@ -25,22 +27,25 @@ export default function UsageDashboardPage() {
   const [dateFrom, setDateFrom] = useState("");
   const [dateTo, setDateTo] = useState("");
   const [overview, setOverview] = useState<LLMUsageOverview | null>(null);
+  const [limitStatus, setLimitStatus] = useState<LLMUsageLimitStatus | null>(null);
   const [daily, setDaily] = useState<LLMUsageDailyItem[]>([]);
   const [byUser, setByUser] = useState<LLMUsageByUserItem[]>([]);
   const [byModel, setByModel] = useState<LLMUsageByModelItem[]>([]);
 
   const load = async (from?: string, to?: string) => {
     try {
-      const [overviewData, dailyData, byUserData, byModelData] = await Promise.all([
+      const [overviewData, dailyData, byUserData, byModelData, limitData] = await Promise.all([
         getLLMUsageOverview(from, to),
         getLLMUsageDaily(from, to),
         getLLMUsageByUser(from, to),
         getLLMUsageByModel(from, to),
+        getMyLLMUsageLimitStatus(),
       ]);
       setOverview(overviewData);
       setDaily(dailyData);
       setByUser(byUserData);
       setByModel(byModelData);
+      setLimitStatus(limitData);
     } catch {
       toast.error("Error al cargar el consumo IA");
     }
@@ -76,6 +81,49 @@ export default function UsageDashboardPage() {
         <UsageCard title="Output tokens" icon={Coins} value={(overview?.total_output_tokens ?? 0).toLocaleString("es-ES")} />
         <UsageCard title="Coste total" icon={Users} value={money(overview?.total_cost ?? 0)} />
       </div>
+
+      {limitStatus && (
+        <Card className={limitStatus.is_blocked ? "border-red-300 bg-red-50" : limitStatus.is_near_limit ? "border-amber-300 bg-amber-50" : "border-emerald-200 bg-emerald-50"}>
+          <CardHeader>
+            <CardTitle>Ventana activa de consumo por usuario</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 text-sm text-zinc-700">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+              <div>
+                <p className="text-xs uppercase tracking-wide text-zinc-500">Usuario</p>
+                <p className="font-semibold">{limitStatus.display_name}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-zinc-500">Ventana</p>
+                <p className="font-semibold">{limitStatus.window_hours} horas</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-zinc-500">Tokens usados</p>
+                <p className="font-semibold">{limitStatus.total_tokens_used.toLocaleString("es-ES")} / {limitStatus.token_limit.toLocaleString("es-ES")}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-zinc-500">Reposición</p>
+                <p className="font-semibold">{new Date(limitStatus.resets_at).toLocaleString("es-ES")}</p>
+              </div>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-white/80">
+              <div
+                className={`h-full rounded-full ${limitStatus.is_blocked ? "bg-red-500" : limitStatus.is_near_limit ? "bg-amber-500" : "bg-emerald-500"}`}
+                style={{ width: `${Math.min((limitStatus.total_tokens_used / Math.max(limitStatus.token_limit, 1)) * 100, 100)}%` }}
+              />
+            </div>
+            {limitStatus.active_alerts.length > 0 && (
+              <div className="space-y-1">
+                {limitStatus.active_alerts.map((alert) => (
+                  <p key={alert} className={limitStatus.is_blocked ? "text-red-700" : "text-amber-700"}>
+                    {alert}
+                  </p>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      )}
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
         <Card>
