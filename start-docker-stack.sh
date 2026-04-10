@@ -26,3 +26,6 @@ echo "Backend:              http://localhost:8000"
 echo "Docs:                 http://localhost:8000/docs"
 echo "Ollama:               http://localhost:11434"
 echo "Modelo:               ${MODEL}"
+echo
+echo "Para verificar si Ollama está usando GPU:"
+echo "./check-docker-stack.sh ${MODEL}"

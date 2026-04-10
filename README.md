@@ -667,6 +667,39 @@ Con modelo alternativo:
 bash ./check-docker-stack.sh gemma4:e4b
 ```
 
+### Uso de GPU con Ollama en Docker
+
+El servicio `ollama` del `docker-compose` ya está preparado para pedir GPU al runtime de Docker.
+
+Para comprobar si realmente la está usando:
+
+```bash
+bash ./check-docker-stack.sh gemma4:e2b
+```
+
+Ese script revisa:
+
+- `ollama ps`
+- `nvidia-smi` dentro del contenedor
+- logs relevantes del servicio `ollama`
+
+Si está funcionando con GPU, en los logs deberías ver referencias a capas descargadas en GPU. Si ves mensajes como:
+
+- `loaded CPU backend`
+- `offloaded 0/... layers to GPU`
+- `device=CPU`
+
+entonces `Ollama` sigue corriendo en CPU.
+
+Requisitos habituales para que funcione con GPU en Windows/WSL:
+
+- drivers NVIDIA instalados correctamente en Windows
+- soporte GPU habilitado en Docker Desktop
+- integración WSL activa
+- `nvidia-smi` funcionando correctamente fuera del contenedor
+
+Si `nvidia-smi` falla ya en host/WSL, el contenedor tampoco podrá usar la GPU.
+
 El backend del stack apunta por defecto a:
 
 ```env

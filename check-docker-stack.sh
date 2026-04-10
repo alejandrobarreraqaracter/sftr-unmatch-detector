@@ -22,6 +22,18 @@ echo "Modelos disponibles en Ollama:"
 docker compose exec ollama ollama list || true
 echo
 
+echo "Proceso cargado en Ollama:"
+docker compose exec ollama ollama ps || true
+echo
+
+echo "Detección GPU dentro del contenedor Ollama:"
+docker compose exec ollama nvidia-smi || echo "WARN: nvidia-smi no disponible dentro del contenedor o sin acceso a GPU"
+echo
+
+echo "Últimos logs relevantes de GPU/Ollama:"
+docker compose logs --tail=80 ollama | grep -Ei "gpu|cpu backend|offloaded|inference compute|CUDA|NVIDIA|device=" || true
+echo
+
 echo "Comprobando modelo esperado: ${MODEL}"
 if docker compose exec ollama ollama list | grep -q "${MODEL}"; then
   echo "OK: modelo disponible"

@@ -35,6 +35,14 @@ URLs:
 - Backend API: `http://localhost:8000`
 - Docs API: `http://localhost:8000/docs`
 
+Si quieres validar si `Ollama` está usando GPU:
+
+```bash
+./check-docker-stack.sh gemma4:e2b
+```
+
+Si los logs muestran `loaded CPU backend` u `offloaded 0/... layers to GPU`, entonces sigue corriendo en CPU.
+
 ## Arranque local
 
 Backend:
