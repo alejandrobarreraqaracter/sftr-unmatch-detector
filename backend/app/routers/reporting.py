@@ -3,7 +3,7 @@ from io import BytesIO
 from typing import Optional
 import httpx
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query
+from fastapi import APIRouter, BackgroundTasks, Depends, Header, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session as DBSession
 
@@ -15,7 +15,7 @@ from app.schemas import (
     RegulatorySnapshotResponse,
 )
 from app.services.ai_agents import generate_regulatory_narrative
-from app.services.llm_provider import get_provider
+from app.services.llm_runtime import get_provider_for_request, record_usage_event
 from app.services.regulatory_reporting import (
     build_regulatory_narrative_fallback,
     build_regulatory_report_preview,
@@ -26,7 +26,7 @@ from app.services.regulatory_reporting import (
 )
 from app.services.report_export import generate_pdf_report, generate_word_report_html
 from app.services.report_cache import artifact_metadata, read_artifact, write_artifact
-from app.config import LLM_PROVIDER, LLM_MODEL
+from app.config import OLLAMA_BASE_URL
 
 router = APIRouter(prefix="/api/reporting", tags=["reporting"])
 
@@ -35,21 +35,23 @@ router = APIRouter(prefix="/api/reporting", tags=["reporting"])
 def regulatory_preview(
     date_from: Optional[str] = Query(default=None),
     date_to: Optional[str] = Query(default=None),
+    product_type: Optional[str] = Query(default=None),
     db: DBSession = Depends(get_db),
 ):
-    return build_regulatory_report_preview(db, date_from, date_to)
+    return build_regulatory_report_preview(db, date_from, date_to, product_type)
 
 
 @router.get("/regulatory/export.xlsx")
 def regulatory_export_xlsx(
     date_from: Optional[str] = Query(default=None),
     date_to: Optional[str] = Query(default=None),
+    product_type: Optional[str] = Query(default=None),
     db: DBSession = Depends(get_db),
 ):
-    report = build_regulatory_report_preview(db, date_from, date_to)
+    report = build_regulatory_report_preview(db, date_from, date_to, product_type)
     xlsx_bytes = generate_regulatory_xlsx(report)
     date_str = datetime.now().strftime("%Y%m%d")
-    filename = f"sftr_regulatory_report_{date_str}.xlsx"
+    filename = f"{'predatadas' if product_type == 'predatadas' else 'sftr'}_regulatory_report_{date_str}.xlsx"
     return StreamingResponse(
         BytesIO(xlsx_bytes),
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -61,27 +63,30 @@ def regulatory_export_xlsx(
 async def regulatory_generate_snapshot(
     request: RegulatorySnapshotGenerateRequest,
     db: DBSession = Depends(get_db),
+    x_demo_user: str | None = Header(default=None),
 ):
-    report = build_regulatory_report_preview(db, request.date_from, request.date_to)
+    product_type = getattr(request, "product_type", None)
+    report = build_regulatory_report_preview(db, request.date_from, request.date_to, product_type)
     narrative = build_regulatory_narrative_fallback(report)
     provider_name = None
     model_name = None
 
     if request.include_ai_narrative:
-        provider = get_provider()
         try:
+            profile, provider = get_provider_for_request(db)
+            provider_name = profile.provider
+            model_name = profile.model
             narrative = await generate_regulatory_narrative(provider, report)
-            provider_name = LLM_PROVIDER
-            model_name = LLM_MODEL
+            record_usage_event(db, profile, provider, "regulatory_snapshot_narrative", x_demo_user)
         except httpx.HTTPError as exc:
             message = (
-                f"No se pudo conectar con el proveedor IA configurado ({LLM_PROVIDER}/{LLM_MODEL}). "
+                f"No se pudo conectar con el proveedor IA configurado ({provider_name or 'provider'}/{model_name or 'model'}). "
                 "Revisa la configuración del provider y su conectividad de red."
             )
-            if LLM_PROVIDER == "ollama":
+            if provider_name == "ollama":
                 message += (
                     " Si estás usando Docker y Ollama corre en tu máquina host, configura "
-                    "`LLM_BASE_URL=http://host.docker.internal:11434` y reinicia el backend."
+                    f"`OLLAMA_BASE_URL={OLLAMA_BASE_URL}` o el endpoint correcto, y reinicia el backend."
                 )
             raise HTTPException(status_code=503, detail=message) from exc
 
@@ -127,11 +132,12 @@ def regulatory_get_snapshot(snapshot_id: int, db: DBSession = Depends(get_db)):
 def regulatory_snapshot_export_xlsx(snapshot_id: int, db: DBSession = Depends(get_db)):
     snapshot = _get_snapshot_or_404(snapshot_id, db)
     xlsx_bytes = read_artifact(snapshot_id, "xlsx")
+    payload = deserialize_snapshot_payload(snapshot)
     if xlsx_bytes is None:
-        report = deserialize_snapshot_payload(snapshot)
-        xlsx_bytes = generate_regulatory_xlsx(report)
+        xlsx_bytes = generate_regulatory_xlsx(payload)
         write_artifact(snapshot_id, "xlsx", xlsx_bytes)
-    filename = f"sftr_regulatory_snapshot_{snapshot_id}.xlsx"
+    prefix = "predatadas" if payload.get("product_type") == "predatadas" else "sftr"
+    filename = f"{prefix}_regulatory_snapshot_{snapshot_id}.xlsx"
     return StreamingResponse(
         BytesIO(xlsx_bytes),
         media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -150,9 +156,11 @@ def regulatory_snapshot_export_pdf(snapshot_id: int, db: DBSession = Depends(get
             f"Rango: {snapshot.date_from or 'inicio disponible'} - {snapshot.date_to or 'fin disponible'} "
             f"| Snapshot #{snapshot.id}"
         )
-        pdf_bytes = generate_pdf_report("Informe Regulatorio SFTR", subtitle, narrative)
+        title = "Informe Predatadas" if payload.get("product_type") == "predatadas" else "Informe Regulatorio SFTR"
+        pdf_bytes = generate_pdf_report(title, subtitle, narrative)
         write_artifact(snapshot_id, "pdf", pdf_bytes)
-    filename = f"sftr_regulatory_snapshot_{snapshot.id}.pdf"
+    prefix = "predatadas" if deserialize_snapshot_payload(snapshot).get("product_type") == "predatadas" else "sftr"
+    filename = f"{prefix}_regulatory_snapshot_{snapshot.id}.pdf"
     return StreamingResponse(
         BytesIO(pdf_bytes),
         media_type="application/pdf",
@@ -171,9 +179,11 @@ def regulatory_snapshot_export_doc(snapshot_id: int, db: DBSession = Depends(get
             f"Rango: {snapshot.date_from or 'inicio disponible'} - {snapshot.date_to or 'fin disponible'} "
             f"| Snapshot #{snapshot.id}"
         )
-        doc_bytes = generate_word_report_html("Informe Regulatorio SFTR", subtitle, narrative)
+        title = "Informe Predatadas" if payload.get("product_type") == "predatadas" else "Informe Regulatorio SFTR"
+        doc_bytes = generate_word_report_html(title, subtitle, narrative)
         write_artifact(snapshot_id, "doc", doc_bytes)
-    filename = f"sftr_regulatory_snapshot_{snapshot.id}.doc"
+    prefix = "predatadas" if deserialize_snapshot_payload(snapshot).get("product_type") == "predatadas" else "sftr"
+    filename = f"{prefix}_regulatory_snapshot_{snapshot.id}.doc"
     return StreamingResponse(
         BytesIO(doc_bytes),
         media_type="application/msword",
@@ -248,8 +258,9 @@ def _warm_snapshot_artifacts(snapshot_id: int, date_from: str | None, date_to: s
             f"Rango: {date_from or 'inicio disponible'} - {date_to or 'fin disponible'} "
             f"| Snapshot #{snapshot_id}"
         )
+        title = "Informe Predatadas" if payload.get("product_type") == "predatadas" else "Informe Regulatorio SFTR"
         write_artifact(snapshot_id, "xlsx", generate_regulatory_xlsx(payload))
-        write_artifact(snapshot_id, "pdf", generate_pdf_report("Informe Regulatorio SFTR", subtitle, narrative))
-        write_artifact(snapshot_id, "doc", generate_word_report_html("Informe Regulatorio SFTR", subtitle, narrative))
+        write_artifact(snapshot_id, "pdf", generate_pdf_report(title, subtitle, narrative))
+        write_artifact(snapshot_id, "doc", generate_word_report_html(title, subtitle, narrative))
     finally:
         db.close()

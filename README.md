@@ -15,6 +15,7 @@ La arquitectura actual está alineada con cargas masivas de miles de operaciones
 ## Documentos de diseño
 
 - Diseño de reporte regulatorio por rango de fechas: [regulatory-reporting-design.md](/home/alejandrobarrera/sftr-unmatch-detector/docs/regulatory-reporting-design.md)
+- Guía rápida de `predatadas`: [predatadas-quickstart.md](/home/alejandrobarrera/sftr-unmatch-detector/docs/predatadas-quickstart.md)
 
 ## Qué hace el sistema
 

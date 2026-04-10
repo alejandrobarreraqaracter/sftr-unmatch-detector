@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-09T07:35:25.895378Z",
+  "generated_at": "2026-04-09T16:20:54.647564Z",
   "folder": "/home/alejandrobarrera/sftr-unmatch-detector/backend/sample_data/march_2026",
   "files": [
     {
@@ -14,126 +14,147 @@
       "row_checks": [
         {
           "uti": "SNDR20260301001",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260301002",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260301003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260301004",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260301005",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260301006",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260301007",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260301008",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260301009",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260301010",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260301011",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260301012",
+          "issue_mode": "unpair_both",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260301013",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260301014",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260301015",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260301016",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260301017",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260301018",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260301019",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260301020",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260301021",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
@@ -152,150 +173,175 @@
       "row_checks": [
         {
           "uti": "SNDR20260302001",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260302002",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260302003",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260302004",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260302005",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260302006",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260302007",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260302008",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260302009",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260302010",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260302011",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260302012",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260302013",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260302014",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260302015",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260302016",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260302017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260302018",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260302019",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260302020",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260302021",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260302022",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260302023",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260302024",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260302025",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
@@ -308,188 +354,218 @@
       "columns": 313,
       "rows": 30,
       "expected_rows": 30,
-      "expected_unmatches": 1050,
-      "actual_unmatches": 1050,
+      "expected_unmatches": 450,
+      "actual_unmatches": 450,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260303001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260303002",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303003",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260303004",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303005",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260303006",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303007",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260303008",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303009",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260303010",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303011",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260303012",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303013",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260303014",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303015",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260303016",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260303018",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303019",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260303020",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303021",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260303022",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303023",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260303024",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303025",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260303026",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303027",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260303028",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260303029",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260303030",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -506,126 +582,147 @@
       "row_checks": [
         {
           "uti": "SNDR20260304001",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260304002",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260304003",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260304004",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260304005",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260304006",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260304007",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260304008",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260304009",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260304010",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260304011",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260304012",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260304013",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260304014",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260304015",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260304016",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260304017",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260304018",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260304019",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260304020",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260304021",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
@@ -638,156 +735,181 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 850,
-      "actual_unmatches": 850,
+      "expected_unmatches": 370,
+      "actual_unmatches": 370,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260305001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260305002",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305003",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260305004",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305005",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260305006",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305007",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260305008",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305009",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260305010",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305011",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260305012",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305013",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260305014",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305015",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260305016",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305017",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260305018",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305019",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260305020",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305021",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260305022",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305023",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260305024",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260305025",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -806,180 +928,210 @@
       "row_checks": [
         {
           "uti": "SNDR20260306001",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260306002",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260306003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260306004",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260306005",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260306006",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260306007",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260306008",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260306009",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260306010",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260306011",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260306012",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260306013",
+          "issue_mode": "unpair_both",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260306014",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260306015",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260306016",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260306017",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260306018",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260306019",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260306020",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260306021",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260306022",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260306023",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260306024",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260306025",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260306026",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260306027",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260306028",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260306029",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260306030",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -992,134 +1144,155 @@
       "columns": 313,
       "rows": 21,
       "expected_rows": 21,
-      "expected_unmatches": 750,
-      "actual_unmatches": 750,
+      "expected_unmatches": 0,
+      "actual_unmatches": 0,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260307001",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307002",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307003",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307004",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307005",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307006",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307007",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307008",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307009",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307010",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307011",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307012",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307013",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307014",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307015",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307016",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307017",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307018",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307019",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307020",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260307021",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -1130,156 +1303,181 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 880,
-      "actual_unmatches": 880,
+      "expected_unmatches": 520,
+      "actual_unmatches": 520,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260308001",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260308002",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308003",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260308004",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308005",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260308006",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308007",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260308008",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308009",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260308010",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308011",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260308012",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308013",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260308014",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308015",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260308016",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308017",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260308018",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308019",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260308020",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308021",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260308022",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308023",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260308024",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260308025",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
@@ -1298,180 +1496,210 @@
       "row_checks": [
         {
           "uti": "SNDR20260309001",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260309002",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260309003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260309004",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260309005",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260309006",
+          "issue_mode": "unpair_both",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260309007",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260309008",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260309009",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260309010",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260309011",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260309012",
+          "issue_mode": "unpair_both",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260309013",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260309014",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260309015",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260309016",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260309017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260309018",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260309019",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260309020",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260309021",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260309022",
+          "issue_mode": "unpair_both",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260309023",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260309024",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260309025",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260309026",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260309027",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260309028",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260309029",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260309030",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
@@ -1484,132 +1712,153 @@
       "columns": 313,
       "rows": 21,
       "expected_rows": 21,
-      "expected_unmatches": 720,
-      "actual_unmatches": 720,
+      "expected_unmatches": 440,
+      "actual_unmatches": 440,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260310001",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260310002",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310003",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260310004",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310005",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260310006",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310007",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260310008",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310009",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260310010",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310011",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260310012",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310013",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260310014",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310015",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260310016",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310017",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260310018",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310019",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260310020",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260310021",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
@@ -1622,156 +1871,181 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 850,
-      "actual_unmatches": 850,
+      "expected_unmatches": 370,
+      "actual_unmatches": 370,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260311001",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260311002",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260311004",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311005",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260311006",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311007",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260311008",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311009",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260311010",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311011",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260311012",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311013",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260311014",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311015",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260311016",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311017",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260311018",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311019",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260311020",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311021",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260311022",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311023",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260311024",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260311025",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -1784,188 +2058,218 @@
       "columns": 313,
       "rows": 30,
       "expected_rows": 30,
-      "expected_unmatches": 1050,
-      "actual_unmatches": 1050,
+      "expected_unmatches": 0,
+      "actual_unmatches": 0,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260312001",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312002",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312003",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312004",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312005",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312006",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312007",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312008",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312009",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312010",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312011",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312012",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312013",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312014",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312015",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312016",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312017",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312018",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312019",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312020",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312021",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312022",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312023",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312024",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312025",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312026",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312027",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312028",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312029",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260312030",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -1982,126 +2286,147 @@
       "row_checks": [
         {
           "uti": "SNDR20260313001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260313002",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260313003",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260313004",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260313005",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260313006",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260313007",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260313008",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260313009",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260313010",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260313011",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260313012",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260313013",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260313014",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260313015",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260313016",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260313017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260313018",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260313019",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260313020",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260313021",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
@@ -2114,156 +2439,181 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 880,
-      "actual_unmatches": 880,
+      "expected_unmatches": 520,
+      "actual_unmatches": 520,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260314001",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260314002",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260314004",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314005",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260314006",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314007",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260314008",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314009",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260314010",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314011",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260314012",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314013",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260314014",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314015",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260314016",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314017",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260314018",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314019",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260314020",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314021",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260314022",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314023",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260314024",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260314025",
+          "issue_mode": "unpair_both",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
@@ -2276,188 +2626,218 @@
       "columns": 313,
       "rows": 30,
       "expected_rows": 30,
-      "expected_unmatches": 1050,
-      "actual_unmatches": 1050,
+      "expected_unmatches": 0,
+      "actual_unmatches": 0,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260315001",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315002",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315003",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315004",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315005",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315006",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315007",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315008",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315009",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315010",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315011",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315012",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315013",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315014",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315015",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315016",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315017",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315018",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315019",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315020",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315021",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315022",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315023",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315024",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315025",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315026",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315027",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315028",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315029",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260315030",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -2474,126 +2854,147 @@
       "row_checks": [
         {
           "uti": "SNDR20260316001",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260316002",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260316003",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260316004",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260316005",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260316006",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260316007",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260316008",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260316009",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260316010",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260316011",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260316012",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260316013",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260316014",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260316015",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260316016",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260316017",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260316018",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260316019",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260316020",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260316021",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
@@ -2606,156 +3007,181 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 850,
-      "actual_unmatches": 850,
+      "expected_unmatches": 370,
+      "actual_unmatches": 370,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260317001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260317002",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260317004",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317005",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260317006",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317007",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260317008",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317009",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260317010",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317011",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260317012",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317013",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260317014",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317015",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260317016",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317017",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260317018",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317019",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260317020",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317021",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260317022",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317023",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260317024",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260317025",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -2774,180 +3200,210 @@
       "row_checks": [
         {
           "uti": "SNDR20260318001",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260318002",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260318003",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260318004",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260318005",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260318006",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260318007",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260318008",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260318009",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260318010",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260318011",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260318012",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260318013",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260318014",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260318015",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260318016",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260318017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260318018",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260318019",
+          "issue_mode": "unpair_both",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260318020",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260318021",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260318022",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260318023",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260318024",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260318025",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260318026",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260318027",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260318028",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260318029",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260318030",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -2966,126 +3422,147 @@
       "row_checks": [
         {
           "uti": "SNDR20260319001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260319002",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260319003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260319004",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260319005",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260319006",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260319007",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260319008",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260319009",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260319010",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260319011",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260319012",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260319013",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260319014",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260319015",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260319016",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260319017",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260319018",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260319019",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260319020",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260319021",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
@@ -3098,156 +3575,181 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 880,
-      "actual_unmatches": 880,
+      "expected_unmatches": 520,
+      "actual_unmatches": 520,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260320001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260320002",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260320004",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320005",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260320006",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320007",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260320008",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320009",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260320010",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320011",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260320012",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320013",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260320014",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320015",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260320016",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320017",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260320018",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320019",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260320020",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320021",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260320022",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320023",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260320024",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260320025",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
@@ -3260,188 +3762,218 @@
       "columns": 313,
       "rows": 30,
       "expected_rows": 30,
-      "expected_unmatches": 1050,
-      "actual_unmatches": 1050,
+      "expected_unmatches": 0,
+      "actual_unmatches": 0,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260321001",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321002",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321003",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321004",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321005",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321006",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321007",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321008",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321009",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321010",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321011",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321012",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321013",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321014",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321015",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321016",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321017",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321018",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321019",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321020",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321021",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321022",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321023",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321024",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321025",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321026",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321027",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321028",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321029",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260321030",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -3458,126 +3990,147 @@
       "row_checks": [
         {
           "uti": "SNDR20260322001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260322002",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260322003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260322004",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260322005",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260322006",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260322007",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260322008",
+          "issue_mode": "unpair_both",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260322009",
+          "issue_mode": "unpair_both",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260322010",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260322011",
+          "issue_mode": "unpair_both",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260322012",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260322013",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260322014",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260322015",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260322016",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260322017",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260322018",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260322019",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260322020",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260322021",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
@@ -3590,156 +4143,181 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 850,
-      "actual_unmatches": 850,
+      "expected_unmatches": 370,
+      "actual_unmatches": 370,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260323001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260323002",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323003",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260323004",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323005",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260323006",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323007",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260323008",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323009",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260323010",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323011",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260323012",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323013",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260323014",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323015",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260323016",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260323018",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323019",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260323020",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323021",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260323022",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323023",
+          "issue_mode": "unpair_both",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260323024",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260323025",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -3758,180 +4336,210 @@
       "row_checks": [
         {
           "uti": "SNDR20260324001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260324002",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260324003",
+          "issue_mode": "unpair_both",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260324004",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260324005",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260324006",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260324007",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260324008",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260324009",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260324010",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260324011",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260324012",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260324013",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260324014",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260324015",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260324016",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260324017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260324018",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260324019",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260324020",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260324021",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260324022",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260324023",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260324024",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260324025",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260324026",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260324027",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260324028",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260324029",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260324030",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -3944,132 +4552,153 @@
       "columns": 313,
       "rows": 21,
       "expected_rows": 21,
-      "expected_unmatches": 750,
-      "actual_unmatches": 750,
+      "expected_unmatches": 350,
+      "actual_unmatches": 350,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260325001",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260325002",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325003",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260325004",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325005",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260325006",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325007",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260325008",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325009",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260325010",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325011",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260325012",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325013",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260325014",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325015",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260325016",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260325018",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325019",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260325020",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260325021",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
@@ -4082,158 +4711,183 @@
       "columns": 313,
       "rows": 25,
       "expected_rows": 25,
-      "expected_unmatches": 880,
-      "actual_unmatches": 880,
+      "expected_unmatches": 0,
+      "actual_unmatches": 0,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260326001",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326002",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326003",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326004",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326005",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326006",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326007",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326008",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326009",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326010",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326011",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326012",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326013",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326014",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326015",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326016",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326017",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326018",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326019",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326020",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326021",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326022",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326023",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326024",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260326025",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -4250,180 +4904,210 @@
       "row_checks": [
         {
           "uti": "SNDR20260327001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260327002",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260327003",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260327004",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260327005",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260327006",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260327007",
+          "issue_mode": "unpair_both",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260327008",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260327009",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260327010",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260327011",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260327012",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260327013",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260327014",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260327015",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260327016",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260327017",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260327018",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260327019",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260327020",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260327021",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260327022",
+          "issue_mode": "unpair_both",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260327023",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260327024",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260327025",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260327026",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260327027",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260327028",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260327029",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260327030",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
@@ -4436,132 +5120,153 @@
       "columns": 313,
       "rows": 21,
       "expected_rows": 21,
-      "expected_unmatches": 720,
-      "actual_unmatches": 720,
+      "expected_unmatches": 440,
+      "actual_unmatches": 440,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260328001",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260328002",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328003",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260328004",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328005",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260328006",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328007",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260328008",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328009",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260328010",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328011",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260328012",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328013",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260328014",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328015",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260328016",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328017",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260328018",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328019",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260328020",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260328021",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
@@ -4580,150 +5285,175 @@
       "row_checks": [
         {
           "uti": "SNDR20260329001",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260329002",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260329003",
+          "issue_mode": "unpair_both",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260329004",
+          "issue_mode": "unpair_both",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260329005",
+          "issue_mode": "unmatch",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260329006",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260329007",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260329008",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260329009",
+          "issue_mode": "unmatch",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260329010",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260329011",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260329012",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260329013",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260329014",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260329015",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260329016",
+          "issue_mode": "unpair_other",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260329017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260329018",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260329019",
+          "issue_mode": "unpair_other",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
         },
         {
           "uti": "SNDR20260329020",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260329021",
+          "issue_mode": "unpair_other",
           "target_unmatches": 30,
           "actual_unmatches": 30,
           "ok": true
         },
         {
           "uti": "SNDR20260329022",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260329023",
+          "issue_mode": "unpair_other",
           "target_unmatches": 50,
           "actual_unmatches": 50,
           "ok": true
         },
         {
           "uti": "SNDR20260329024",
+          "issue_mode": "unpair_both",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260329025",
+          "issue_mode": "unmatch",
           "target_unmatches": 10,
           "actual_unmatches": 10,
           "ok": true
@@ -4736,188 +5466,218 @@
       "columns": 313,
       "rows": 30,
       "expected_rows": 30,
-      "expected_unmatches": 1050,
-      "actual_unmatches": 1050,
+      "expected_unmatches": 600,
+      "actual_unmatches": 600,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260330001",
+          "issue_mode": "unpair_other",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260330002",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330003",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260330004",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330005",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260330006",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330007",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260330008",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330009",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260330010",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330011",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260330012",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330013",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260330014",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330015",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260330016",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330017",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260330018",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330019",
+          "issue_mode": "unmatch",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260330020",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330021",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260330022",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330023",
+          "issue_mode": "unpair_other",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260330024",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330025",
+          "issue_mode": "unpair_uti",
           "target_unmatches": 20,
           "actual_unmatches": 20,
           "ok": true
         },
         {
           "uti": "SNDR20260330026",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330027",
+          "issue_mode": "unmatch",
           "target_unmatches": 40,
           "actual_unmatches": 40,
           "ok": true
         },
         {
           "uti": "SNDR20260330028",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260330029",
+          "issue_mode": "unmatch",
           "target_unmatches": 60,
           "actual_unmatches": 60,
           "ok": true
         },
         {
           "uti": "SNDR20260330030",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -4928,134 +5688,155 @@
       "columns": 313,
       "rows": 21,
       "expected_rows": 21,
-      "expected_unmatches": 750,
-      "actual_unmatches": 750,
+      "expected_unmatches": 0,
+      "actual_unmatches": 0,
       "all_rows_match_targets": true,
       "row_checks": [
         {
           "uti": "SNDR20260331001",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331002",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331003",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331004",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331005",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331006",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331007",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331008",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331009",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331010",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331011",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331012",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331013",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331014",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331015",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331016",
-          "target_unmatches": 60,
-          "actual_unmatches": 60,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331017",
-          "target_unmatches": 10,
-          "actual_unmatches": 10,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331018",
-          "target_unmatches": 20,
-          "actual_unmatches": 20,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331019",
-          "target_unmatches": 30,
-          "actual_unmatches": 30,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331020",
-          "target_unmatches": 40,
-          "actual_unmatches": 40,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         },
         {
           "uti": "SNDR20260331021",
-          "target_unmatches": 50,
-          "actual_unmatches": 50,
+          "issue_mode": "clean",
+          "target_unmatches": 0,
+          "actual_unmatches": 0,
           "ok": true
         }
       ]
@@ -5065,17 +5846,25 @@
     "total_files": 31,
     "total_rows": 781,
     "total_unique_utis": 781,
-    "total_expected_unmatches": 27250,
-    "total_actual_unmatches": 27250,
+    "total_expected_unmatches": 16710,
+    "total_actual_unmatches": 16710,
     "all_files_ok": true,
     "all_files_have_313_columns": true,
     "mismatch_level_distribution": {
-      "10": 133,
-      "20": 128,
-      "30": 129,
-      "40": 134,
-      "50": 129,
-      "60": 128
+      "0": 301,
+      "10": 83,
+      "20": 79,
+      "30": 79,
+      "40": 81,
+      "50": 79,
+      "60": 79
+    },
+    "issue_mode_distribution": {
+      "clean": 301,
+      "unmatch": 229,
+      "unpair_both": 38,
+      "unpair_other": 91,
+      "unpair_uti": 122
     }
   }
 }

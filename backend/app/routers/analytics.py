@@ -36,11 +36,15 @@ def _get_filtered_sessions(
     db: Session,
     date_from: Optional[str] = None,
     date_to: Optional[str] = None,
+    product_type: Optional[str] = None,
 ) -> list[SessionModel]:
     start = _parse_date(date_from)
     end = _parse_date(date_to)
 
-    sessions = db.query(SessionModel).order_by(SessionModel.created_at.asc()).all()
+    query = db.query(SessionModel).order_by(SessionModel.created_at.asc())
+    if product_type:
+        query = query.filter(SessionModel.product_type == product_type)
+    sessions = query.all()
     filtered: list[SessionModel] = []
     for session in sessions:
         session_date = _session_business_date(session)
@@ -171,9 +175,10 @@ def _top_fields_map(db: Session, session_ids: list[int]) -> dict[tuple[str, int]
 def analytics_overview(
     date_from: Optional[str] = Query(default=None),
     date_to: Optional[str] = Query(default=None),
+    product_type: Optional[str] = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    sessions = _get_filtered_sessions(db, date_from, date_to)
+    sessions = _get_filtered_sessions(db, date_from, date_to, product_type)
     return _build_overview_from_sessions(db, sessions, date_from, date_to)
 
 
@@ -181,9 +186,10 @@ def analytics_overview(
 def analytics_daily(
     date_from: Optional[str] = Query(default=None),
     date_to: Optional[str] = Query(default=None),
+    product_type: Optional[str] = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    sessions = _get_filtered_sessions(db, date_from, date_to)
+    sessions = _get_filtered_sessions(db, date_from, date_to, product_type)
     if not sessions:
         return []
 
@@ -241,9 +247,10 @@ def top_unmatch_fields(
     sft_type: Optional[str] = None,
     date_from: Optional[str] = Query(default=None),
     date_to: Optional[str] = Query(default=None),
+    product_type: Optional[str] = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    sessions = _get_filtered_sessions(db, date_from, date_to)
+    sessions = _get_filtered_sessions(db, date_from, date_to, product_type)
     session_ids = [session.id for session in sessions]
     if not session_ids:
         return []
@@ -277,9 +284,10 @@ def top_unmatch_fields(
 def by_counterparty(
     date_from: Optional[str] = Query(default=None),
     date_to: Optional[str] = Query(default=None),
+    product_type: Optional[str] = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    sessions = _get_filtered_sessions(db, date_from, date_to)
+    sessions = _get_filtered_sessions(db, date_from, date_to, product_type)
     if not sessions:
         return []
 
@@ -309,9 +317,10 @@ def by_counterparty(
 def by_sft_type(
     date_from: Optional[str] = Query(default=None),
     date_to: Optional[str] = Query(default=None),
+    product_type: Optional[str] = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    sessions = _get_filtered_sessions(db, date_from, date_to)
+    sessions = _get_filtered_sessions(db, date_from, date_to, product_type)
     if not sessions:
         return []
 
@@ -342,10 +351,11 @@ def compare_periods(
     to_a: str = Query(...),
     from_b: str = Query(...),
     to_b: str = Query(...),
+    product_type: Optional[str] = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    sessions_a = _get_filtered_sessions(db, from_a, to_a)
-    sessions_b = _get_filtered_sessions(db, from_b, to_b)
+    sessions_a = _get_filtered_sessions(db, from_a, to_a, product_type)
+    sessions_b = _get_filtered_sessions(db, from_b, to_b, product_type)
 
     overview_a = _build_overview_from_sessions(db, sessions_a, from_a, to_a)
     overview_b = _build_overview_from_sessions(db, sessions_b, from_b, to_b)
@@ -402,6 +412,7 @@ def compare_periods(
 @router.get("/sessions-by-day")
 def sessions_by_day(
     day: str = Query(...),
+    product_type: Optional[str] = Query(default=None),
     db: Session = Depends(get_db),
 ):
     target_day = _parse_date(day)
@@ -411,6 +422,7 @@ def sessions_by_day(
     sessions = [
         session
         for session in db.query(SessionModel).order_by(SessionModel.created_at.desc()).all()
+        if not product_type or session.product_type == product_type
         if _session_business_date(session) == target_day
     ]
 

@@ -42,10 +42,13 @@ def _session_business_date(session: SessionModel):
     return created_at.date()
 
 
-def _get_filtered_sessions(db: DBSession, date_from: Optional[str], date_to: Optional[str]) -> list[SessionModel]:
+def _get_filtered_sessions(db: DBSession, date_from: Optional[str], date_to: Optional[str], product_type: Optional[str] = None) -> list[SessionModel]:
     start = _parse_date(date_from)
     end = _parse_date(date_to)
-    sessions = db.query(SessionModel).order_by(SessionModel.created_at.asc()).all()
+    query = db.query(SessionModel).order_by(SessionModel.created_at.asc())
+    if product_type:
+        query = query.filter(SessionModel.product_type == product_type)
+    sessions = query.all()
     filtered: list[SessionModel] = []
     for session in sessions:
         session_date = _session_business_date(session)
@@ -121,7 +124,7 @@ def _build_overview(sessions: list[SessionModel], status_counts: Counter, pairin
     }
 
 
-def _build_comparison_to_previous_period(db: DBSession, current_overview: dict, date_from: Optional[str], date_to: Optional[str]) -> dict | None:
+def _build_comparison_to_previous_period(db: DBSession, current_overview: dict, date_from: Optional[str], date_to: Optional[str], product_type: Optional[str] = None) -> dict | None:
     start = _parse_date(date_from)
     end = _parse_date(date_to)
     if not start or not end or end < start:
@@ -130,7 +133,7 @@ def _build_comparison_to_previous_period(db: DBSession, current_overview: dict, 
     period_days = (end - start).days + 1
     previous_end = start - timedelta(days=1)
     previous_start = previous_end - timedelta(days=period_days - 1)
-    previous_sessions = _get_filtered_sessions(db, previous_start.isoformat(), previous_end.isoformat())
+    previous_sessions = _get_filtered_sessions(db, previous_start.isoformat(), previous_end.isoformat(), product_type)
     previous_session_ids = [session.id for session in previous_sessions]
     previous_status_counts = Counter(
         dict(
@@ -205,8 +208,8 @@ def _build_risk_residual(open_items: list[dict], critical_open_items: list[dict]
     }
 
 
-def build_regulatory_report_preview(db: DBSession, date_from: Optional[str], date_to: Optional[str]) -> dict:
-    sessions = _get_filtered_sessions(db, date_from, date_to)
+def build_regulatory_report_preview(db: DBSession, date_from: Optional[str], date_to: Optional[str], product_type: Optional[str] = None) -> dict:
+    sessions = _get_filtered_sessions(db, date_from, date_to, product_type)
     session_ids = [session.id for session in sessions]
     generated_at = datetime.now(timezone.utc)
 
@@ -214,6 +217,7 @@ def build_regulatory_report_preview(db: DBSession, date_from: Optional[str], dat
         return {
             "date_from": date_from,
             "date_to": date_to,
+            "product_type": product_type or "sftr",
             "generated_at": generated_at,
             "sessions": 0,
             "filenames": [],
@@ -420,12 +424,13 @@ def build_regulatory_report_preview(db: DBSession, date_from: Optional[str], dat
             open_items.append(item)
 
     critical_open_items = [item for item in open_items if item["severity"] == "CRITICAL"]
-    comparison_to_previous_period = _build_comparison_to_previous_period(db, overview, date_from, date_to)
+    comparison_to_previous_period = _build_comparison_to_previous_period(db, overview, date_from, date_to, product_type)
     risk_residual = _build_risk_residual(open_items, critical_open_items, trade_summaries, top_fields)
 
     return {
         "date_from": date_from,
         "date_to": date_to,
+        "product_type": product_type or "sftr",
         "generated_at": generated_at,
         "sessions": len(sessions),
         "filenames": [session.filename for session in sessions if session.filename],
@@ -445,6 +450,7 @@ def build_regulatory_report_preview(db: DBSession, date_from: Optional[str], dat
 
 def build_regulatory_narrative_fallback(report: dict) -> str:
     overview = report["overview"]
+    is_predatadas = report.get("product_type") == "predatadas"
     top_fields = report.get("top_fields", [])[:5]
     top_counterparties = report.get("top_counterparties", [])[:5]
     open_items = report.get("open_items", [])[:5]
@@ -476,7 +482,7 @@ def build_regulatory_narrative_fallback(report: dict) -> str:
         )
 
     return (
-        "# Informe regulatorio SFTR\n\n"
+        f"# Informe {'Predatadas' if is_predatadas else 'regulatorio SFTR'}\n\n"
         f"**Periodo:** {report.get('date_from') or 'inicio disponible'} a {report.get('date_to') or 'fin disponible'}\n"
         f"**Sesiones incluidas:** {report.get('sessions', 0)}\n"
         f"**Operaciones procesadas:** {overview.get('total_trades', 0)}\n"

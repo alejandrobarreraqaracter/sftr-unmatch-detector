@@ -11,7 +11,8 @@ Output:
 Design goals:
   - One CSV per day in March 2026
   - 21, 25, or 30 operations per day
-  - Every generated trade has controlled UNMATCH counts
+  - Mix of clean days, mixed days, and problematic days
+  - Some operations have 0 discrepancies, others use controlled UNMATCH counts
   - Target mismatch levels cycle through: 10, 20, 30, 40, 50, 60
   - Data is deterministic and valid for the current parser/comparison engine
 """
@@ -19,6 +20,7 @@ Design goals:
 from __future__ import annotations
 
 import csv
+import calendar
 import hashlib
 import json
 import os
@@ -35,11 +37,11 @@ if str(BACKEND_ROOT) not in sys.path:
     sys.path.insert(0, str(BACKEND_ROOT))
 
 FIELDS_PATH = ROOT.parent / "app" / "data" / "sftr_fields.json"
-OUT_DIR = ROOT / "march_2026"
-AUDIT_PATH = OUT_DIR / "audit_summary.json"
 
 with FIELDS_PATH.open(encoding="utf-8") as f:
     FIELDS = json.load(f)
+
+from app.services.column_mapping import resolve_alias
 
 
 def normalize_col(name: str) -> str:
@@ -49,10 +51,11 @@ def normalize_col(name: str) -> str:
     return name.strip("_")
 
 
-FIELD_COLS = [(normalize_col(field["name"]), field) for field in FIELDS]
+FIELD_COLS = [(resolve_alias(normalize_col(field["name"])), field) for field in FIELDS]
 
 MISMATCH_LEVELS = [10, 20, 30, 40, 50, 60]
 OPS_PATTERN = [21, 25, 30]
+PAIRING_FIELDS = {"UTI", "Other counterparty"}
 
 LEI_POOL = [
     "7LTWFZYICNSX8D621K86",
@@ -73,6 +76,15 @@ COUNTRY_POOL = ["ES", "FR", "DE", "IT", "NL", "BE"]
 TEXT_POOL = ["ALPHA", "BRAVO", "CHARLIE", "DELTA", "ECHO", "FOXTROT"]
 
 
+def output_dir_for(year: int, month: int) -> Path:
+    month_name = calendar.month_name[month].lower()
+    return ROOT / f"{month_name}_{year}"
+
+
+def audit_path_for(year: int, month: int) -> Path:
+    return output_dir_for(year, month) / "audit_summary.json"
+
+
 def stable_index(*parts: object, modulo: int) -> int:
     raw = "|".join(str(p) for p in parts).encode("utf-8")
     digest = hashlib.sha256(raw).hexdigest()
@@ -84,7 +96,36 @@ def day_operation_count(day: date) -> int:
 
 
 def target_unmatches(day: date, trade_index: int) -> int:
+    profile = day_profile(day)
+
+    if profile == "clean":
+        return 0
+
+    if profile == "mixed":
+        # Roughly half the operations remain clean.
+        if trade_index % 2 == 0:
+            return 0
+        return MISMATCH_LEVELS[(day.day + trade_index) % len(MISMATCH_LEVELS)]
+
     return MISMATCH_LEVELS[(day.day + trade_index) % len(MISMATCH_LEVELS)]
+
+
+def day_profile(day: date) -> str:
+    """
+    Assign a deterministic quality profile to the day.
+
+    - clean: all operations reconcile
+    - mixed: about half the operations reconcile
+    - problematic: all operations carry mismatches
+    """
+    # Spread quality states across the whole month so analytics tells a more
+    # realistic story: a weak start, partial remediation, a mid-month relapse,
+    # and a better close.
+    if day.day in {7, 12, 15, 21, 26, 31}:
+        return "clean"
+    if day.day in {3, 5, 8, 10, 11, 14, 17, 20, 23, 25, 28, 30}:
+        return "mixed"
+    return "problematic"
 
 
 def get_obligation(field: dict, sft_type: str, action_type: str) -> str:
@@ -98,9 +139,40 @@ def mismatch_candidates(sft_type: str, action_type: str) -> list[dict]:
         obligation = get_obligation(field, sft_type, action_type)
         if obligation == "-":
             continue
+        normalized_name = normalize_col(field["name"])
+        if resolve_alias(normalized_name) != normalized_name:
+            # Skip alias-sensitive fields in synthetic mismatch generation to keep
+            # audit targets aligned with the parser/comparison engine.
+            continue
         eligible.append(field)
     eligible.sort(key=lambda field: order.get(get_obligation(field, sft_type, action_type), 9))
     return eligible
+
+
+def trade_issue_mode(day: date, trade_index: int, target: int) -> str:
+    if target == 0:
+        return "clean"
+
+    bucket = stable_index("issue_mode", day.isoformat(), trade_index, modulo=20)
+    profile = day_profile(day)
+
+    if profile == "mixed":
+        if bucket < 12:
+            return "unmatch"
+        if bucket < 16:
+            return "unpair_uti"
+        if bucket < 19:
+            return "unpair_other"
+        return "unpair_both"
+
+    # problematic
+    if bucket < 9:
+        return "unmatch"
+    if bucket < 14:
+        return "unpair_uti"
+    if bucket < 18:
+        return "unpair_other"
+    return "unpair_both"
 
 
 def timestamp_for(day: date, trade_index: int, field_number: int) -> str:
@@ -239,8 +311,36 @@ def build_trade_row(day: date, trade_index: int, op_count: int, sft_type: str = 
     candidates = mismatch_candidates(sft_type, action_type)
     if target > len(candidates):
         raise ValueError(f"Target unmatches {target} exceeds eligible fields {len(candidates)} for {sft_type}/{action_type}")
+    issue_mode = trade_issue_mode(day, trade_index, target)
+    non_pair_candidates = [field for field in candidates if field["name"] not in PAIRING_FIELDS]
+    from app.services.comparison import compare_field
 
-    mismatch_names = {field["name"] for field in candidates[:target]}
+    mismatch_names: set[str] = set()
+    if issue_mode == "unpair_uti":
+        mismatch_names.add("UTI")
+    elif issue_mode == "unpair_other":
+        mismatch_names.add("Other counterparty")
+    elif issue_mode == "unpair_both":
+        mismatch_names.update(PAIRING_FIELDS)
+
+    remaining_target = max(0, target - len(mismatch_names))
+    if remaining_target:
+        offset = stable_index("mismatch_offset", day.isoformat(), trade_index, modulo=len(non_pair_candidates))
+        rotated_candidates = non_pair_candidates[offset:] + non_pair_candidates[:offset]
+        effective_candidates = []
+        for field in rotated_candidates:
+            cp1, cp2 = mismatch_pair(field, day, trade_index)
+            result = compare_field(field["name"], cp1, cp2, sft_type, action_type)
+            if result["result"] == "UNMATCH":
+                effective_candidates.append(field)
+            if len(effective_candidates) >= remaining_target:
+                break
+        if len(effective_candidates) < remaining_target:
+            raise ValueError(
+                f"Remaining target {remaining_target} exceeds effective non-pair candidates {len(effective_candidates)} "
+                f"for {sft_type}/{action_type}"
+            )
+        mismatch_names.update(field["name"] for field in effective_candidates[:remaining_target])
     uti = f"SNDR202603{day.day:02d}{trade_index:03d}"
 
     row = {
@@ -262,6 +362,7 @@ def build_trade_row(day: date, trade_index: int, op_count: int, sft_type: str = 
         "date": day.isoformat(),
         "trade_index": trade_index,
         "target_unmatches": target,
+        "issue_mode": issue_mode,
         "operations_in_file": op_count,
         "sft_type": sft_type,
         "action_type": action_type,
@@ -269,7 +370,7 @@ def build_trade_row(day: date, trade_index: int, op_count: int, sft_type: str = 
     return row, meta
 
 
-def write_daily_csv(day: date) -> tuple[Path, list[dict]]:
+def write_daily_csv(day: date, out_dir: Path) -> tuple[Path, list[dict]]:
     op_count = day_operation_count(day)
     rows = []
     manifest = []
@@ -278,8 +379,8 @@ def write_daily_csv(day: date) -> tuple[Path, list[dict]]:
         rows.append(row)
         manifest.append(meta)
 
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    path = OUT_DIR / f"sftr_reconciliation_{day.isoformat()}.csv"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"sftr_reconciliation_{day.isoformat()}.csv"
 
     header = ["uti", "sft_type", "action_type"]
     for col_base, _field in FIELD_COLS:
@@ -294,24 +395,27 @@ def write_daily_csv(day: date) -> tuple[Path, list[dict]]:
     return path, manifest
 
 
-def generate_all() -> dict:
+def generate_all(year: int = 2026, month: int = 3, day_start: int = 1, day_end: int | None = None) -> dict:
     files = []
     manifest_by_file: dict[str, list[dict]] = {}
-    for day_num in range(1, 32):
-        current_day = date(2026, 3, day_num)
-        path, manifest = write_daily_csv(current_day)
+    out_dir = output_dir_for(year, month)
+    if day_end is None:
+        day_end = calendar.monthrange(year, month)[1]
+    for day_num in range(day_start, day_end + 1):
+        current_day = date(year, month, day_num)
+        path, manifest = write_daily_csv(current_day, out_dir=out_dir)
         files.append(path)
         manifest_by_file[path.name] = manifest
-    return {"files": files, "manifest": manifest_by_file}
+    return {"files": files, "manifest": manifest_by_file, "out_dir": out_dir}
 
 
-def audit_all(manifest_by_file: dict[str, list[dict]]) -> dict:
+def audit_all(manifest_by_file: dict[str, list[dict]], out_dir: Path) -> dict:
     from app.services.file_parser import parse_tabular_csv
     from app.services.comparison import compare_trade
 
     audit = {
         "generated_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
-        "folder": str(OUT_DIR),
+        "folder": str(out_dir),
         "files": [],
         "summary": {},
     }
@@ -322,9 +426,10 @@ def audit_all(manifest_by_file: dict[str, list[dict]]) -> dict:
     total_actual_unmatches = 0
     unique_utis = set()
     per_level_counts = defaultdict(int)
+    issue_mode_counts = defaultdict(int)
 
     for filename, manifest_rows in sorted(manifest_by_file.items()):
-        path = OUT_DIR / filename
+        path = out_dir / filename
         raw = path.read_bytes()
         parsed_rows = parse_tabular_csv(raw)
 
@@ -345,12 +450,14 @@ def audit_all(manifest_by_file: dict[str, list[dict]]) -> dict:
             row_audit.append(
                 {
                     "uti": expected["uti"],
+                    "issue_mode": expected.get("issue_mode"),
                     "target_unmatches": expected["target_unmatches"],
                     "actual_unmatches": actual_unmatches,
                     "ok": actual_unmatches == expected["target_unmatches"],
                 }
             )
             unique_utis.add(expected["uti"])
+            issue_mode_counts[expected.get("issue_mode", "unknown")] += 1
 
         file_report = {
             "file": filename,
@@ -379,23 +486,39 @@ def audit_all(manifest_by_file: dict[str, list[dict]]) -> dict:
         "all_files_ok": all(file["all_rows_match_targets"] for file in audit["files"]),
         "all_files_have_313_columns": all(file["columns"] == 313 for file in audit["files"]),
         "mismatch_level_distribution": dict(sorted(per_level_counts.items())),
+        "issue_mode_distribution": dict(sorted(issue_mode_counts.items())),
     }
 
-    with AUDIT_PATH.open("w", encoding="utf-8") as f:
+    with (out_dir / "audit_summary.json").open("w", encoding="utf-8") as f:
         json.dump(audit, f, indent=2, ensure_ascii=False)
 
     return audit
 
 
 def main() -> None:
-    generated = generate_all()
-    audit = audit_all(generated["manifest"])
-    print(f"Generated {audit['summary']['total_files']} CSV files in {OUT_DIR}")
+    year = 2026
+    month = 3
+    day_start = 1
+    day_end: int | None = None
+    if len(sys.argv) == 3:
+        day_start = int(sys.argv[1])
+        day_end = int(sys.argv[2])
+    elif len(sys.argv) == 5:
+        year = int(sys.argv[1])
+        month = int(sys.argv[2])
+        day_start = int(sys.argv[3])
+        day_end = int(sys.argv[4])
+    elif len(sys.argv) not in {1, 3, 5}:
+        raise SystemExit("Usage: python generate_march_2026_csvs.py [day_start day_end] | [year month day_start day_end]")
+
+    generated = generate_all(year=year, month=month, day_start=day_start, day_end=day_end)
+    audit = audit_all(generated["manifest"], generated["out_dir"])
+    print(f"Generated {audit['summary']['total_files']} CSV files in {generated['out_dir']}")
     print(f"Total rows: {audit['summary']['total_rows']}")
     print(f"Total expected unmatches: {audit['summary']['total_expected_unmatches']}")
     print(f"Total actual unmatches: {audit['summary']['total_actual_unmatches']}")
     print(f"All files OK: {audit['summary']['all_files_ok']}")
-    print(f"Audit report: {AUDIT_PATH}")
+    print(f"Audit report: {generated['out_dir'] / 'audit_summary.json'}")
 
 
 if __name__ == "__main__":

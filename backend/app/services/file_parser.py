@@ -11,13 +11,14 @@ Column name normalization: lowercase, non-alphanumeric chars replaced with under
 Example: "Reporting timestamp" → "reporting_timestamp_cp1" / "reporting_timestamp_cp2"
 """
 
-import pandas as pd
 from io import BytesIO
+
+import pandas as pd
 
 from app.services.column_mapping import normalize_col, build_column_index, resolve_alias
 
 
-def parse_tabular_csv(content: bytes) -> list[dict]:
+def parse_tabular_csv(content: bytes, product_type: str = "sftr") -> list[dict]:
     """
     Parse a tabular SFTR reconciliation CSV.
     Returns a list of row dicts, each with:
@@ -62,9 +63,17 @@ def parse_tabular_csv(content: bytes) -> list[dict]:
             else:
                 receptor[field_name] = ""
 
+        uti_value = get_meta("uti")
+        if not uti_value:
+            uti_value = emisor.get("UTI", "") or receptor.get("UTI", "")
+
+        sft_type_value = get_meta("sft_type", "Repo")
+        if product_type == "predatadas":
+            sft_type_value = emisor.get("Type of SFT", "") or receptor.get("Type of SFT", "") or "Predatadas"
+
         rows.append({
-            "uti": get_meta("uti"),
-            "sft_type": get_meta("sft_type", "Repo"),
+            "uti": uti_value,
+            "sft_type": sft_type_value,
             "action_type": get_meta("action_type", "NEWT"),
             "emisor_lei": get_meta("emisor_lei") or get_meta("reporting_counterparty_cp1"),
             "receptor_lei": get_meta("receptor_lei") or get_meta("reporting_counterparty_cp2"),

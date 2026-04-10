@@ -2,22 +2,24 @@
 Provider-agnostic LLM abstraction.
 
 Supported providers:
-  - ollama    → local Ollama server (default, free)
-  - anthropic → Anthropic API (claude-sonnet-4-6)
-  - openai    → OpenAI API (gpt-4o)
-
-Configuration via environment variables (see .env):
-  LLM_PROVIDER, LLM_MODEL, LLM_BASE_URL, LLM_API_KEY
+  - ollama    -> local or dockerized Ollama server
+  - anthropic -> Anthropic Messages API
+  - openai    -> OpenAI Chat Completions API
 """
 
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
+
 import httpx
-from app.config import LLM_PROVIDER, LLM_MODEL, LLM_BASE_URL, LLM_API_KEY
 
 
 class LLMProvider(ABC):
     name: str
     model: str
+
+    def __init__(self) -> None:
+        self.last_usage: dict[str, int] | None = None
 
     @abstractmethod
     async def complete(self, system: str, user: str) -> str:
@@ -28,12 +30,11 @@ class LLMProvider(ABC):
         """Check if the provider is reachable."""
 
 
-# ─── Ollama ───────────────────────────────────────────────────────────────────
-
 class OllamaProvider(LLMProvider):
     name = "ollama"
 
     def __init__(self, base_url: str, model: str):
+        super().__init__()
         self.base_url = base_url.rstrip("/")
         self.model = model
 
@@ -45,7 +46,13 @@ class OllamaProvider(LLMProvider):
                 json={"model": self.model, "prompt": prompt, "stream": False},
             )
             resp.raise_for_status()
-            return resp.json()["response"].strip()
+            data = resp.json()
+            self.last_usage = {
+                "input_tokens": int(data.get("prompt_eval_count") or 0),
+                "output_tokens": int(data.get("eval_count") or 0),
+                "cached_input_tokens": 0,
+            }
+            return (data.get("response") or "").strip()
 
     async def is_available(self) -> bool:
         try:
@@ -56,12 +63,11 @@ class OllamaProvider(LLMProvider):
             return False
 
 
-# ─── Anthropic ────────────────────────────────────────────────────────────────
-
 class AnthropicProvider(LLMProvider):
     name = "anthropic"
 
     def __init__(self, api_key: str, model: str):
+        super().__init__()
         self.api_key = api_key
         self.model = model
 
@@ -82,21 +88,29 @@ class AnthropicProvider(LLMProvider):
                 },
             )
             resp.raise_for_status()
-            return resp.json()["content"][0]["text"].strip()
+            data = resp.json()
+            usage = data.get("usage") or {}
+            self.last_usage = {
+                "input_tokens": int(usage.get("input_tokens") or 0),
+                "output_tokens": int(usage.get("output_tokens") or 0),
+                "cached_input_tokens": int((usage.get("cache_read_input_tokens") or 0) + (usage.get("cache_creation_input_tokens") or 0)),
+            }
+            content = data.get("content") or []
+            text_parts = [part.get("text", "") for part in content if isinstance(part, dict) and part.get("type") == "text"]
+            return "\n".join(part for part in text_parts if part).strip()
 
     async def is_available(self) -> bool:
         return bool(self.api_key)
 
 
-# ─── OpenAI ───────────────────────────────────────────────────────────────────
-
 class OpenAIProvider(LLMProvider):
     name = "openai"
 
     def __init__(self, api_key: str, model: str, base_url: str = "https://api.openai.com/v1"):
+        super().__init__()
         self.api_key = api_key
         self.model = model
-        self.base_url = base_url
+        self.base_url = base_url.rstrip("/")
 
     async def complete(self, system: str, user: str) -> str:
         async with httpx.AsyncClient(timeout=60) as client:
@@ -116,18 +130,15 @@ class OpenAIProvider(LLMProvider):
                 },
             )
             resp.raise_for_status()
-            return resp.json()["choices"][0]["message"]["content"].strip()
+            data = resp.json()
+            usage = data.get("usage") or {}
+            prompt_details = usage.get("prompt_tokens_details") or {}
+            self.last_usage = {
+                "input_tokens": int(usage.get("prompt_tokens") or 0),
+                "output_tokens": int(usage.get("completion_tokens") or 0),
+                "cached_input_tokens": int(prompt_details.get("cached_tokens") or 0),
+            }
+            return ((data.get("choices") or [{}])[0].get("message") or {}).get("content", "").strip()
 
     async def is_available(self) -> bool:
         return bool(self.api_key)
-
-
-# ─── Factory ──────────────────────────────────────────────────────────────────
-
-def get_provider() -> LLMProvider:
-    if LLM_PROVIDER == "anthropic":
-        return AnthropicProvider(api_key=LLM_API_KEY, model=LLM_MODEL or "claude-sonnet-4-6")
-    elif LLM_PROVIDER == "openai":
-        return OpenAIProvider(api_key=LLM_API_KEY, model=LLM_MODEL or "gpt-4o")
-    else:
-        return OllamaProvider(base_url=LLM_BASE_URL, model=LLM_MODEL or "gemma4:e4b")

@@ -1,13 +1,13 @@
-"""
-Field-level comparison engine for SFTR reconciliation.
-
-For each trade row, compares emisor vs receptor values across all 155 SFTR fields.
-Produces a FieldComparison result per field with result, severity, and root_cause.
-"""
-
 import re
+from datetime import datetime
 from typing import Optional
-from app.services.field_registry import get_all_fields, get_field_by_name, get_obligation
+from app.services.field_registry import (
+    DEFAULT_PRODUCT_TYPE,
+    PRODUCT_TYPE_PREDATADAS,
+    get_all_fields,
+    get_field_by_name,
+    get_obligation,
+)
 from app.services.tolerances import get_tolerance
 from app.services.validators import validate_field_value
 
@@ -20,6 +20,12 @@ MIRROR_PAIRS = {
 
 NUMERIC_RE = re.compile(r"^-?\d+(\.\d+)?([eE][+-]?\d+)?$")
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}")
+DATETIME_FORMATS = (
+    "%Y-%m-%dT%H:%M:%SZ",
+    "%Y-%m-%dT%H:%M:%S.%fZ",
+    "%Y-%m-%d %H:%M:%S",
+    "%Y-%m-%d",
+)
 
 
 def normalize(value: Optional[str]) -> str:
@@ -82,24 +88,70 @@ def numeric_match(e_norm: str, r_norm: str, tolerance: float) -> bool:
         return False
 
 
+def _parse_datetime(value: str) -> Optional[datetime]:
+    normalized = value.strip()
+    if not normalized:
+        return None
+
+    for fmt in DATETIME_FORMATS:
+        try:
+            return datetime.strptime(normalized, fmt)
+        except ValueError:
+            continue
+
+    if normalized.endswith("Z"):
+        try:
+            return datetime.fromisoformat(normalized.replace("Z", "+00:00")).replace(tzinfo=None)
+        except ValueError:
+            return None
+    try:
+        return datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+
+
+def compute_difference(field_name: str, emisor_val: Optional[str], receptor_val: Optional[str]) -> tuple[Optional[float], Optional[str], Optional[str]]:
+    if not emisor_val or not receptor_val:
+        return None, None, None
+
+    field_upper = field_name.strip().upper()
+    if field_upper not in {"REPORTING TIMESTAMP", "EXECUTION TIMESTAMP", "EVENT DATE"}:
+        return None, None, None
+
+    emisor_dt = _parse_datetime(emisor_val)
+    receptor_dt = _parse_datetime(receptor_val)
+    if not emisor_dt or not receptor_dt:
+        return None, None, None
+
+    delta_seconds = (emisor_dt - receptor_dt).total_seconds()
+    if field_upper == "EVENT DATE":
+        delta_days = delta_seconds / 86400
+        display = f"{delta_days:+.0f} días"
+        return delta_days, "days", display
+
+    display = f"{delta_seconds:+.0f} s"
+    return delta_seconds, "seconds", display
+
+
 def compare_trade(
     emisor_data: dict[str, str],
     receptor_data: dict[str, str],
     sft_type: str = "Repo",
     action_type: str = "NEWT",
+    product_type: str = DEFAULT_PRODUCT_TYPE,
 ) -> list[dict]:
     """
     Compare emisor vs receptor data for a single trade.
     Returns list of field comparison dicts.
     """
     results = []
-    all_fields = get_all_fields()
+    all_fields = get_all_fields(product_type)
 
     for field in all_fields:
         field_name = field["name"]
         emisor_val = _get_field_value(emisor_data, field_name)
         receptor_val = _get_field_value(receptor_data, field_name)
-        results.append(compare_field(field_name, emisor_val, receptor_val, sft_type, action_type))
+        results.append(compare_field(field_name, emisor_val, receptor_val, sft_type, action_type, product_type))
 
     return results
 
@@ -110,23 +162,29 @@ def compare_field(
     receptor_val: Optional[str],
     sft_type: str = "Repo",
     action_type: str = "NEWT",
+    product_type: str = DEFAULT_PRODUCT_TYPE,
 ) -> dict:
-    field = get_field_by_name(field_name)
+    field = get_field_by_name(field_name, product_type)
     if not field:
         raise ValueError(f"Field not found in registry: {field_name}")
 
     table_number = field["table"]
     field_number = field["number"]
     is_mirror = field.get("is_mirror", False)
-    obligation = get_obligation(field, sft_type, action_type)
+    obligation = get_obligation(field, sft_type, action_type, product_type)
 
     e_norm = normalize(emisor_val)
     r_norm = normalize(receptor_val)
     tolerance = get_tolerance(field_name, obligation)
+    difference_value, difference_unit, difference_display = compute_difference(field_name, emisor_val, receptor_val)
 
     # Proactive validation: check individual field values
-    emisor_validation = validate_field_value(field_name, emisor_val) if emisor_val else None
-    receptor_validation = validate_field_value(field_name, receptor_val) if receptor_val else None
+    if product_type == PRODUCT_TYPE_PREDATADAS:
+        emisor_validation = None
+        receptor_validation = None
+    else:
+        emisor_validation = validate_field_value(field_name, emisor_val) if emisor_val else None
+        receptor_validation = validate_field_value(field_name, receptor_val) if receptor_val else None
 
     if obligation == "-":
         if not e_norm and not r_norm:
@@ -181,6 +239,9 @@ def compare_field(
         "obligation": obligation,
         "emisor_value": emisor_val if emisor_val else None,
         "receptor_value": receptor_val if receptor_val else None,
+        "difference_value": difference_value,
+        "difference_unit": difference_unit,
+        "difference_display": difference_display,
         "result": result,
         "severity": severity,
         "root_cause": root_cause,

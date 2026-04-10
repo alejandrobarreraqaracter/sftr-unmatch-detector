@@ -1,0 +1,14 @@
+{
+  "files": 30,
+  "total_rows": 720,
+  "total_expected_unmatches": 775,
+  "total_actual_unmatches": 775,
+  "all_files_ok": true,
+  "issue_mode_distribution": {
+    "unmatch": 181,
+    "unpair_both": 48,
+    "unpair_uti": 110,
+    "unpair_other": 96,
+    "clean": 285
+  }
+}

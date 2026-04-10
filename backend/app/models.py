@@ -15,6 +15,7 @@ class Session(Base):
     emisor_name = Column(String(255), nullable=True)
     receptor_name = Column(String(255), nullable=True)
     filename = Column(String(255), nullable=True)
+    product_type = Column(String(30), nullable=False, default="sftr")
 
     total_trades = Column(Integer, default=0)
     total_fields = Column(Integer, default=0)           # sum of compared fields across all trades
@@ -62,6 +63,9 @@ class FieldComparison(Base):
     obligation = Column(String(5), nullable=True)
     emisor_value = Column(Text, nullable=True)
     receptor_value = Column(Text, nullable=True)
+    difference_value = Column(Float, nullable=True)
+    difference_unit = Column(String(20), nullable=True)
+    difference_display = Column(String(255), nullable=True)
     result = Column(String(10), nullable=False)         # MATCH, UNMATCH, MIRROR, NA
     severity = Column(String(10), nullable=False)       # CRITICAL, WARNING, INFO, NONE
     root_cause = Column(String(30), nullable=True)      # MISSING_EMISOR, MISSING_RECEPTOR, NUMERIC_DELTA, VALUE_MISMATCH, etc.
@@ -109,3 +113,37 @@ class ReportingSnapshot(Base):
     narrative_provider = Column(String(50), nullable=True)
     narrative_model = Column(String(100), nullable=True)
     report_version = Column(String(20), nullable=False, default="v1")
+
+
+class LLMProfile(Base):
+    __tablename__ = "llm_profiles"
+
+    id = Column(Integer, primary_key=True, index=True)
+    profile_key = Column(String(100), nullable=False, unique=True, index=True)
+    label = Column(String(255), nullable=False)
+    provider = Column(String(50), nullable=False)
+    model = Column(String(100), nullable=False)
+    base_url = Column(String(255), nullable=True)
+    input_cost_per_million = Column(Float, nullable=True)
+    output_cost_per_million = Column(Float, nullable=True)
+    enabled = Column(Boolean, default=True)
+    is_active = Column(Boolean, default=False)
+    sort_order = Column(Integer, default=0)
+
+
+class LLMUsageEvent(Base):
+    __tablename__ = "llm_usage_events"
+
+    id = Column(Integer, primary_key=True, index=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
+    username = Column(String(255), nullable=False, index=True)
+    display_name = Column(String(255), nullable=True)
+    provider = Column(String(50), nullable=False, index=True)
+    model = Column(String(100), nullable=False, index=True)
+    feature = Column(String(100), nullable=False, index=True)
+    input_tokens = Column(Integer, default=0)
+    output_tokens = Column(Integer, default=0)
+    cached_input_tokens = Column(Integer, default=0)
+    estimated_input_cost = Column(Float, default=0.0)
+    estimated_output_cost = Column(Float, default=0.0)
+    estimated_total_cost = Column(Float, default=0.0)

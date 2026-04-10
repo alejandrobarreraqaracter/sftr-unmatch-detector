@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
-from app.routers import sessions, analytics, ai, reporting
+from app.routers import sessions, analytics, ai, reporting, auth
 
 Base.metadata.create_all(bind=engine)
 
@@ -21,6 +21,7 @@ app.include_router(sessions.router)
 app.include_router(analytics.router)
 app.include_router(ai.router)
 app.include_router(reporting.router)
+app.include_router(auth.router)
 
 
 @app.get("/healthz")

@@ -50,6 +50,7 @@ DETAIL_HEADERS = [
     "Obligation",
     "Emisor Value",
     "Receptor Value",
+    "Difference",
     "Result",
     "Severity",
     "Root Cause",
@@ -115,7 +116,7 @@ def generate_xlsx(session_data: dict, field_results: list, only_unmatches: bool 
 
 
 def _populate_detail_sheet(ws, title: str, session_data: dict, rows: list[dict]) -> None:
-    ws.merge_cells("A1:U1")
+    ws.merge_cells("A1:V1")
     title_cell = ws["A1"]
     title_cell.value = title
     title_cell.font = Font(bold=True, size=14, color="2B3544")
@@ -171,6 +172,7 @@ def _populate_detail_sheet(ws, title: str, session_data: dict, rows: list[dict])
             item.get("obligation"),
             item.get("emisor_value", ""),
             item.get("receptor_value", ""),
+            item.get("difference_display", ""),
             item.get("result"),
             severity,
             item.get("root_cause", ""),
@@ -188,13 +190,13 @@ def _populate_detail_sheet(ws, title: str, session_data: dict, rows: list[dict])
             if col_index == 6:
                 cell.fill = PatternFill(start_color=pairing_fill_color, end_color=pairing_fill_color, fill_type="solid")
                 cell.font = Font(color=pairing_font_color, bold=bool(pairing_status))
-            elif col_index in (14, 15):
+            elif col_index in (15, 16):
                 cell.fill = severity_fill
                 cell.font = severity_font
-            cell.alignment = Alignment(horizontal="center" if col_index in (1, 2, 6, 8, 9, 11, 14, 15, 20) else "left")
+            cell.alignment = Alignment(horizontal="center" if col_index in (1, 2, 6, 8, 9, 11, 15, 16, 21) else "left")
         current_row += 1
 
-    widths = [10, 8, 20, 12, 12, 14, 28, 8, 8, 36, 10, 24, 24, 12, 12, 22, 16, 18, 28, 10]
+    widths = [10, 8, 20, 12, 12, 14, 28, 8, 8, 36, 10, 24, 24, 18, 12, 12, 22, 16, 18, 28, 10]
     for idx, width in enumerate(widths, 1):
         ws.column_dimensions[_excel_column_name(idx)].width = width
 

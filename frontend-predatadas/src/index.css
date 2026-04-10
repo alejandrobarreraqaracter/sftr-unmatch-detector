@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --radius: 0.5rem;
+    --brand-orange: #fc7c34;
+    --brand-navy: #243444;
+  }
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased;
+  }
+}
+
+@layer utilities {
+  @keyframes analytics-highlight-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(252, 124, 52, 0);
+    }
+    20% {
+      box-shadow: 0 0 0 10px rgba(252, 124, 52, 0.18);
+    }
+    33% {
+      box-shadow: 0 0 0 0 rgba(252, 124, 52, 0);
+    }
+    53% {
+      box-shadow: 0 0 0 10px rgba(252, 124, 52, 0.18);
+    }
+    66% {
+      box-shadow: 0 0 0 0 rgba(252, 124, 52, 0);
+    }
+    86% {
+      box-shadow: 0 0 0 10px rgba(252, 124, 52, 0.18);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(252, 124, 52, 0);
+    }
+  }
+
+  .animate-analytics-highlight {
+    animation: analytics-highlight-pulse 1.8s ease-in-out 1;
+  }
+}

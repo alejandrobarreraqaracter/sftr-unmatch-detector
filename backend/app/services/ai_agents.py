@@ -8,6 +8,8 @@ Agents:
   3. SessionNarrator — generates an executive summary of a full session
 """
 
+import re
+
 from app.services.llm_provider import LLMProvider
 
 SYSTEM_BASE = (
@@ -18,6 +20,32 @@ SYSTEM_BASE = (
     "Sé conciso, preciso y utiliza terminología regulatoria. "
     "IMPORTANTE: Responde SIEMPRE en español, independientemente del idioma de los datos."
 )
+
+ALLOWED_ANALYTICS_HINTS = {
+    "analítica", "analisis", "análisis", "riesgo", "discrepancia", "discrepancias", "crítica", "criticas", "críticas",
+    "warning", "advertencia", "advertencias", "campo", "campos", "contraparte", "contrapartes", "sesión", "sesiones",
+    "trade", "trades", "operación", "operaciones", "uti", "other counterparty", "unpair", "unmatch", "quality",
+    "calidad", "resolución", "resuelto", "pendiente", "periodo", "período", "día", "dias", "días", "fecha", "fechas",
+    "comparar", "comparación", "dashboard", "reporting", "reporte", "informe", "sft", "sftr", "lei", "timestamp",
+}
+
+BLOCKED_ANALYTICS_HINTS = {
+    "ignore previous", "ignora las instrucciones", "system prompt", "prompt", "roleplay", "actúa como", "actua como",
+    "contraseña", "password", "api key", "apikey", "secret", "secreto", "token", "hack", "exploit", "bypass",
+    "poema", "poesía", "poesia", "receta", "canción", "cancion", "chiste", "fútbol", "futbol", "política", "politica",
+    "capital de", "traduce", "programa", "escribe código", "escribe codigo",
+}
+
+
+def is_analytics_question_in_scope(question: str) -> bool:
+    normalized = re.sub(r"\s+", " ", (question or "").strip().lower())
+    if not normalized:
+        return False
+    if any(blocked in normalized for blocked in BLOCKED_ANALYTICS_HINTS):
+        return False
+    if len(normalized) > 400:
+        return False
+    return any(hint in normalized for hint in ALLOWED_ANALYTICS_HINTS)
 
 
 # ─── Agent 1: Field Analyzer ─────────────────────────────────────────────────
@@ -368,6 +396,13 @@ async def generate_analytics_chat_response(
         "\n\nTu tarea: responder preguntas analíticas sobre sesiones SFTR usando solo los datos agregados proporcionados. "
         "No inventes cifras. Si la pregunta no puede responderse completamente con los datos dados, dilo de forma explícita y responde con la mejor aproximación posible. "
         "Da respuestas ejecutivas, claras y accionables, en español, con Markdown simple y entre 80 y 220 palabras. "
+        "IMPORTANTE: TABLAS MARKDOWN PROHIBIDAS. No uses tablas, no uses filas con el carácter '|', no uses separadores tipo '---'. "
+        "Si quieres mostrar rankings o listados, usa siempre bullets o listas numeradas con una línea por elemento. "
+        "Formato preferido de respuesta: "
+        "1. Un título corto opcional. "
+        "2. Un resumen breve. "
+        "3. Hallazgos clave en bullets. "
+        "4. Una acción recomendada final. "
         "Cuando sea útil, sugiere una visualización para acompañar la respuesta. "
         "Responde ÚNICAMENTE con JSON con las claves: answer, suggested_visual. "
         "suggested_visual debe ser uno de: none, daily_trend, top_fields, counterparties, day_sessions, comparison."
@@ -412,7 +447,7 @@ async def generate_analytics_chat_response(
         f"{top_fields_text}\n\n"
         "Contrapartes con más discrepancias:\n"
         f"{counterparties_text}\n\n"
-        "Responde en español."
+        "Responde en español. Recuerda: no uses tablas Markdown; usa solo párrafos breves, bullets o listas numeradas."
     )
 
     raw = await provider.complete(system, user)

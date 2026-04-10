@@ -1,0 +1,66 @@
+import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { LayoutDashboard, Upload, List, BarChart3, Cpu } from "lucide-react";
+import { getAIStatus, type AIStatus } from "@/lib/api";
+
+const navItems = [
+  { to: "/", icon: LayoutDashboard, label: "Inicio" },
+  { to: "/upload", icon: Upload, label: "Cargar fichero" },
+  { to: "/sessions", icon: List, label: "Sesiones" },
+  { to: "/analytics", icon: BarChart3, label: "Analítica" },
+];
+
+export default function Sidebar() {
+  const location = useLocation();
+  const [aiStatus, setAIStatus] = useState<AIStatus | null>(null);
+
+  useEffect(() => {
+    getAIStatus().then(setAIStatus).catch(() => {});
+  }, []);
+
+  return (
+    <aside className="flex flex-col w-64 min-h-screen border-r border-zinc-200" style={{ backgroundColor: '#243444' }}>
+      <div className="flex items-center gap-3 px-6 py-5 border-b border-white/10">
+        <img src="/logo.png" alt="qaracter" className="h-8 w-auto" />
+      </div>
+
+      <nav className="flex-1 px-3 py-4 space-y-1">
+        {navItems.map((item) => {
+          const isActive =
+            item.to === "/"
+              ? location.pathname === "/"
+              : location.pathname.startsWith(item.to);
+          return (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive
+                  ? "text-white"
+                  : "text-white/60 hover:text-white hover:bg-white/10"
+              }`}
+              style={isActive ? { backgroundColor: '#fc7c34' } : {}}
+            >
+              <item.icon className="h-4 w-4" />
+              {item.label}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="px-4 py-4 border-t border-white/10 space-y-2">
+        {aiStatus && (
+          <div className="flex items-center gap-2">
+            <Cpu className="h-3 w-3 text-white/50" />
+            <span className={`text-xs font-medium ${aiStatus.available ? "text-green-400" : "text-red-400"}`}>
+              {aiStatus.provider} · {aiStatus.model}
+            </span>
+            <span className={`h-1.5 w-1.5 rounded-full ${aiStatus.available ? "bg-green-400" : "bg-red-400"}`} />
+          </div>
+        )}
+        <p className="text-xs text-white/40">Predatadas</p>
+        <p className="text-xs text-white/40">Conciliación de campos clave</p>
+      </div>
+    </aside>
+  );
+}

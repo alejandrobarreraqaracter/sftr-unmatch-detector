@@ -3,7 +3,7 @@ from datetime import datetime
 from pydantic import BaseModel
 import httpx
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session as DBSession
 from sqlalchemy import func
@@ -11,11 +11,29 @@ from io import BytesIO
 
 from app.routers.analytics import _get_filtered_sessions, _get_pairing_by_trade, compare_periods
 from app.database import get_db
-from app.models import Session as SessionModel, TradeRecord, FieldComparison
-from app.services.llm_provider import get_provider
-from app.services.ai_agents import analyze_field, analyze_trade, generate_session_narrative, generate_analytics_narrative, generate_comparison_narrative, generate_analytics_chat_response
+from app.models import Session as SessionModel, TradeRecord, FieldComparison, LLMUsageEvent
+from app.schemas import (
+    ActivateLLMProfileRequest,
+    DemoUserResponse,
+    LLMProfileResponse,
+    LLMUsageByModelItem,
+    LLMUsageByUserItem,
+    LLMUsageDailyItem,
+    LLMUsageOverview,
+)
+from app.services.ai_agents import (
+    analyze_field,
+    analyze_trade,
+    generate_session_narrative,
+    generate_analytics_narrative,
+    generate_comparison_narrative,
+    generate_analytics_chat_response,
+    is_analytics_question_in_scope,
+)
+from app.services.demo_users import get_demo_user
+from app.services.llm_runtime import activate_profile, get_active_profile, get_provider_for_request, list_llm_profiles, record_usage_event
 from app.services.report_export import generate_pdf_report, generate_word_report_html
-from app.config import LLM_PROVIDER, LLM_MODEL
+from app.config import OLLAMA_BASE_URL
 
 router = APIRouter(prefix="/api/ai", tags=["ai"])
 DATE_IN_FILENAME_RE = re.compile(r"(\d{4}-\d{2}-\d{2})")
@@ -28,12 +46,14 @@ class AnalyticsReportExportRequest(BaseModel):
     date_to: str | None = None
     provider: str | None = None
     model: str | None = None
+    product_type: str | None = None
 
 
 class AnalyticsChatRequest(BaseModel):
     question: str
     date_from: str | None = None
     date_to: str | None = None
+    product_type: str | None = None
     selected_day: str | None = None
     compare_from_a: str | None = None
     compare_to_a: str | None = None
@@ -41,33 +61,202 @@ class AnalyticsChatRequest(BaseModel):
     compare_to_b: str | None = None
 
 
-def _raise_provider_unavailable(exc: Exception) -> None:
+def _raise_provider_unavailable(exc: Exception, provider_name: str, model_name: str) -> None:
     message = (
-        f"No se pudo conectar con el proveedor IA configurado ({LLM_PROVIDER}/{LLM_MODEL}). "
+        f"No se pudo conectar con el proveedor IA configurado ({provider_name}/{model_name}). "
         "Revisa la configuración del provider y su conectividad de red."
     )
-    if LLM_PROVIDER == "ollama":
+    if provider_name == "ollama":
         message += (
             " Si estás usando Docker y Ollama corre en tu máquina host, configura "
-            "`LLM_BASE_URL=http://host.docker.internal:11434` y reinicia el backend."
+            f"`OLLAMA_BASE_URL={OLLAMA_BASE_URL}` o el endpoint correcto, y reinicia el backend si procede."
         )
     raise HTTPException(status_code=503, detail=message) from exc
 
 
+def _get_request_user(x_demo_user: str | None) -> tuple[str, str]:
+    user = get_demo_user(x_demo_user)
+    if user:
+        return user["username"], user["display_name"]
+    return "anonymous", "Invitado"
+
+
 @router.get("/status")
-async def ai_status():
+async def ai_status(db: DBSession = Depends(get_db)):
     """Check which AI provider is active and whether it's reachable."""
-    provider = get_provider()
+    profile, provider = get_provider_for_request(db)
     available = await provider.is_available()
     return {
-        "provider": LLM_PROVIDER,
-        "model": LLM_MODEL,
+        "provider": profile.provider,
+        "model": profile.model,
+        "label": profile.label,
+        "profile_key": profile.profile_key,
         "available": available,
     }
 
 
+@router.get("/profiles", response_model=list[LLMProfileResponse])
+def get_profiles(db: DBSession = Depends(get_db)):
+    return list_llm_profiles(db)
+
+
+@router.post("/profiles/activate", response_model=LLMProfileResponse)
+def activate_llm_profile(request: ActivateLLMProfileRequest, db: DBSession = Depends(get_db)):
+    try:
+        return activate_profile(db, request.profile_key)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+
+
+@router.get("/usage/overview", response_model=LLMUsageOverview)
+def usage_overview(
+    date_from: str | None = Query(default=None),
+    date_to: str | None = Query(default=None),
+    db: DBSession = Depends(get_db),
+):
+    query = db.query(LLMUsageEvent)
+    if date_from:
+        query = query.filter(func.date(LLMUsageEvent.created_at) >= date_from)
+    if date_to:
+        query = query.filter(func.date(LLMUsageEvent.created_at) <= date_to)
+
+    rows = query.all()
+    return LLMUsageOverview(
+        total_requests=len(rows),
+        total_input_tokens=sum(row.input_tokens for row in rows),
+        total_output_tokens=sum(row.output_tokens for row in rows),
+        total_cached_input_tokens=sum(row.cached_input_tokens for row in rows),
+        total_cost=round(sum(row.estimated_total_cost for row in rows), 6),
+        date_from=date_from,
+        date_to=date_to,
+    )
+
+
+@router.get("/usage/daily", response_model=list[LLMUsageDailyItem])
+def usage_daily(
+    date_from: str | None = Query(default=None),
+    date_to: str | None = Query(default=None),
+    db: DBSession = Depends(get_db),
+):
+    query = db.query(LLMUsageEvent)
+    if date_from:
+        query = query.filter(func.date(LLMUsageEvent.created_at) >= date_from)
+    if date_to:
+        query = query.filter(func.date(LLMUsageEvent.created_at) <= date_to)
+
+    grouped: dict[str, dict[str, float | int]] = {}
+    for row in query.all():
+        key = row.created_at.date().isoformat()
+        bucket = grouped.setdefault(
+            key,
+            {"requests": 0, "input_tokens": 0, "output_tokens": 0, "total_cost": 0.0},
+        )
+        bucket["requests"] += 1
+        bucket["input_tokens"] += row.input_tokens
+        bucket["output_tokens"] += row.output_tokens
+        bucket["total_cost"] += row.estimated_total_cost
+
+    return [
+        LLMUsageDailyItem(
+            date=date,
+            requests=int(values["requests"]),
+            input_tokens=int(values["input_tokens"]),
+            output_tokens=int(values["output_tokens"]),
+            total_cost=round(float(values["total_cost"]), 6),
+        )
+        for date, values in sorted(grouped.items())
+    ]
+
+
+@router.get("/usage/by-user", response_model=list[LLMUsageByUserItem])
+def usage_by_user(
+    date_from: str | None = Query(default=None),
+    date_to: str | None = Query(default=None),
+    db: DBSession = Depends(get_db),
+):
+    query = db.query(LLMUsageEvent)
+    if date_from:
+        query = query.filter(func.date(LLMUsageEvent.created_at) >= date_from)
+    if date_to:
+        query = query.filter(func.date(LLMUsageEvent.created_at) <= date_to)
+
+    grouped: dict[str, dict[str, float | int | str]] = {}
+    for row in query.all():
+        bucket = grouped.setdefault(
+            row.username,
+            {
+                "display_name": row.display_name,
+                "requests": 0,
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "total_cost": 0.0,
+            },
+        )
+        bucket["requests"] += 1
+        bucket["input_tokens"] += row.input_tokens
+        bucket["output_tokens"] += row.output_tokens
+        bucket["total_cost"] += row.estimated_total_cost
+
+    return sorted(
+        [
+            LLMUsageByUserItem(
+                username=username,
+                display_name=str(values["display_name"]),
+                requests=int(values["requests"]),
+                input_tokens=int(values["input_tokens"]),
+                output_tokens=int(values["output_tokens"]),
+                total_cost=round(float(values["total_cost"]), 6),
+            )
+            for username, values in grouped.items()
+        ],
+        key=lambda item: item.total_cost,
+        reverse=True,
+    )
+
+
+@router.get("/usage/by-model", response_model=list[LLMUsageByModelItem])
+def usage_by_model(
+    date_from: str | None = Query(default=None),
+    date_to: str | None = Query(default=None),
+    db: DBSession = Depends(get_db),
+):
+    query = db.query(LLMUsageEvent)
+    if date_from:
+        query = query.filter(func.date(LLMUsageEvent.created_at) >= date_from)
+    if date_to:
+        query = query.filter(func.date(LLMUsageEvent.created_at) <= date_to)
+
+    grouped: dict[tuple[str, str], dict[str, float | int]] = {}
+    for row in query.all():
+        key = (row.provider, row.model)
+        bucket = grouped.setdefault(
+            key,
+            {"requests": 0, "input_tokens": 0, "output_tokens": 0, "total_cost": 0.0},
+        )
+        bucket["requests"] += 1
+        bucket["input_tokens"] += row.input_tokens
+        bucket["output_tokens"] += row.output_tokens
+        bucket["total_cost"] += row.estimated_total_cost
+
+    return sorted(
+        [
+            LLMUsageByModelItem(
+                provider=provider,
+                model=model,
+                requests=int(values["requests"]),
+                input_tokens=int(values["input_tokens"]),
+                output_tokens=int(values["output_tokens"]),
+                total_cost=round(float(values["total_cost"]), 6),
+            )
+            for (provider, model), values in grouped.items()
+        ],
+        key=lambda item: item.total_cost,
+        reverse=True,
+    )
+
+
 @router.post("/field-comparisons/{fc_id}/analyze")
-async def analyze_field_comparison(fc_id: int, db: DBSession = Depends(get_db)):
+async def analyze_field_comparison(fc_id: int, db: DBSession = Depends(get_db), x_demo_user: str | None = Header(default=None)):
     """Agent 1: Analyze a single field discrepancy."""
     fc = db.query(FieldComparison).filter(FieldComparison.id == fc_id).first()
     if not fc:
@@ -78,7 +267,7 @@ async def analyze_field_comparison(fc_id: int, db: DBSession = Depends(get_db)):
     trade = db.query(TradeRecord).filter(TradeRecord.id == fc.trade_id).first()
 
     try:
-        provider = get_provider()
+        profile, provider = get_provider_for_request(db)
         result = await analyze_field(
             provider=provider,
             field_name=fc.field_name,
@@ -90,13 +279,14 @@ async def analyze_field_comparison(fc_id: int, db: DBSession = Depends(get_db)):
             sft_type=trade.sft_type if trade else "Repo",
             action_type=trade.action_type if trade else "NEWT",
         )
+        record_usage_event(db, profile, provider, "field_analysis", x_demo_user)
         return {"field_id": fc_id, "field_name": fc.field_name, **result}
     except httpx.HTTPError as exc:
-        _raise_provider_unavailable(exc)
+        _raise_provider_unavailable(exc, profile.provider, profile.model)
 
 
 @router.post("/trades/{trade_id}/analyze")
-async def analyze_trade_endpoint(trade_id: int, db: DBSession = Depends(get_db)):
+async def analyze_trade_endpoint(trade_id: int, db: DBSession = Depends(get_db), x_demo_user: str | None = Header(default=None)):
     """Agent 2: Summarize and prioritize all unmatches in a trade."""
     trade = db.query(TradeRecord).filter(TradeRecord.id == trade_id).first()
     if not trade:
@@ -119,7 +309,7 @@ async def analyze_trade_endpoint(trade_id: int, db: DBSession = Depends(get_db))
         return {"trade_id": trade_id, "summary": "No unmatches found in this trade.", "priority_field": None, "main_risk": None, "recommended_action": None}
 
     try:
-        provider = get_provider()
+        profile, provider = get_provider_for_request(db)
         result = await analyze_trade(
             provider=provider,
             uti=trade.uti or f"Trade #{trade.row_number}",
@@ -127,13 +317,14 @@ async def analyze_trade_endpoint(trade_id: int, db: DBSession = Depends(get_db))
             action_type=trade.action_type or "NEWT",
             unmatches=unmatches,
         )
+        record_usage_event(db, profile, provider, "trade_analysis", x_demo_user)
     except httpx.HTTPError as exc:
-        _raise_provider_unavailable(exc)
+        _raise_provider_unavailable(exc, profile.provider, profile.model)
     return {"trade_id": trade_id, "uti": trade.uti, **result}
 
 
 @router.post("/sessions/{session_id}/narrative")
-async def session_narrative(session_id: int, db: DBSession = Depends(get_db)):
+async def session_narrative(session_id: int, db: DBSession = Depends(get_db), x_demo_user: str | None = Header(default=None)):
     """Agent 3: Generate executive narrative for a reconciliation session."""
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
@@ -181,14 +372,15 @@ async def session_narrative(session_id: int, db: DBSession = Depends(get_db)):
     }
 
     try:
-        provider = get_provider()
+        profile, provider = get_provider_for_request(db)
         narrative = await generate_session_narrative(provider, session_data, top_fields, sample_trades)
+        record_usage_event(db, profile, provider, "session_narrative", x_demo_user)
     except httpx.HTTPError as exc:
-        _raise_provider_unavailable(exc)
+        _raise_provider_unavailable(exc, profile.provider, profile.model)
     return {
         "session_id": session_id,
-        "provider": LLM_PROVIDER,
-        "model": LLM_MODEL,
+        "provider": profile.provider,
+        "model": profile.model,
         "narrative": narrative,
     }
 
@@ -197,9 +389,11 @@ async def session_narrative(session_id: int, db: DBSession = Depends(get_db)):
 async def analytics_report(
     date_from: str | None = Query(default=None),
     date_to: str | None = Query(default=None),
+    product_type: str | None = Query(default=None),
     db: DBSession = Depends(get_db),
+    x_demo_user: str | None = Header(default=None),
 ):
-    sessions = _get_filtered_sessions(db, date_from, date_to)
+    sessions = _get_filtered_sessions(db, date_from, date_to, product_type)
     session_ids = [session.id for session in sessions]
 
     overview = {
@@ -279,13 +473,14 @@ async def analytics_report(
     daily_items = sorted(daily_map.values(), key=lambda item: item["date"])
 
     try:
-        provider = get_provider()
+        profile, provider = get_provider_for_request(db)
         narrative = await generate_analytics_narrative(provider, overview, daily_items, top_fields, counterparties)
+        record_usage_event(db, profile, provider, "analytics_report", x_demo_user)
     except httpx.HTTPError as exc:
-        _raise_provider_unavailable(exc)
+        _raise_provider_unavailable(exc, profile.provider, profile.model)
     return {
-        "provider": LLM_PROVIDER,
-        "model": LLM_MODEL,
+        "provider": profile.provider,
+        "model": profile.model,
         "date_from": date_from,
         "date_to": date_to,
         "narrative": narrative,
@@ -296,8 +491,26 @@ async def analytics_report(
 async def analytics_chat(
     request: AnalyticsChatRequest,
     db: DBSession = Depends(get_db),
+    x_demo_user: str | None = Header(default=None),
 ):
-    sessions = _get_filtered_sessions(db, request.date_from, request.date_to)
+    profile, provider = get_provider_for_request(db)
+    if not is_analytics_question_in_scope(request.question):
+        return {
+            "provider": profile.provider,
+            "model": profile.model,
+            "date_from": request.date_from,
+            "date_to": request.date_to,
+            "question": request.question,
+            "answer": (
+                "Solo puedo responder preguntas relacionadas con la analítica, las discrepancias, "
+                "los periodos comparados, las contrapartes, los campos y el riesgo operativo del rango seleccionado."
+            ),
+            "suggested_visual": "none",
+            "selected_day": request.selected_day,
+            "product_type": request.product_type,
+            "guardrail_triggered": True,
+        }
+    sessions = _get_filtered_sessions(db, request.date_from, request.date_to, request.product_type)
     session_ids = [session.id for session in sessions]
 
     overview = {
@@ -404,6 +617,7 @@ async def analytics_chat(
             to_a=request.compare_to_a,
             from_b=request.compare_from_b,
             to_b=request.compare_to_b,
+            product_type=request.product_type,
             db=db,
         )
         deltas = comparison["deltas"]
@@ -431,7 +645,6 @@ async def analytics_chat(
         question = f"{request.question}\n\nContexto adicional activo:\n" + "\n".join(context_lines)
 
     try:
-        provider = get_provider()
         chat_result = await generate_analytics_chat_response(
             provider,
             question,
@@ -440,17 +653,20 @@ async def analytics_chat(
             top_fields,
             counterparties,
         )
+        record_usage_event(db, profile, provider, "analytics_chat", x_demo_user)
     except httpx.HTTPError as exc:
-        _raise_provider_unavailable(exc)
+        _raise_provider_unavailable(exc, profile.provider, profile.model)
     return {
-        "provider": LLM_PROVIDER,
-        "model": LLM_MODEL,
+        "provider": profile.provider,
+        "model": profile.model,
         "date_from": request.date_from,
         "date_to": request.date_to,
         "question": request.question,
         "answer": chat_result.get("answer", ""),
         "suggested_visual": chat_result.get("suggested_visual", "none"),
         "selected_day": request.selected_day,
+        "product_type": request.product_type,
+        "guardrail_triggered": False,
     }
 
 
@@ -460,11 +676,13 @@ async def analytics_compare_report(
     to_a: str = Query(...),
     from_b: str = Query(...),
     to_b: str = Query(...),
+    product_type: str | None = Query(default=None),
     db: DBSession = Depends(get_db),
+    x_demo_user: str | None = Header(default=None),
 ):
-    comparison = compare_periods(from_a=from_a, to_a=to_a, from_b=from_b, to_b=to_b, db=db)
+    comparison = compare_periods(from_a=from_a, to_a=to_a, from_b=from_b, to_b=to_b, product_type=product_type, db=db)
     try:
-        provider = get_provider()
+        profile, provider = get_provider_for_request(db)
         narrative = await generate_comparison_narrative(
             provider,
             comparison["period_a"],
@@ -472,11 +690,12 @@ async def analytics_compare_report(
             comparison["deltas"],
             comparison["top_fields_comparison"],
         )
+        record_usage_event(db, profile, provider, "analytics_compare_report", x_demo_user)
     except httpx.HTTPError as exc:
-        _raise_provider_unavailable(exc)
+        _raise_provider_unavailable(exc, profile.provider, profile.model)
     return {
-        "provider": LLM_PROVIDER,
-        "model": LLM_MODEL,
+        "provider": profile.provider,
+        "model": profile.model,
         "date_from": f"{from_a} | {from_b}",
         "date_to": f"{to_a} | {to_b}",
         "narrative": narrative,
@@ -487,24 +706,26 @@ async def analytics_compare_report(
 async def analytics_report_export(request: AnalyticsReportExportRequest):
     if request.format not in {"pdf", "doc"}:
         raise HTTPException(status_code=400, detail="Invalid format")
-    title = "Informe Analítico SFTR"
+    is_predatadas = request.product_type == "predatadas"
+    title = "Informe Analítico Predatadas" if is_predatadas else "Informe Analítico SFTR"
     subtitle = (
         f"Rango: {request.date_from or 'inicio disponible'} - {request.date_to or 'fin disponible'} "
-        f"| Generado con {request.provider or LLM_PROVIDER} / {request.model or LLM_MODEL}"
+        f"| Generado con {request.provider or 'provider'} / {request.model or 'model'}"
     )
     narrative = request.narrative or ""
 
     date_label = request.date_from or datetime.utcnow().date().isoformat()
     safe_date = DATE_IN_FILENAME_RE.search(date_label)
     filename_date = safe_date.group(1) if safe_date else datetime.utcnow().strftime("%Y-%m-%d")
+    filename_prefix = "predatadas" if is_predatadas else "sftr"
 
     if request.format == "pdf":
         payload = generate_pdf_report(title, subtitle, narrative)
-        filename = f"sftr_analytics_report_{filename_date}.pdf"
+        filename = f"{filename_prefix}_analytics_report_{filename_date}.pdf"
         media_type = "application/pdf"
     else:
         payload = generate_word_report_html(title, subtitle, narrative)
-        filename = f"sftr_analytics_report_{filename_date}.doc"
+        filename = f"{filename_prefix}_analytics_report_{filename_date}.doc"
         media_type = "application/msword"
 
     return StreamingResponse(

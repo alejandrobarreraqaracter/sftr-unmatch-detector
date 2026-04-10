@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, Query
+from fastapi import APIRouter, Depends, Header, UploadFile, File, Form, HTTPException, Query
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session as DBSession
 from datetime import datetime, timezone
@@ -16,6 +16,7 @@ from app.schemas import (
 from app.services.file_parser import parse_tabular_csv
 from app.services.comparison import compare_trade, compare_field
 from app.services.export import generate_xlsx
+from app.services.demo_users import get_demo_user
 
 router = APIRouter(prefix="/api", tags=["sessions"])
 
@@ -29,10 +30,15 @@ async def upload_and_compare(
     file: UploadFile = File(...),
     emisor_name: str = Form(default=""),
     receptor_name: str = Form(default=""),
+    product_type: str = Form(default="sftr"),
+    x_demo_user: str | None = Header(default=None),
     db: DBSession = Depends(get_db),
 ):
     content = await file.read()
-    rows = parse_tabular_csv(content)
+    if not isinstance(product_type, str):
+        product_type = "sftr"
+    product_type = (product_type or "sftr").strip().lower()
+    rows = parse_tabular_csv(content, product_type=product_type)
 
     if not rows:
         raise HTTPException(status_code=400, detail="No data rows found in file")
@@ -49,6 +55,7 @@ async def upload_and_compare(
         emisor_name=emisor_name or "CP1",
         receptor_name=receptor_name or "CP2",
         filename=file.filename,
+        product_type=product_type,
     )
     db.add(session)
     db.flush()
@@ -75,7 +82,7 @@ async def upload_and_compare(
         db.add(trade)
         db.flush()
 
-        comparisons = compare_trade(row["emisor"], row["receptor"], sft, action)
+        comparisons = compare_trade(row["emisor"], row["receptor"], sft, action, product_type)
 
         trade_unmatches = 0
         trade_critical = 0
@@ -91,6 +98,9 @@ async def upload_and_compare(
                 obligation=c["obligation"],
                 emisor_value=c["emisor_value"],
                 receptor_value=c["receptor_value"],
+                difference_value=c["difference_value"],
+                difference_unit=c["difference_unit"],
+                difference_display=c["difference_display"],
                 result=c["result"],
                 severity=c["severity"],
                 root_cause=c["root_cause"],
@@ -129,6 +139,7 @@ async def upload_and_compare(
     log = ActivityLog(
         session_id=session.id,
         action="SESSION_CREATED",
+        user=(get_demo_user(x_demo_user) or {}).get("display_name"),
         detail=(
             f"Loaded {len(rows)} trades — "
             f"{session_total_unmatches} unmatches ({session_critical} critical) "
@@ -147,15 +158,15 @@ async def upload_and_compare(
 def list_sessions(
     skip: int = Query(default=0, ge=0),
     limit: int = Query(default=50, le=200),
+    product_type: Optional[str] = Query(default=None),
     db: DBSession = Depends(get_db),
 ):
-    return (
-        db.query(SessionModel)
-        .order_by(SessionModel.created_at.desc())
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
+    if not isinstance(product_type, str):
+        product_type = None
+    query = db.query(SessionModel)
+    if product_type:
+        query = query.filter(SessionModel.product_type == product_type)
+    return query.order_by(SessionModel.created_at.desc()).offset(skip).limit(limit).all()
 
 
 @router.get("/sessions/{session_id}", response_model=SessionDetailResponse)
@@ -234,6 +245,7 @@ def _build_export_response(
     session_id: int,
     db: DBSession = Depends(get_db),
     only_unmatches: bool = False,
+    x_demo_user: str | None = None,
 ):
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
@@ -242,6 +254,7 @@ def _build_export_response(
     session_data = {
         "id": session.id,
         "filename": session.filename,
+        "product_type": session.product_type,
         "created_at": str(session.created_at),
         "sft_type": session.sft_type,
         "action_type": session.action_type,
@@ -306,6 +319,9 @@ def _build_export_response(
             "obligation": fc.obligation,
             "emisor_value": fc.emisor_value,
             "receptor_value": fc.receptor_value,
+            "difference_value": fc.difference_value,
+            "difference_unit": fc.difference_unit,
+            "difference_display": fc.difference_display,
             "result": fc.result,
             "severity": fc.severity,
             "root_cause": fc.root_cause,
@@ -320,11 +336,14 @@ def _build_export_response(
     xlsx_bytes = generate_xlsx(session_data, field_results, only_unmatches)
     date_str = datetime.now().strftime("%Y%m%d")
     filename = f"sftr_unmatch_{session.id}_{date_str}.xlsx"
+    if session.product_type == "predatadas":
+        filename = f"predatadas_{session.id}_{date_str}.xlsx"
 
     # Audit trail: log export action
     log = ActivityLog(
         session_id=session_id,
         action="SESSION_EXPORTED",
+        user=(get_demo_user(x_demo_user) or {}).get("display_name"),
         detail=f"Exported {'unmatches only' if only_unmatches else 'all fields'} — {len(field_results)} rows, file: {filename}",
     )
     db.add(log)
@@ -341,18 +360,20 @@ def _build_export_response(
 def export_session_get(
     session_id: int,
     only_unmatches: bool = Query(default=False),
+    x_demo_user: str | None = Header(default=None),
     db: DBSession = Depends(get_db),
 ):
-    return _build_export_response(session_id=session_id, db=db, only_unmatches=only_unmatches)
+    return _build_export_response(session_id=session_id, db=db, only_unmatches=only_unmatches, x_demo_user=x_demo_user)
 
 
 @router.post("/sessions/{session_id}/export")
 def export_session_post(
     session_id: int,
     only_unmatches: bool = Query(default=False),
+    x_demo_user: str | None = Header(default=None),
     db: DBSession = Depends(get_db),
 ):
-    return _build_export_response(session_id=session_id, db=db, only_unmatches=only_unmatches)
+    return _build_export_response(session_id=session_id, db=db, only_unmatches=only_unmatches, x_demo_user=x_demo_user)
 
 
 # ─── Trades ───────────────────────────────────────────────────────────────────
@@ -369,7 +390,7 @@ def get_trade(trade_id: int, db: DBSession = Depends(get_db)):
 # ─── Field Comparisons ────────────────────────────────────────────────────────
 
 @router.patch("/field-comparisons/{fc_id}", response_model=FieldComparisonResponse)
-def update_field_comparison(fc_id: int, update: FieldComparisonUpdate, db: DBSession = Depends(get_db)):
+def update_field_comparison(fc_id: int, update: FieldComparisonUpdate, db: DBSession = Depends(get_db), x_demo_user: str | None = Header(default=None)):
     fc = db.query(FieldComparison).filter(FieldComparison.id == fc_id).first()
     if not fc:
         raise HTTPException(status_code=404, detail="Field comparison not found")
@@ -396,6 +417,7 @@ def update_field_comparison(fc_id: int, update: FieldComparisonUpdate, db: DBSes
             trade_id=fc.trade_id,
             field_comparison_id=fc.id,
             action="FIELD_UPDATED",
+            user=(get_demo_user(x_demo_user) or {}).get("display_name"),
             detail=f"[{fc.field_name}] " + "; ".join(changes),
         )
         db.add(log)
@@ -408,7 +430,7 @@ def update_field_comparison(fc_id: int, update: FieldComparisonUpdate, db: DBSes
 # ─── Bulk Update ──────────────────────────────────────────────────────────────
 
 @router.post("/sessions/{session_id}/bulk-update")
-def bulk_update(session_id: int, req: BulkUpdateRequest, db: DBSession = Depends(get_db)):
+def bulk_update(session_id: int, req: BulkUpdateRequest, db: DBSession = Depends(get_db), x_demo_user: str | None = Header(default=None)):
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -438,6 +460,7 @@ def bulk_update(session_id: int, req: BulkUpdateRequest, db: DBSession = Depends
         log = ActivityLog(
             session_id=session_id,
             action="BULK_UPDATE",
+            user=(get_demo_user(x_demo_user) or {}).get("display_name"),
             detail=f"{req.action}: {count} fields updated" + (f" (assignee: {req.assignee})" if req.assignee else ""),
         )
         db.add(log)
@@ -447,7 +470,7 @@ def bulk_update(session_id: int, req: BulkUpdateRequest, db: DBSession = Depends
 
 
 @router.post("/sessions/{session_id}/reprocess", response_model=ReprocessSessionResponse)
-def reprocess_session(session_id: int, db: DBSession = Depends(get_db)):
+def reprocess_session(session_id: int, db: DBSession = Depends(get_db), x_demo_user: str | None = Header(default=None)):
     session = db.query(SessionModel).filter(SessionModel.id == session_id).first()
     if not session:
         raise HTTPException(status_code=404, detail="Session not found")
@@ -478,8 +501,12 @@ def reprocess_session(session_id: int, db: DBSession = Depends(get_db)):
                 fc.receptor_value,
                 trade.sft_type or session.sft_type or "Repo",
                 trade.action_type or session.action_type or "NEWT",
+                session.product_type or "sftr",
             )
             fc.obligation = refreshed["obligation"]
+            fc.difference_value = refreshed["difference_value"]
+            fc.difference_unit = refreshed["difference_unit"]
+            fc.difference_display = refreshed["difference_display"]
             fc.result = refreshed["result"]
             fc.severity = refreshed["severity"]
             fc.root_cause = refreshed["root_cause"]
@@ -523,6 +550,7 @@ def reprocess_session(session_id: int, db: DBSession = Depends(get_db)):
         ActivityLog(
             session_id=session.id,
             action="SESSION_REPROCESSED",
+            user=(get_demo_user(x_demo_user) or {}).get("display_name"),
             detail=(
                 f"Reprocessed {len(trades)} trades / {fields_reprocessed} fields — "
                 f"{session_total_unmatches} unmatches ({session_critical} critical)"

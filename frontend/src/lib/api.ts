@@ -1,7 +1,39 @@
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+export type ProductType = "sftr" | "predatadas";
+
+export type DemoUser = {
+  username: string;
+  display_name: string;
+};
+
+const DEMO_USER_STORAGE_KEY = "sftr-demo-user";
+
+export function getStoredDemoUser(): DemoUser | null {
+  const raw = window.localStorage.getItem(DEMO_USER_STORAGE_KEY);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as DemoUser;
+  } catch {
+    window.localStorage.removeItem(DEMO_USER_STORAGE_KEY);
+    return null;
+  }
+}
+
+export function setStoredDemoUser(user: DemoUser | null) {
+  if (!user) {
+    window.localStorage.removeItem(DEMO_USER_STORAGE_KEY);
+    return;
+  }
+  window.localStorage.setItem(DEMO_USER_STORAGE_KEY, JSON.stringify(user));
+}
 
 async function request<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_URL}${path}`, options);
+  const headers = new Headers(options?.headers);
+  const demoUser = getStoredDemoUser();
+  if (demoUser?.username) {
+    headers.set("X-Demo-User", demoUser.username);
+  }
+  const res = await fetch(`${API_URL}${path}`, { ...options, headers });
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`API error ${res.status}: ${body}`);
@@ -19,6 +51,7 @@ export interface Session {
   emisor_name: string;
   receptor_name: string;
   filename: string | null;
+  product_type: "sftr" | "predatadas";
   total_trades: number;
   total_fields: number;
   total_unmatches: number;
@@ -55,6 +88,9 @@ export interface FieldComparison {
   obligation: string | null;
   emisor_value: string | null;
   receptor_value: string | null;
+  difference_value: number | null;
+  difference_unit: string | null;
+  difference_display: string | null;
   result: "MATCH" | "UNMATCH" | "MIRROR" | "NA";
   severity: "CRITICAL" | "WARNING" | "INFO" | "NONE";
   root_cause: string | null;
@@ -235,6 +271,7 @@ export interface RegulatoryDaySummary {
 export interface RegulatoryReportPreview {
   date_from: string | null;
   date_to: string | null;
+  product_type?: ProductType;
   generated_at: string;
   sessions: number;
   filenames: string[];
@@ -294,16 +331,19 @@ export async function uploadFile(
   file: File,
   emisorName: string,
   receptorName: string,
+  productType: ProductType = "sftr",
 ): Promise<Session> {
   const form = new FormData();
   form.append("file", file);
   form.append("emisor_name", emisorName);
   form.append("receptor_name", receptorName);
+  form.append("product_type", productType);
   return request<Session>("/api/sessions/upload", { method: "POST", body: form });
 }
 
-export async function getSessions(): Promise<Session[]> {
-  return request<Session[]>("/api/sessions");
+export async function getSessions(productType?: ProductType): Promise<Session[]> {
+  const suffix = productType ? `?product_type=${productType}` : "";
+  return request<Session[]>(`/api/sessions${suffix}`);
 }
 
 export async function getSession(id: number): Promise<SessionDetail> {
@@ -353,7 +393,59 @@ export function exportUrl(sessionId: number, unmatches_only = false): string {
 export interface AIStatus {
   provider: string;
   model: string;
+  label?: string;
+  profile_key?: string;
   available: boolean;
+}
+
+export interface LLMProfile {
+  id: number;
+  profile_key: string;
+  label: string;
+  provider: string;
+  model: string;
+  base_url: string | null;
+  input_cost_per_million: number | null;
+  output_cost_per_million: number | null;
+  enabled: boolean;
+  is_active: boolean;
+  sort_order: number;
+}
+
+export interface LLMUsageOverview {
+  total_requests: number;
+  total_input_tokens: number;
+  total_output_tokens: number;
+  total_cached_input_tokens: number;
+  total_cost: number;
+  date_from: string | null;
+  date_to: string | null;
+}
+
+export interface LLMUsageDailyItem {
+  date: string;
+  requests: number;
+  input_tokens: number;
+  output_tokens: number;
+  total_cost: number;
+}
+
+export interface LLMUsageByUserItem {
+  username: string;
+  display_name: string;
+  requests: number;
+  input_tokens: number;
+  output_tokens: number;
+  total_cost: number;
+}
+
+export interface LLMUsageByModelItem {
+  provider: string;
+  model: string;
+  requests: number;
+  input_tokens: number;
+  output_tokens: number;
+  total_cost: number;
 }
 
 export interface FieldAnalysis {
@@ -406,10 +498,55 @@ export interface AnalyticsChatResponse {
   answer: string;
   suggested_visual: "none" | "daily_trend" | "top_fields" | "counterparties" | "day_sessions" | "comparison";
   selected_day?: string | null;
+  guardrail_triggered?: boolean;
+}
+
+export async function loginDemoUser(username: string, password: string): Promise<DemoUser> {
+  return request<DemoUser>("/api/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password }),
+  });
+}
+
+export async function getDemoUsers(): Promise<DemoUser[]> {
+  return request<DemoUser[]>("/api/auth/users");
+}
+
+export async function getMe(): Promise<DemoUser> {
+  return request<DemoUser>("/api/auth/me");
 }
 
 export async function getAIStatus(): Promise<AIStatus> {
   return request<AIStatus>("/api/ai/status");
+}
+
+export async function getAIProfiles(): Promise<LLMProfile[]> {
+  return request<LLMProfile[]>("/api/ai/profiles");
+}
+
+export async function activateAIProfile(profileKey: string): Promise<LLMProfile> {
+  return request<LLMProfile>("/api/ai/profiles/activate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ profile_key: profileKey }),
+  });
+}
+
+export async function getLLMUsageOverview(dateFrom?: string, dateTo?: string): Promise<LLMUsageOverview> {
+  return request<LLMUsageOverview>(withDateRange("/api/ai/usage/overview", dateFrom, dateTo));
+}
+
+export async function getLLMUsageDaily(dateFrom?: string, dateTo?: string): Promise<LLMUsageDailyItem[]> {
+  return request<LLMUsageDailyItem[]>(withDateRange("/api/ai/usage/daily", dateFrom, dateTo));
+}
+
+export async function getLLMUsageByUser(dateFrom?: string, dateTo?: string): Promise<LLMUsageByUserItem[]> {
+  return request<LLMUsageByUserItem[]>(withDateRange("/api/ai/usage/by-user", dateFrom, dateTo));
+}
+
+export async function getLLMUsageByModel(dateFrom?: string, dateTo?: string): Promise<LLMUsageByModelItem[]> {
+  return request<LLMUsageByModelItem[]>(withDateRange("/api/ai/usage/by-model", dateFrom, dateTo));
 }
 
 export async function analyzeField(fcId: number): Promise<FieldAnalysis> {
@@ -436,28 +573,33 @@ function withDateRange(path: string, dateFrom?: string, dateTo?: string): string
   return query ? `${path}${path.includes("?") ? "&" : "?"}${query}` : path;
 }
 
-export async function getAnalyticsOverview(dateFrom?: string, dateTo?: string): Promise<AnalyticsOverview> {
-  return request<AnalyticsOverview>(withDateRange("/api/analytics/overview", dateFrom, dateTo));
+function withProductType(path: string, productType?: ProductType): string {
+  if (!productType) return path;
+  return `${path}${path.includes("?") ? "&" : "?"}product_type=${productType}`;
 }
 
-export async function getAnalyticsDaily(dateFrom?: string, dateTo?: string): Promise<AnalyticsDailyItem[]> {
-  return request<AnalyticsDailyItem[]>(withDateRange("/api/analytics/daily", dateFrom, dateTo));
+export async function getAnalyticsOverview(dateFrom?: string, dateTo?: string, productType?: ProductType): Promise<AnalyticsOverview> {
+  return request<AnalyticsOverview>(withProductType(withDateRange("/api/analytics/overview", dateFrom, dateTo), productType));
 }
 
-export async function getTopFields(limit = 10, dateFrom?: string, dateTo?: string): Promise<TopFieldItem[]> {
-  return request<TopFieldItem[]>(withDateRange(`/api/analytics/top-fields?limit=${limit}`, dateFrom, dateTo));
+export async function getAnalyticsDaily(dateFrom?: string, dateTo?: string, productType?: ProductType): Promise<AnalyticsDailyItem[]> {
+  return request<AnalyticsDailyItem[]>(withProductType(withDateRange("/api/analytics/daily", dateFrom, dateTo), productType));
 }
 
-export async function getByCounterparty(dateFrom?: string, dateTo?: string): Promise<
+export async function getTopFields(limit = 10, dateFrom?: string, dateTo?: string, productType?: ProductType): Promise<TopFieldItem[]> {
+  return request<TopFieldItem[]>(withProductType(withDateRange(`/api/analytics/top-fields?limit=${limit}`, dateFrom, dateTo), productType));
+}
+
+export async function getByCounterparty(dateFrom?: string, dateTo?: string, productType?: ProductType): Promise<
   { emisor_name: string; receptor_name: string; sessions: number; total_unmatches: number; critical_count: number; total_trades: number }[]
 > {
-  return request(withDateRange("/api/analytics/by-counterparty", dateFrom, dateTo));
+  return request(withProductType(withDateRange("/api/analytics/by-counterparty", dateFrom, dateTo), productType));
 }
 
-export async function getBySftType(dateFrom?: string, dateTo?: string): Promise<
+export async function getBySftType(dateFrom?: string, dateTo?: string, productType?: ProductType): Promise<
   { sft_type: string; sessions: number; total_unmatches: number; critical_count: number; total_trades: number }[]
 > {
-  return request(withDateRange("/api/analytics/by-sft-type", dateFrom, dateTo));
+  return request(withProductType(withDateRange("/api/analytics/by-sft-type", dateFrom, dateTo), productType));
 }
 
 export async function generateAnalyticsReport(dateFrom?: string, dateTo?: string): Promise<AnalyticsNarrative> {
@@ -501,7 +643,8 @@ export async function getAnalyticsComparison(
   fromA: string,
   toA: string,
   fromB: string,
-  toB: string
+  toB: string,
+  productType?: ProductType,
 ): Promise<AnalyticsComparison> {
   const params = new URLSearchParams({
     from_a: fromA,
@@ -509,7 +652,7 @@ export async function getAnalyticsComparison(
     from_b: fromB,
     to_b: toB,
   });
-  return request<AnalyticsComparison>(`/api/analytics/compare?${params.toString()}`);
+  return request<AnalyticsComparison>(withProductType(`/api/analytics/compare?${params.toString()}`, productType));
 }
 
 export async function generateAnalyticsComparisonReport(
@@ -555,9 +698,9 @@ export async function analyticsChat(
   });
 }
 
-export async function getAnalyticsSessionsByDay(day: string): Promise<AnalyticsDaySession[]> {
+export async function getAnalyticsSessionsByDay(day: string, productType?: ProductType): Promise<AnalyticsDaySession[]> {
   const params = new URLSearchParams({ day });
-  return request<AnalyticsDaySession[]>(`/api/analytics/sessions-by-day?${params.toString()}`);
+  return request<AnalyticsDaySession[]>(withProductType(`/api/analytics/sessions-by-day?${params.toString()}`, productType));
 }
 
 export async function getRegulatoryReportPreview(dateFrom?: string, dateTo?: string): Promise<RegulatoryReportPreview> {

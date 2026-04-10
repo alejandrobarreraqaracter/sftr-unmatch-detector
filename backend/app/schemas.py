@@ -15,6 +15,9 @@ class FieldComparisonResponse(BaseModel):
     obligation: Optional[str] = None
     emisor_value: Optional[str] = None
     receptor_value: Optional[str] = None
+    difference_value: Optional[float] = None
+    difference_unit: Optional[str] = None
+    difference_display: Optional[str] = None
     result: str
     severity: str
     root_cause: Optional[str] = None
@@ -72,6 +75,7 @@ class SessionResponse(BaseModel):
     emisor_name: Optional[str] = None
     receptor_name: Optional[str] = None
     filename: Optional[str] = None
+    product_type: str = "sftr"
     total_trades: int
     total_fields: int
     total_unmatches: int
@@ -148,6 +152,68 @@ class ReprocessSessionResponse(BaseModel):
     total_unmatches: int
     critical_count: int
     warning_count: int
+
+
+class DemoUserResponse(BaseModel):
+    username: str
+    display_name: str
+
+
+class LLMProfileResponse(BaseModel):
+    id: int
+    profile_key: str
+    label: str
+    provider: str
+    model: str
+    base_url: Optional[str] = None
+    input_cost_per_million: Optional[float] = None
+    output_cost_per_million: Optional[float] = None
+    enabled: bool
+    is_active: bool
+    sort_order: int
+
+    class Config:
+        from_attributes = True
+
+
+class ActivateLLMProfileRequest(BaseModel):
+    profile_key: str
+
+
+class LLMUsageOverview(BaseModel):
+    total_requests: int
+    total_input_tokens: int
+    total_output_tokens: int
+    total_cached_input_tokens: int
+    total_cost: float
+    date_from: Optional[str] = None
+    date_to: Optional[str] = None
+
+
+class LLMUsageDailyItem(BaseModel):
+    date: str
+    requests: int
+    input_tokens: int
+    output_tokens: int
+    total_cost: float
+
+
+class LLMUsageByUserItem(BaseModel):
+    username: str
+    display_name: str
+    requests: int
+    input_tokens: int
+    output_tokens: int
+    total_cost: float
+
+
+class LLMUsageByModelItem(BaseModel):
+    provider: str
+    model: str
+    requests: int
+    input_tokens: int
+    output_tokens: int
+    total_cost: float
 
 
 # ─── Regulatory Reporting ────────────────────────────────────────────────────
@@ -247,6 +313,7 @@ class RegulatoryFieldDetail(BaseModel):
 class RegulatoryReportPreview(BaseModel):
     date_from: Optional[str] = None
     date_to: Optional[str] = None
+    product_type: str = "sftr"
     generated_at: datetime
     sessions: int
     filenames: list[str]
@@ -264,6 +331,7 @@ class RegulatoryReportPreview(BaseModel):
 class RegulatorySnapshotGenerateRequest(BaseModel):
     date_from: Optional[str] = None
     date_to: Optional[str] = None
+    product_type: str = "sftr"
     include_ai_narrative: bool = False
     created_by: Optional[str] = None
 

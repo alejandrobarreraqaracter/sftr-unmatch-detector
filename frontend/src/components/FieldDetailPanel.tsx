@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { SeverityBadge, ResultBadge, StatusBadge } from "./SeverityBadge";
-import { updateFieldComparison, analyzeField, type FieldComparison, type FieldAnalysis } from "@/lib/api";
+import { updateFieldComparison, analyzeField, getDemoUsers, type DemoUser, type FieldComparison, type FieldAnalysis } from "@/lib/api";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
 
@@ -38,6 +37,11 @@ export default function FieldDetailPanel({ field, open, onClose, onUpdated }: Pr
   const [saving, setSaving] = useState(false);
   const [analysis, setAnalysis] = useState<FieldAnalysis | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
+  const [users, setUsers] = useState<DemoUser[]>([]);
+
+  useEffect(() => {
+    getDemoUsers().then(setUsers).catch(() => {});
+  }, []);
 
   const resetForm = (f: FieldComparison) => {
     setStatus(f.status);
@@ -206,11 +210,17 @@ export default function FieldDetailPanel({ field, open, onClose, onUpdated }: Pr
                 </div>
                 <div className="space-y-2">
                   <Label>Responsable</Label>
-                  <Input
-                    value={assignee}
-                    onChange={(e) => setAssignee(e.target.value)}
-                    placeholder="Nombre del analista"
-                  />
+                  <Select value={assignee || "__none__"} onValueChange={(value) => setAssignee(value === "__none__" ? "" : value)}>
+                    <SelectTrigger><SelectValue placeholder="Seleccionar responsable" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="__none__">Sin asignar</SelectItem>
+                      {users.map((user) => (
+                        <SelectItem key={user.username} value={user.display_name}>
+                          {user.display_name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div className="space-y-2">
                   <Label>Notas</Label>
